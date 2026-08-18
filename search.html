@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>搜索结果 - 景月镇人民政府</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--gov-red:#c41e3a;--gov-red-dark:#8b0000;--bg-main:#f5f5f0;--bg-paper:#fff;--text-primary:#333;--text-secondary:#666;--text-muted:#999;--border:#e0e0dc}
+html,body{height:100%;font-family:'PingFang SC','Microsoft YaHei',sans-serif;color:var(--text-primary);background:var(--bg-main);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.top-banner{background:var(--gov-red);color:#fff;font-size:12px;padding:4px 0}
+.top-banner .container{display:flex;justify-content:space-between;align-items:center}
+.container{max-width:1200px;margin:0 auto;padding:0 20px}
+.site-header{background:var(--bg-paper);border-bottom:3px solid var(--gov-red);position:relative;z-index:10001}
+.header-inner{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
+.logo-area{display:flex;align-items:center;gap:14px;cursor:pointer}
+.logo-emblem{width:56px;height:56px}
+.site-title h1{font-family:'SimSun','Songti SC',serif;font-size:26px;color:var(--gov-red);font-weight:700;letter-spacing:2px}
+.site-title p{font-size:11px;color:var(--text-muted);letter-spacing:3px;margin-top:2px}
+.search-hero{background:linear-gradient(135deg,#c41e3a 0%,#8b0000 100%);padding:40px 0 50px;text-align:center}
+.search-hero h2{color:#fff;font-size:22px;margin-bottom:6px;font-weight:500;letter-spacing:2px}
+.search-hero p{color:rgba(255,255,255,.7);font-size:13px;margin-bottom:24px}
+.search-big{display:flex;max-width:600px;margin:0 auto;gap:0;position:relative}
+.search-big input{flex:1;padding:14px 20px;border:none;border-radius:6px 0 0 6px;font-size:15px;font-family:inherit;outline:none}
+.search-big input:focus{box-shadow:0 0 0 3px rgba(255,255,255,.3)}
+.search-big button{padding:14px 32px;background:#1a1a1a;color:#fff;border:none;border-radius:0 6px 6px 0;font-size:15px;cursor:pointer;font-family:inherit;transition:background .2s}
+.search-big button:hover{background:#333}
+.hot-search{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:16px;flex-wrap:wrap}
+.hot-search span{color:rgba(255,255,255,.6);font-size:12px}
+.hot-search a{color:rgba(255,255,255,.85);font-size:12px;background:rgba(255,255,255,.1);padding:4px 12px;border-radius:12px;transition:all .2s}
+.hot-search a:hover{background:rgba(255,255,255,.25);color:#fff}
+.main-nav{background:var(--gov-red)}
+.nav-list{display:flex;list-style:none}
+.nav-list li a{display:block;padding:13px 22px;color:#fff;font-size:14px;font-weight:500;transition:background .2s;white-space:nowrap}
+.nav-list li a:hover{background:var(--gov-red-dark)}
+.main-content{min-height:calc(100vh - 400px);padding:28px 0}
+.search-result-header{margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.search-result-header h3{font-size:18px;color:var(--text-primary);margin-bottom:4px}
+.search-result-header h3 em{color:var(--gov-red);font-style:normal}
+.search-result-header p{font-size:13px;color:var(--text-muted)}
+.result-list{display:flex;flex-direction:column;gap:16px}
+.result-item{background:var(--bg-paper);border-radius:6px;padding:20px 24px;box-shadow:0 1px 4px rgba(0,0,0,.06);border-left:3px solid transparent;transition:all .2s;cursor:pointer}
+.result-item:hover{border-left-color:var(--gov-red);box-shadow:0 4px 16px rgba(0,0,0,.1);transform:translateX(4px)}
+.result-item-title{font-size:16px;font-weight:600;color:var(--text-primary);margin-bottom:6px}
+.result-item-title em{color:var(--gov-red);font-style:normal;background:#fff0f0;padding:0 2px}
+.result-item-desc{font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:8px}
+.result-item-meta{display:flex;align-items:center;gap:12px;font-size:11px;color:var(--text-muted)}
+.result-item-meta .tag{background:#f5f5f0;padding:2px 8px;border-radius:3px}
+.result-item-meta .tag.secret{background:#fef0f0;color:#c62828}
+.no-result{text-align:center;padding:60px 20px;color:var(--text-muted)}
+.no-result .icon{font-size:48px;margin-bottom:16px;opacity:.3}
+.no-result p{font-size:15px;margin-bottom:8px}
+.no-result .suggest{font-size:13px}
+.site-footer{background:#2a2a2a;color:#aaa;padding:28px 0 18px;margin-top:40px;border-top:3px solid var(--gov-red)}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:28px;margin-bottom:18px}
+.footer-col h5{color:#ddd;font-size:14px;margin-bottom:10px}
+.footer-col p,.footer-col li{font-size:12px;line-height:1.9;color:#888}
+.footer-col ul{list-style:none}
+.footer-col a{color:#888;font-size:12px}
+.footer-bottom{text-align:center;padding-top:14px;border-top:1px solid #3a3a3a;font-size:12px;color:#666}
+.progress-50-overlay{position:fixed;top:0;left:0;right:0;bottom:0;width:100vw;height:100vh;background:rgba(120,0,0,.2);pointer-events:none;z-index:10003;display:none}
+.progress-50-overlay.active{display:block;animation:overlayPulse 3s ease-in-out infinite}
+@keyframes overlayPulse{0%,100%{background:rgba(120,0,0,.10)}50%{background:rgba(120,0,0,.20)}}
+body.progress-50-mode{filter:sepia(.3) hue-rotate(-20deg) saturate(1.2)}
+.admin-alert{position:fixed;top:0;left:0;right:0;background:linear-gradient(90deg,#8b0000,#a01830,#8b0000);color:#fff;text-align:center;padding:6px 12px;font-size:13px;z-index:10004;display:none;pointer-events:none}
+.admin-alert.active{display:block}
+.admin-alert .alert-main{font-weight:bold}
+.admin-alert .alert-sub{font-size:10px;color:#ffaaa;margin-top:1px}
+.toast{position:fixed;top:70px;left:50%;transform:translateX(-50%) translateY(-20px);background:rgba(0,0,0,.85);color:#fff;padding:10px 22px;border-radius:4px;font-size:13px;z-index:10005;opacity:0;transition:all .3s;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(max-width:768px){.header-inner{flex-direction:column;gap:14px}.nav-list{overflow-x:auto}.search-big{flex-direction:column;border-radius:6px;overflow:hidden}.search-big input{border-radius:6px 6px 0 0}.search-big button{border-radius:0 0 6px 6px}.footer-grid{grid-template-columns:1fr 1fr;gap:18px}}
+</style>
+</head>
+<body>
+<div class="progress-50-overlay" id="progress50Overlay"></div>
+<div class="admin-alert" id="adminAlert"><div class="alert-main">管理员修改了文档</div><div class="alert-sub">你在调查洪水吗？</div></div>
+<div class="top-banner"><div class="container"><span>欢迎访问景月镇人民政府官方网站</span><span><a href="#" onclick="showToast('功能开发中')">无障碍浏览</a> | <a href="#" onclick="showToast('功能开发中')">繁體中文</a> | <a href="escape.html" target="_blank">^_^</a></span></div></div>
+<header class="site-header"><div class="container"><div class="header-inner"><div class="logo-area" onclick="window.location.href='home.html'"><svg class="logo-emblem" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="#c41e3a"/><circle cx="50" cy="50" r="40" fill="none" stroke="#daa520" stroke-width="2"/><polygon points="50,20 53,30 63,30 55,37 58,47 50,41 42,47 45,37 37,30 47,30" fill="#daa520"/><text x="50" y="90" text-anchor="middle" fill="#daa520" font-size="8" font-family="serif">景月</text></svg><div class="site-title"><h1>景月镇人民政府</h1><p>JINGYUE TOWN PEOPLE'S GOVERNMENT</p></div></div></div></div></header>
+<div class="search-hero"><div class="container"><h2>站内搜索</h2><p>输入关键词，查找景月镇政府公开信息</p><div class="search-big"><input type="text" id="bigSearch" placeholder="请输入搜索关键词..." autocomplete="off"><button onclick="doSearch()">搜索</button></div><div class="hot-search"><span>热门搜索：</span><a href="javascript:void(0)" onclick="searchKeyword('社保')">社保</a><a href="javascript:void(0)" onclick="searchKeyword('医保')">医保</a><a href="javascript:void(0)" onclick="searchKeyword('镇长')">镇长</a><a href="javascript:void(0)" onclick="searchKeyword('洪水')">洪水</a><a href="javascript:void(0)" onclick="searchKeyword('旅游')">旅游</a><a href="javascript:void(0)" onclick="searchKeyword('陈秀英')">陈秀英</a></div></div></div>
+<nav class="main-nav"><div class="container"><ul class="nav-list"><li><a href="home.html">首页</a></li><li><a href="news.html">新闻动态</a></li><li><a href="about.html">镇情介绍</a></li><li><a href="government.html">政务公开</a></li><li><a href="service.html">便民服务</a></li><li><a href="culture.html">文化旅游</a></li><li><a href="forum.html">景月论坛</a></li><li><a href="archive.html">镇史馆</a></li><li><a href="contact.html">联系我们</a></li></ul></div></nav>
+<main class="main-content"><div class="container"><div class="search-result-header" id="resultHeader" style="display:none"><h3>搜索结果：<em id="resultKeyword"></em></h3><p>共找到 <span id="resultCount">0</span> 条相关结果</p></div><div class="result-list" id="resultList"></div><div class="no-result" id="noResult" style="display:none"><div class="icon">🔍</div><p>未找到相关结果</p><p class="suggest">请尝试其他关键词，或查看热门搜索</p></div><div class="no-result" id="initTip"><div class="icon">📋</div><p>请在上方输入关键词进行搜索</p><p class="suggest">支持搜索：新闻、政策、人员、地名等</p></div></div></main>
+<footer class="site-footer"><div class="container"><div class="footer-grid"><div><h5>景月镇人民政府</h5><p>地址：江南省月城市景月镇人民路18号</p><p>邮编：313300</p><p>电话：0572-8866000</p></div><div><h5>快速导航</h5><ul><li><a href="home.html">首页</a></li><li><a href="news.html">新闻动态</a></li><li><a href="service.html">便民服务</a></li></ul></div><div><h5>友情链接</h5><ul><li><a href="#" onclick="showToast('跳转中')">月城市人民政府</a></li><li><a href="#" onclick="showToast('跳转中')">江南省人民政府</a></li></ul></div><div><h5>网站说明</h5><p>主办：景月镇人民政府</p><p>备案号：浙ICP备05012345号</p></div></div><div class="footer-bottom"><p>© 2024 景月镇人民政府 版权所有</p></div></div></footer>
+<div class="toast" id="toast"></div>
+<script>
+var GAME_STATE={discoveries:{},fearLayer:0};
+function loadProgress(){try{var s=sessionStorage.getItem('jingyue_save');if(s){var d=JSON.parse(s);GAME_STATE.discoveries=d.discoveries||{};GAME_STATE.fearLayer=d.fearLayer||0;}}catch(e){}}
+function getTotalProgress(){var c=['well_location','forum_secret','archive_2003','phone_easter','glitch_text','hidden_link'];return Math.round(c.filter(function(x){return GAME_STATE.discoveries[x];}).length/6*100);}
+function showToast(msg){var t=document.getElementById('toast');t.textContent=msg;t.className='toast show';if(window._tt)clearTimeout(window._tt);window._tt=setTimeout(function(){t.classList.remove('show');},3000);}
+var searchDB=[
+{title:'景月镇召开2024年度经济工作会议',desc:'3月15日，景月镇2024年度经济工作会议在镇政府大礼堂召开。2023年全镇地区生产总值18.6亿元。',type:'新闻',url:'news.html',keywords:['经济','会议','2024','GDP','生产总值']},
+{title:'古镇景区上周接待游客8.2万人次',desc:'据镇旅游公司统计，3月4日至10日，景月古镇接待游客8.2万人次，同比增长23.5%。',type:'新闻',url:'news.html',keywords:['旅游','游客','景区','古镇']},
+{title:'景月镇简介',desc:'景月镇位于月城市西北部，面积86.5平方公里，人口约4.2万。镇政府驻人民路18号。',type:'镇情',url:'about.html',keywords:['简介','概况','人口','面积','位置']},
+{title:'景月镇行政区划',desc:'景月镇辖3个社区、12个行政村，包括井湾村、沉湖村、石桥村等。',type:'镇情',url:'about.html',keywords:['行政区划','村','井湾村','沉湖村','石桥村']},
+{title:'李建国 - 景月镇镇长',desc:'李建国，景月镇党委副书记、镇长，主持全镇经济工作。',type:'领导',url:'government.html',keywords:['李建国','镇长','领导','书记']},
+{title:'便民服务大厅',desc:'景月镇便民服务中心提供社保、医保、户籍、计生等一站式服务。地址：人民路18号镇政府一楼。',type:'服务',url:'service.html',keywords:['社保','医保','便民','服务','大厅','户籍']},
+{title:'2003年抗洪救灾纪实',desc:'2003年7月14日，景月镇遭遇特大洪水。全镇上下众志成城，取得抗洪救灾胜利。',type:'专题',url:'flood_victims.html',keywords:['洪水','2003','抗洪','救灾','遇难者','名单','7月14日']},
+{title:'陈秀英 - 退休教师',desc:'陈秀英，井湾村人，1935年生，1995年退休，2003年7月14日洪水当晚失踪。',type:'人员',url:'memorial_chen.html',keywords:['陈秀英','退休教师','井湾村','失踪','缅怀'],secret:true},
+{title:'张国强 - 沉湖村原党支部书记',desc:'张国强，沉湖村人，1958年生，2003年7月14日抗洪中牺牲，享年45岁。',type:'人员',url:'weibo_zhang.html',keywords:['张国强','村支书','沉湖村','牺牲','抗洪'],secret:true},
+{title:'景月论坛',desc:'景月镇官方论坛，包含民生生活、旅游交流、文史天地、寻人寻物等版块。',type:'互动',url:'forum.html',keywords:['论坛','讨论','发帖','互动']},
+{title:'镇史馆',desc:'景月镇史馆馆藏档案、老照片、地方文献。包含公开档案和受限档案。',type:'文化',url:'archive.html',keywords:['镇史馆','档案','历史','文献','老照片']},
+{title:'文化旅游',desc:'景月古镇、景月湖、古戏台、月牙桥等景点。夜游项目已开放。',type:'旅游',url:'culture.html',keywords:['文化','旅游','景点','夜游','古镇','景月湖']},
+{title:'联系我们',desc:'景月镇政府联系方式：电话0572-8866000，邮箱jingyue@yuecheng.gov.cn。',type:'联系',url:'contact.html',keywords:['联系','电话','邮箱','地址','联系方式']},
+{title:'井',desc:'景月镇范围内有多处古井，其中北井位于井湾村北侧。',type:'其他',url:'well_easter_egg.html',keywords:['井','古井','北井'],secret:true},
+];
+function doSearch(){var q=document.getElementById('bigSearch').value.trim();if(!q){showToast('请输入关键词');return;}searchKeyword(q);}
+function searchKeyword(q){
+  document.getElementById('bigSearch').value=q;
+  document.getElementById('initTip').style.display='none';
+  if(q==='井'||q==='古井'||q==='北井'){showToast('搜索结果：找到 1 条相关文档...');setTimeout(function(){window.location.href='well_easter_egg.html';},800);return;}
+  if(q==='陈秀英'){window.location.href='memorial_chen.html';return;}
+  if(q==='张国强'){window.location.href='weibo_zhang.html';return;}
+  var results=searchDB.filter(function(item){if(item.title.indexOf(q)>=0||item.desc.indexOf(q)>=0)return true;return item.keywords.some(function(k){return k.indexOf(q)>=0||q.indexOf(k)>=0;});});
+  document.getElementById('resultHeader').style.display='block';
+  document.getElementById('resultKeyword').textContent=q;
+  document.getElementById('resultCount').textContent=results.length;
+  var list=document.getElementById('resultList');
+  if(results.length===0){list.innerHTML='';document.getElementById('noResult').style.display='block';}
+  else{document.getElementById('noResult').style.display='none';
+  list.innerHTML=results.map(function(r){var title=r.title.replace(new RegExp(q,'g'),'<em>'+q+'</em>');return '<div class="result-item" onclick="window.location.href=\''+r.url+'\'"><div class="result-item-title">'+title+'</div><div class="result-item-desc">'+r.desc+'</div><div class="result-item-meta"><span class="tag'+(r.secret?' secret':'')+'">'+r.type+'</span><span>'+r.url+'</span></div></div>';}).join('');}
+}
+function checkProgress50(){var c=['well_location','forum_secret','archive_2003','phone_easter','glitch_text','hidden_link'];if(c.filter(function(x){return GAME_STATE.discoveries[x];}).length>=3){var o=document.getElementById('progress50Overlay');if(o)o.classList.add('active');var a=document.getElementById('adminAlert');if(a)a.classList.add('active');document.body.classList.add('progress-50-mode');}}
+document.addEventListener('DOMContentLoaded',function(){loadProgress();checkProgress50();var input=document.getElementById('bigSearch');input.addEventListener('keypress',function(e){if(e.key==='Enter')doSearch();});var params=new URLSearchParams(window.location.search);var q=params.get('q');if(q){searchKeyword(q);}});
+</script>
+</body>
+</html>

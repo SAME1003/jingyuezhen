@@ -335,11 +335,11 @@
 
       // 发现线索
       try {
-        var saved = localStorage.getItem('jingyue_save');
+        var saved = sessionStorage.getItem('jingyue_save');
         var state = saved ? JSON.parse(saved) : { discoveries: {}, fearLayer: 0 };
         if (!state.discoveries) state.discoveries = {};
         state.discoveries.zhang_weibo = true;
-        localStorage.setItem('jingyue_save', JSON.stringify(state));
+        sessionStorage.setItem('jingyue_save', JSON.stringify(state));
       } catch(e) {}
 
       // 添加乱码微博

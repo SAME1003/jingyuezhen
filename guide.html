@@ -1,412 +1,359 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>景月镇 · 完整攻略</title>
+<title>景月镇ARG 完整游玩攻略</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
-    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
-    background: #0d0d0d;
-    color: #c8c0b0;
-    line-height: 1.9;
+    background: #1a1a1a;
+    color: #ddd;
+    font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+    line-height: 1.8;
     padding: 40px 20px;
   }
-  .container { max-width: 900px; margin: 0 auto; }
-  .header {
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  h1 {
+    color: #c41e3a;
+    font-size: 32px;
     text-align: center;
-    margin-bottom: 50px;
-    padding-bottom: 30px;
-    border-bottom: 1px solid rgba(138,109,59,0.3);
-  }
-  .header h1 {
-    font-size: 36px;
-    color: #d4c4a0;
-    letter-spacing: 8px;
-    font-weight: 300;
-    margin-bottom: 8px;
-  }
-  .header p {
-    font-size: 14px;
-    color: #6a5e4e;
+    margin-bottom: 10px;
     letter-spacing: 4px;
   }
-  .warning {
-    background: rgba(196,30,58,0.08);
-    border-left: 3px solid #c41e3a;
-    padding: 16px 20px;
-    margin-bottom: 40px;
-    font-size: 14px;
-    color: #a09080;
-  }
-  .warning strong { color: #c41e3a; }
-  .section { margin-bottom: 50px; }
-  .section-title {
-    font-size: 22px;
-    color: #d4c4a0;
-    margin-bottom: 20px;
-    padding-left: 16px;
-    border-left: 3px solid #8a6d3b;
-    letter-spacing: 2px;
-  }
-  .step {
-    background: rgba(255,255,255,0.02);
-    border: 1px solid rgba(138,109,59,0.15);
-    padding: 20px 24px;
-    margin-bottom: 16px;
-    border-radius: 4px;
-  }
-  .step-num {
-    display: inline-block;
-    width: 28px;
-    height: 28px;
-    line-height: 28px;
+  .subtitle {
     text-align: center;
-    background: #8a6d3b;
-    color: #0d0d0d;
+    color: #888;
+    font-size: 14px;
+    margin-bottom: 40px;
+  }
+  h2 {
+    color: #e0e0e0;
+    font-size: 22px;
+    margin: 40px 0 16px;
+    padding-left: 12px;
+    border-left: 4px solid #c41e3a;
+  }
+  h3 {
+    color: #ccc;
+    font-size: 17px;
+    margin: 24px 0 10px;
+  }
+  p { margin-bottom: 12px; color: #bbb; }
+  .step {
+    background: #252525;
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    border-left: 3px solid #444;
+  }
+  .step.key { border-left-color: #c41e3a; }
+  .step .num {
+    display: inline-block;
+    background: #c41e3a;
+    color: #fff;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
-    font-size: 14px;
-    font-weight: bold;
-    margin-right: 12px;
-  }
-  .step-title {
-    font-size: 16px;
-    color: #d4c4a0;
-    margin-bottom: 8px;
-  }
-  .step-desc {
-    font-size: 14px;
-    color: #9a8e7e;
-    line-height: 1.9;
-    padding-left: 40px;
-  }
-  .step-desc code {
-    background: rgba(196,30,58,0.15);
-    color: #e8a0a0;
-    padding: 2px 8px;
-    border-radius: 3px;
+    text-align: center;
+    line-height: 24px;
     font-size: 13px;
+    margin-right: 8px;
+  }
+  .step .title {
+    font-weight: bold;
+    color: #e0e0e0;
+  }
+  .step .detail {
+    margin-top: 8px;
+    color: #999;
+    font-size: 14px;
+  }
+  .highlight {
+    color: #ff6b6b;
+    font-weight: bold;
+  }
+  .password {
+    display: inline-block;
+    background: #333;
+    border: 1px solid #555;
+    padding: 2px 10px;
+    border-radius: 3px;
+    color: #ffd700;
+    font-family: monospace;
+    font-size: 15px;
+    letter-spacing: 2px;
   }
   .clue-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 16px;
+    margin: 16px 0;
+  }
+  .clue-table th, .clue-table td {
+    border: 1px solid #333;
+    padding: 10px 12px;
+    text-align: left;
     font-size: 14px;
   }
   .clue-table th {
-    background: rgba(138,109,59,0.15);
-    color: #d4c4a0;
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid rgba(138,109,59,0.3);
+    background: #2a2a2a;
+    color: #c41e3a;
   }
-  .clue-table td {
-    padding: 12px;
-    border-bottom: 1px solid rgba(138,109,59,0.1);
-    color: #9a8e7e;
-  }
-  .clue-table tr:hover { background: rgba(255,255,255,0.02); }
-  .password-list {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-    margin-top: 16px;
-  }
-  .password-item {
-    background: rgba(255,255,255,0.02);
-    border: 1px solid rgba(138,109,59,0.15);
-    padding: 14px 18px;
-    border-radius: 4px;
-  }
-  .password-name { color: #d4c4a0; font-size: 14px; margin-bottom: 4px; }
-  .password-code { color: #c41e3a; font-size: 20px; font-weight: bold; letter-spacing: 4px; }
-  .password-hint { color: #6a5e4e; font-size: 12px; margin-top: 4px; }
+  .clue-table td { color: #aaa; }
   .ending-card {
-    background: rgba(255,255,255,0.02);
-    border: 1px solid rgba(138,109,59,0.15);
-    padding: 20px 24px;
-    margin-bottom: 12px;
+    background: #252525;
+    border-radius: 6px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+  .ending-card .ending-title {
+    color: #c41e3a;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  .ending-card .ending-desc {
+    color: #999;
+    font-size: 14px;
+  }
+  .tip {
+    background: rgba(196,30,58,0.1);
+    border: 1px solid rgba(196,30,58,0.3);
     border-radius: 4px;
-    border-left: 3px solid #8a6d3b;
-  }
-  .ending-title { color: #d4c4a0; font-size: 16px; margin-bottom: 6px; }
-  .ending-desc { color: #9a8e7e; font-size: 14px; line-height: 1.8; }
-  .ending-bad { border-left-color: #c41e3a; }
-  .ending-good { border-left-color: #4a8a6a; }
-  .ending-neutral { border-left-color: #8a6d3b; }
-  .easter-item {
-    padding: 10px 0;
-    border-bottom: 1px dashed rgba(138,109,59,0.15);
+    padding: 12px 16px;
+    margin: 16px 0;
     font-size: 14px;
-    color: #9a8e7e;
+    color: #cc8888;
   }
-  .easter-item:last-child { border-bottom: none; }
-  .easter-item strong { color: #d4c4a0; }
-  .tip-box {
-    background: rgba(74,138,106,0.08);
-    border-left: 3px solid #4a8a6a;
-    padding: 16px 20px;
-    margin-top: 20px;
-    font-size: 14px;
-    color: #8a9e8e;
+  .tip::before {
+    content: "💡 ";
   }
-  .back-btn {
-    display: inline-block;
-    margin-top: 30px;
-    padding: 10px 30px;
-    border: 1px solid #8a6d3b;
-    color: #d4c4a0;
-    text-decoration: none;
-    font-size: 14px;
-    letter-spacing: 2px;
-    transition: all 0.3s;
-  }
-  .back-btn:hover {
-    background: rgba(138,109,59,0.15);
-  }
-  footer {
+  .footer {
     text-align: center;
     margin-top: 60px;
-    padding-top: 30px;
-    border-top: 1px solid rgba(138,109,59,0.2);
+    padding-top: 20px;
+    border-top: 1px solid #333;
+    color: #555;
     font-size: 12px;
-    color: #4a3e2e;
-  }
-  @media (max-width: 600px) {
-    .password-list { grid-template-columns: 1fr; }
-    .header h1 { font-size: 26px; }
   }
 </style>
 </head>
 <body>
-
 <div class="container">
 
-  <div class="header">
-    <h1>景月镇 · 完整攻略</h1>
-    <p>JINGYUE TOWN WALKTHROUGH</p>
+<h1>景 月 镇</h1>
+<div class="subtitle">微恐ARG · 完整游玩攻略 · 作者：black goose</div>
+
+<div class="tip">本攻略包含严重剧透，建议首次游玩时先自行探索，卡关时再查阅。</div>
+
+<h2>一、游戏简介</h2>
+<p>景月镇是一款伪装成中国江南乡镇政府官网的微恐ARG游戏。玩家扮演一名调查者，通过浏览政府网站的各个页面，搜索隐藏线索，揭开2003年景月镇洪水事件背后的真相。</p>
+<p>游戏没有明确的任务指引，需要玩家自行探索每个页面的文字、图片和链接。进度达到50%时网站会发生诡异变化，进度100%后触发结局。</p>
+<p><span class="highlight">注意：</span>本游戏为一次性通关模式，进度保存在当前浏览器标签页中，关闭标签页后进度清除。请在同一个标签页内完成全部探索，不要中途关闭。</p>
+
+<h2>二、完整流程攻略</h2>
+
+<div class="step key">
+  <span class="num">1</span><span class="title">首页 — 发现北井</span>
+  <div class="detail">
+    进入首页，向下滚动到「景月镇简介」段落。在文字中找到<span class="highlight">「北井」</span>二字（隐藏链接），点击它。<br>
+    点击后文字会变红发光，表示已触发线索。
   </div>
-
-  <div class="warning">
-    <strong>剧透警告：</strong>本攻略包含完整的游戏流程、所有密码和结局。建议首次游玩先自行探索，遇到卡关时再查阅。
-  </div>
-
-  <div class="section">
-    <h2 class="section-title">游戏流程</h2>
-
-    <div class="step">
-      <span class="step-num">1</span>
-      <span class="step-title">进入网站，自由浏览</span>
-      <div class="step-desc">
-        从导航页点击"进入景月镇"，打开首页。先像逛普通政府网站一样浏览各个栏目：新闻动态、镇情介绍、政务公开、便民服务、文化旅游、景月论坛、镇史馆、联系我们。<br>
-        <strong>注意：</strong>所有链接都会在新标签页打开，请不要关闭，后续需要对照线索。
-      </div>
-    </div>
-
-    <div class="step">
-      <span class="step-num">2</span>
-      <span class="step-title">发现第一条线索：北井位置</span>
-      <div class="step-desc">
-        在首页顶部搜索框输入 <code>井</code>，会触发线索"发现北井位置"。<br>
-        或者在镇情介绍页面，点击正文中的"井"字。
-      </div>
-    </div>
-
-    <div class="step">
-      <span class="step-num">3</span>
-      <span class="step-title">调查洪水事件</span>
-      <div class="step-desc">
-        在搜索框输入 <code>洪水</code> 或 <code>2003</code>，会跳转到"2003年抗洪救灾纪实"页面。<br>
-        也可以在新闻动态中翻页，找到"2003年抗洪救灾工作回顾"，点击里面的链接进入。<br>
-        在洪水名单页面，仔细查看12名遇难者信息，<strong>点击陈秀英和张国强的名字</strong>查看人物详情。
-      </div>
-    </div>
-
-    <div class="step">
-      <span class="step-num">4</span>
-      <span class="step-title">解锁论坛加密帖子</span>
-      <div class="step-desc">
-        进入景月论坛，翻到最后找到加密帖子。<br>
-        密码是洪水遇难者人数：<code>12</code>（数一下洪水名单里的人数）。<br>
-        解锁后获得线索"发现论坛秘密"。
-      </div>
-    </div>
-
-    <div class="step">
-      <span class="step-num">5</span>
-      <span class="step-title">解锁镇史馆密码档案</span>
-      <div class="step-desc">
-        进入镇史馆，有三个密码档案：<br>
-        • <strong>2003年档案</strong>：密码 <code>0714</code>（洪水发生日期）<br>
-        • <strong>退休教师档案</strong>：密码 <code>1995</code>（陈秀英退休年份，在人物详情中）<br>
-        • <strong>村支书工作记录</strong>：密码 <code>45</code>（张国强牺牲时年龄，在人物详情中）<br>
-        解锁后获得线索"解锁2003档案"。
-      </div>
-    </div>
-
-    <div class="step">
-      <span class="step-num">6</span>
-      <span class="step-title">发现异常号码</span>
-      <div class="step-desc">
-        进入"联系我们"页面，找到旅游咨询电话 <code>0572-8866003</code>，点击这个号码。<br>
-        会触发线索"发现异常号码"（电话里只有忙音）。
-      </div>
-    </div>
-
-    <div class="step">
-      <span class="step-num">7</span>
-      <span class="step-title">注意到文字异常</span>
-      <div class="step-desc">
-        进入"镇情介绍"页面，点击正文中的 <code>沉湖村</code> 三个字。<br>
-        会触发线索"注意到文字异常"。
-      </div>
-    </div>
-
-    <div class="step">
-      <span class="step-num">8</span>
-      <span class="step-title">进度50%——网站开始变化</span>
-      <div class="step-desc">
-        当发现3条线索时，网站会发生变化：<br>
-        • 顶部出现红色提示条"管理员修改了文档"<br>
-        • 小字"你在调查洪水吗？"<br>
-        • 页面覆盖深红色遮罩<br>
-        不要害怕，继续调查。
-      </div>
-    </div>
-
-    <div class="step">
-      <span class="step-num">9</span>
-      <span class="step-title">发现隐藏链接，进度100%</span>
-      <div class="step-desc">
-        集齐5条线索后，会自动出现第6条线索"发现隐藏链接"。<br>
-        此时探索进度达到100%。
-      </div>
-    </div>
-
-    <div class="step">
-      <span class="step-num">10</span>
-      <span class="step-title">进入北井，触发结局</span>
-      <div class="step-desc">
-        进度100%后，进入北井页面。<br>
-        1.5秒后出现红字突脸"我需要赶紧搬离这里"（文字抖动）。<br>
-        3秒后弹出三个结局选项，做出你的选择。
-      </div>
-    </div>
-  </div>
-
-  <div class="section">
-    <h2 class="section-title">六条线索一览</h2>
-    <table class="clue-table">
-      <thead>
-        <tr><th>线索</th><th>获取方式</th><th>位置</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>发现北井位置</td><td>搜索"井"或点"井"字</td><td>首页/镇情介绍</td></tr>
-        <tr><td>发现论坛秘密</td><td>论坛加密帖，密码12</td><td>景月论坛</td></tr>
-        <tr><td>解锁2003档案</td><td>镇史馆密码档案，密码0714</td><td>镇史馆</td></tr>
-        <tr><td>发现异常号码</td><td>点击旅游咨询电话</td><td>联系我们</td></tr>
-        <tr><td>注意到文字异常</td><td>点击"沉湖村"</td><td>镇情介绍</td></tr>
-        <tr><td>发现隐藏链接</td><td>集齐5条后自动出现</td><td>全站</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="section">
-    <h2 class="section-title">所有密码</h2>
-    <div class="password-list">
-      <div class="password-item">
-        <div class="password-name">2003年档案</div>
-        <div class="password-code">0714</div>
-        <div class="password-hint">提示：洪水发生的日期</div>
-      </div>
-      <div class="password-item">
-        <div class="password-name">退休教师档案</div>
-        <div class="password-code">1995</div>
-        <div class="password-hint">提示：陈秀英的退休年份</div>
-      </div>
-      <div class="password-item">
-        <div class="password-name">村支书工作记录</div>
-        <div class="password-code">45</div>
-        <div class="password-hint">提示：张国强牺牲时的年龄</div>
-      </div>
-      <div class="password-item">
-        <div class="password-name">论坛加密帖子</div>
-        <div class="password-code">12</div>
-        <div class="password-hint">提示：洪水遇难者人数</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="section">
-    <h2 class="section-title">三个结局</h2>
-
-    <div class="ending-card ending-bad">
-      <div class="ending-title">结局一：沉沦（留下）</div>
-      <div class="ending-desc">
-        你选择留在景月镇。你觉得这里的一切都很正常，那些奇怪的事情只是巧合。<br>
-        你开始在镇上生活，渐渐听不到那些声音了。或者说，你已经习惯了。<br>
-        某天早上，你在镜子里看到一个陌生人对你微笑。
-      </div>
-    </div>
-
-    <div class="ending-card ending-good">
-      <div class="ending-title">结局二：逃离（离开）</div>
-      <div class="ending-desc">
-        你连夜收拾行李离开了景月镇。上车前，你回头看了一眼，镇口的路灯闪了三下。<br>
-        你再也没有回去过。但每年7月14日，你都会梦到那口井。<br>
-        手机里偶尔会收到一个空号发来的短信："你什么时候回来？"
-      </div>
-    </div>
-
-    <div class="ending-card ending-neutral">
-      <div class="ending-title">结局三：真相（继续调查）</div>
-      <div class="ending-desc">
-        你决定查清楚一切。你找到了2003年的真相，也付出了代价。<br>
-        你把所有证据整理好，发布到了网上。但第二天，所有帖子都被删除了。<br>
-        你的电脑屏幕上出现一行字："管理员修改了文档。"<br>
-        然后，你听到了敲门声。
-      </div>
-    </div>
-  </div>
-
-  <div class="section">
-    <h2 class="section-title">隐藏彩蛋</h2>
-    <div class="easter-item">
-      <strong>Konami码：</strong>在任意页面按 上上下下左右左右BA，会直接跳转到北井页面。
-    </div>
-    <div class="easter-item">
-      <strong>右上角笑脸：</strong>所有页面右上角的 ^_^ 点击后会打开"逃避不是答案！"页面（黑底大红抖动字）。
-    </div>
-    <div class="easter-item">
-      <strong>镇长信箱：</strong>政务公开→镇长信箱，里面有正常留言和诡异留言，包括陈秀英的寻人启事和被删除的帖子。
-    </div>
-    <div class="easter-item">
-      <strong>电话亭线索：</strong>画廊中的电话亭图片描述里藏着电话号码 0572-8866000。
-    </div>
-    <div class="easter-item">
-      <strong>多标签页体验：</strong>建议同时打开多个页面对照线索，这是游戏的核心玩法之一。
-    </div>
-  </div>
-
-  <div class="tip-box">
-    <strong>游玩建议：</strong><br>
-    1. 游戏时长约2-3小时，建议留出完整时间体验。<br>
-    2. 进度自动保存到本地，关闭浏览器后可继续。<br>
-    3. 如果卡住了，试试搜索人名（陈秀英、张国强、李建国）。<br>
-    4. 注意页面上的数字——日期、年龄、人数，都可能是密码。<br>
-    5. 进度50%后网站会变化，这是正常剧情，不是bug。
-  </div>
-
-  <div style="text-align: center;">
-    <a href="index.html" class="back-btn">返回导航页</a>
-  </div>
-
-  <footer>
-    <p>景月镇 · 微恐ARG | 作者：black goose | 本攻略含剧透，请谨慎阅读</p>
-  </footer>
-
 </div>
 
+<div class="step">
+  <span class="num">2</span><span class="title">搜索 — 陈秀英缅怀文档</span>
+  <div class="detail">
+    在右上角搜索框输入<span class="highlight">「陈秀英」</span>，点击搜索。<br>
+    会跳转到一个Word风格的缅怀文档。仔细阅读全文，文档末尾的批注中藏有关键线索：<span class="highlight">「井深七丈四尺，井底有砖室」</span>。
+  </div>
+</div>
+
+<div class="step">
+  <span class="num">3</span><span class="title">搜索 — 张国强微博</span>
+  <div class="detail">
+    搜索<span class="highlight">「张国强」</span>，跳转到微博页面。<br>
+    阅读他发布的4条微博（2003年洪灾期间），然后点击左侧的<span class="highlight">「+关注」</span>按钮。<br>
+    关注后张国强会发布一条乱码新微博，其中黄色高亮部分是<span class="highlight">摩斯密码</span>：<br>
+    <span class="password">--··· ····-</span> → 解码为 <span class="highlight">74</span>（对应"井深七丈四尺"）。
+  </div>
+</div>
+
+<div class="step key">
+  <span class="num">4</span><span class="title">镇情介绍 — 沉湖村</span>
+  <div class="detail">
+    点击导航栏「镇情介绍」，在「行政区划」段落找到<span class="highlight">「沉湖村」</span>，点击。<br>
+    会弹出沉湖村村情简介窗口，同时触发线索。
+  </div>
+</div>
+
+<div class="step key">
+  <span class="num">5</span><span class="title">联系我们 — 旅游咨询电话</span>
+  <div class="detail">
+    点击导航栏「联系我们」，在联系方式中点击<span class="highlight">「0572-8866003」</span>（旅游咨询电话）。<br>
+    点击后电话变红，会提示"你拨打了旅游咨询电话...电话里只有忙音"。
+  </div>
+</div>
+
+<div class="step">
+  <span class="num">6</span><span class="title">景月论坛 — 加密帖子</span>
+  <div class="detail">
+    点击导航栏「景月论坛」，向下滚动到页面底部，找到一个<span class="highlight">匿名加密帖子</span>，点击。<br>
+    弹出密码输入框，提示"2003年洪水，遇难者共有多少人？"<br>
+    输入密码 <span class="password">12</span>，确认。
+  </div>
+</div>
+
+<div class="step key">
+  <span class="num">7</span><span class="title">镇史馆 — 2003年档案</span>
+  <div class="detail">
+    点击导航栏「镇史馆」，找到标注「2003年地质勘察报告 · 机密·需授权」的档案卡片，点击。<br>
+    会跳转到独立的密码查阅页面，4位密码输入框，提示"灾害发生的日期（月+日）"。<br>
+    输入密码 <span class="password">0714</span>（2003年洪水日期：7月14日），点击确认查阅。<br>
+    密码正确后显示完整档案内容。
+  </div>
+</div>
+
+<div class="step">
+  <span class="num">8</span><span class="title">镇史馆 — 退休教师档案</span>
+  <div class="detail">
+    在镇史馆找到「退休教师档案 · 1995·需授权」卡片，点击，跳转到密码查阅页面。<br>
+    提示"陈秀英老师的退休年份"，输入密码 <span class="password">1995</span>。
+  </div>
+</div>
+
+<div class="step">
+  <span class="num">9</span><span class="title">镇史馆 — 村支书记录</span>
+  <div class="detail">
+    找到村支书相关档案卡片，点击跳转密码查阅页面。<br>
+    提示"张国强同志牺牲时的年龄"，输入密码 <span class="password">0045</span>（张国强牺牲时45岁，4位补零）。
+  </div>
+</div>
+
+<div class="step key">
+  <span class="num">10</span><span class="title">进度50% — 网站异变</span>
+  <div class="detail">
+    当发现3条以上线索时，网站会发生变化：<br>
+    · 顶部出现红色条：「管理员修改了文档 / 你在调查洪水吗？」<br>
+    · 页面覆盖深红色滤镜<br>
+    · 首页主视觉图变为诡异版景月镇<br>
+    继续探索剩余线索。
+  </div>
+</div>
+
+<div class="step key">
+  <span class="num">11</span><span class="title">进度100% — 井文档</span>
+  <div class="detail">
+    收集全部6条线索后，镇史馆会出现一个新的<span class="highlight">「井」</span>文档卡片。<br>
+    点击查看井文档，阅读到末尾，点击<span class="highlight">「下一页」</span>按钮。
+  </div>
+</div>
+
+<div class="step key">
+  <span class="num">12</span><span class="title">结局触发 — 登山小伙</span>
+  <div class="detail">
+    点击下一页后，先弹出一个<span class="highlight">穿着冲锋衣的登山小伙</span>（脸部打码，手指着屏幕），伴随红色抖动大字：<br>
+    <span class="highlight" style="font-size:20px;">「你找到我了吗」</span><br>
+    2.5秒后自动进入红色文字掉落动画。
+  </div>
+</div>
+
+<div class="step">
+  <span class="num">13</span><span class="title">红色文字雨 → 安全通道</span>
+  <div class="detail">
+    全屏黑色背景，大量红色文字向下掉落（"你居然还是找到这里了"等）。<br>
+    6秒后出现绿色<span class="highlight">「逃离这里」</span>按钮（安全通道风格），点击进入结局选择。
+  </div>
+</div>
+
+<div class="step key">
+  <span class="num">14</span><span class="title">选择结局</span>
+  <div class="detail">
+    三个选项：<span class="highlight">转身离开</span> / <span class="highlight">跳下去</span> / <span class="highlight">说出真相</span><br>
+    点击后跳转到独立结局页面。
+  </div>
+</div>
+
+<h2>三、全部线索一览</h2>
+<table class="clue-table">
+  <tr><th>线索名称</th><th>触发位置</th><th>触发方式</th></tr>
+  <tr><td>井的位置</td><td>首页</td><td>点击「北井」隐藏链接</td></tr>
+  <tr><td>论坛秘密</td><td>景月论坛</td><td>加密帖密码12</td></tr>
+  <tr><td>2003档案</td><td>镇史馆</td><td>档案密码0714</td></tr>
+  <tr><td>电话彩蛋</td><td>联系我们</td><td>点击旅游咨询电话</td></tr>
+  <tr><td>故障文字</td><td>镇情介绍</td><td>点击「沉湖村」</td></tr>
+  <tr><td>隐藏链接</td><td>各页面</td><td>点击页面中的隐藏链接</td></tr>
+</table>
+
+<h2>四、全部密码一览</h2>
+<table class="clue-table">
+  <tr><th>密码</th><th>用途</th><th>提示来源</th></tr>
+  <tr><td><span class="password">0714</span></td><td>2003年档案</td><td>洪水发生日期7月14日</td></tr>
+  <tr><td><span class="password">1995</span></td><td>退休教师档案</td><td>陈秀英退休年份</td></tr>
+  <tr><td><span class="password">0045</span></td><td>村支书记录</td><td>张国强牺牲时年龄（4位补零）</td></tr>
+  <tr><td><span class="password">12</span></td><td>论坛加密帖</td><td>洪水遇难者人数</td></tr>
+  <tr><td><span class="password">74</span></td><td>摩斯密码彩蛋</td><td>张国强微博乱码（--··· ····-）</td></tr>
+</table>
+
+<h2>五、搜索关键词</h2>
+<p>在搜索框输入以下关键词可触发特殊跳转：</p>
+<table class="clue-table">
+  <tr><th>关键词</th><th>跳转/结果</th></tr>
+  <tr><td>陈秀英</td><td>→ 缅怀文档（Word风格）</td></tr>
+  <tr><td>张国强</td><td>→ 微博页面</td></tr>
+  <tr><td>洪水 / 2003 / 遇难者</td><td>→ 洪水遇难人员名单</td></tr>
+  <tr><td>井</td><td>→ 彩蛋文档（仿Word，黑底灰纸，红色抖动文字"井里的孩子们正在观察你"）</td></tr>
+  <tr><td>李建国</td><td>显示镇长简介</td></tr>
+</table>
+
+<h2>六、三个结局</h2>
+
+<div class="ending-card">
+  <div class="ending-title">结局A · 沉沦（跳下去）</div>
+  <div class="ending-desc">
+    你跳入井中，水下有发白的浑浊光芒，光里有人影。其中一个朝你伸出手。<br>
+    后来井湾村多了一户人家，户口本上有你的名字，但照片上的人你不认识。
+  </div>
+</div>
+
+<div class="ending-card">
+  <div class="ending-title">结局B · 逃离（转身离开）</div>
+  <div class="ending-desc">
+    你转身逃跑，拦车去了县城，再没回过景月镇。<br>
+    地图上搜不到这个地方，跟别人提起也没人听说过。但偶尔半夜醒来，会听到有人从井底叫你的名字。
+  </div>
+</div>
+
+<div class="ending-card">
+  <div class="ending-title">结局C · 真相（说出真相）★ 真结局</div>
+  <div class="ending-desc">
+    你站在井边，把所有被抹去的名字一个一个念出来。井水翻涌，白光亮起，然后归于平静。<br>
+    第二天，镇政府门口出现了2003年事件调查报告复印件。县里来人，北井被挖开。失踪者的名字被重新刻在碑上。<br>
+    事情没有完全解决，但至少，有人记得了。
+  </div>
+</div>
+
+<h2>七、隐藏彩蛋</h2>
+<div class="step">
+  <span class="title">右上角 ^_^ 链接</span>
+  <div class="detail">点击页面右上角的「^_^」，跳转到黑底红色抖动大字页面：「逃避不是答案！」</div>
+</div>
+<div class="step">
+  <span class="title">Konami密码</span>
+  <div class="detail">在任意页面按 ↑↑↓↓←→←→BA，提示"通往井底的路已经打开"，1.5秒后跳转到北井页面。</div>
+</div>
+<div class="step">
+  <span class="title">控制台提示</span>
+  <div class="detail">按F12打开浏览器控制台，会显示游戏提示和彩蛋信息。</div>
+</div>
+
+<div class="footer">
+  景月镇ARG · 作者 black goose · 本攻略仅供玩家参考
+</div>
+
+</div>
 </body>
 </html>

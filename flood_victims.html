@@ -70,9 +70,17 @@
 
 /* ===== 进度50%特效 ===== */
 .progress-50-overlay {
-  position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100%; height: 100%;
-  background: rgba(120, 0, 0, 0.15);
-  pointer-events: none; z-index: 9998; display: none;
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100vw; height: 100vh;
+  background: rgba(120, 0, 0, 0.2);
+  pointer-events: none; z-index: 10003; display: none;
+}
+body.progress-50-mode {
+  filter: sepia(0.3) hue-rotate(-20deg) saturate(1.2);
+}
+body.progress-50-mode .site-header,
+body.progress-50-mode .nav,
+body.progress-50-mode .top-banner {
+  filter: sepia(0.3) hue-rotate(-20deg) saturate(1.2);
 }
 .progress-50-overlay.active { display: block; animation: overlayPulse 3s ease-in-out infinite; }
 @keyframes overlayPulse {
@@ -83,7 +91,7 @@
   position: fixed; top: 0; left: 0; right: 0;
   background: linear-gradient(90deg, #8b0000, #a01830, #8b0000);
   color: #fff; text-align: center; padding: 6px 12px;
-  font-size: 13px; z-index: 9999; display: none;
+  font-size: 13px; z-index: 10004; display: none;
   box-shadow: 0 2px 10px rgba(139,0,0,0.5);
   letter-spacing: 1px;
 
@@ -127,7 +135,7 @@ body.progress-50-mode .hero { filter: hue-rotate(-20deg) saturate(1.2); }
     </div>
     <div class="search-box">
       <input type="text" id="siteSearch" placeholder="搜索站内信息...">
-      <button id="searchBtn" onclick="handleSearch()">搜索</button>
+      <button id="searchBtn" onclick="goSearch()">搜索</button>
     </div>
   </div>
 </header>
@@ -182,7 +190,7 @@ body.progress-50-mode .hero { filter: hue-rotate(-20deg) saturate(1.2); }
           </tr>
         </thead>
         <tbody>
-          <tr><td class="victim-name" onclick="showPerson('chen_xiuying')">陈秀英</td><td>女</td><td>68</td><td>井湾村</td><td>退休教师</td></tr>
+          <tr><td class="victim-name" >陈秀英</td><td>女</td><td>68</td><td>井湾村</td><td>退休教师</td></tr>
           <tr><td class="victim-name">王大根</td><td>男</td><td>52</td><td>井湾村</td><td>村民</td></tr>
           <tr><td class="victim-name">李小宝</td><td>男</td><td>12</td><td>井湾村</td><td>学生</td></tr>
           <tr><td class="victim-name" onclick="showPerson('zhang_guoqiang')">张国强</td><td>男</td><td>45</td><td>沉湖村</td><td>村支书</td></tr>
@@ -263,10 +271,10 @@ const GAME_STATE = {
 };
 const TOTAL_CLUES = 6;
 
-function saveProgress() { try { localStorage.setItem('jingyue_save', JSON.stringify(GAME_STATE)); } catch(e) {} }
+function saveProgress() { try { sessionStorage.setItem('jingyue_save', JSON.stringify(GAME_STATE)); } catch(e) {} }
 function loadProgress() {
   try {
-    const saved = localStorage.getItem('jingyue_save');
+    const saved = sessionStorage.getItem('jingyue_save');
     if (saved) {
       const data = JSON.parse(saved);
       Object.assign(GAME_STATE.discoveries, data.discoveries || {});
@@ -321,7 +329,8 @@ function handleSearch() {
   const query = document.getElementById('siteSearch').value.trim();
   if (!query) { showToast('输入关键词'); return; }
   if (query.includes('井')) {
-    showToast('搜索结果：景月镇范围内有多处古井，其中北井位于井湾村北侧，已列入文物保护单位。', false);
+    showToast('搜索结果：找到 1 条相关文档...', false);
+    setTimeout(function(){ window.location.href = 'well_easter_egg.html'; }, 800);
     return;
   }
   if (query.includes('陈秀英') || query.includes('张国强')) {

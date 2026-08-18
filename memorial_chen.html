@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -260,12 +260,12 @@
 <script>
   // 发现线索
   try {
-    var saved = localStorage.getItem('jingyue_save');
+    var saved = sessionStorage.getItem('jingyue_save');
     var state = saved ? JSON.parse(saved) : { discoveries: {}, fearLayer: 0 };
     if (!state.discoveries) state.discoveries = {};
     if (!state.discoveries.chen_memorial) {
       state.discoveries.chen_memorial = true;
-      localStorage.setItem('jingyue_save', JSON.stringify(state));
+      sessionStorage.setItem('jingyue_save', JSON.stringify(state));
     }
   } catch(e) {}
 </script>

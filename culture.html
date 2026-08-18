@@ -36,7 +36,7 @@ body.layer-4 { --bg-main: #c8c4b0; --text-primary: #111111; }
 
 html, body {
   height: 100%;
-  font-family: var(--font-sans);
+  font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
   color: var(--text-primary);
   background: var(--bg-main);
   font-size: 14px;
@@ -115,7 +115,7 @@ a:hover { text-decoration: underline; }
   border-radius: 4px;
   font-size: 13px;
   width: 220px;
-  font-family: var(--font-sans);
+  font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
 }
 .header-search button {
   padding: 8px 16px;
@@ -125,7 +125,7 @@ a:hover { text-decoration: underline; }
   border-radius: 4px;
   cursor: pointer;
   font-size: 13px;
-  font-family: var(--font-sans);
+  font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
 
   position: relative;
   z-index: 10002;
@@ -636,7 +636,7 @@ a:hover { text-decoration: underline; }
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
-  font-family: var(--font-sans);
+  font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
 }
 .password-btn:hover { background: var(--gov-red-dark); }
 .password-error {
@@ -736,7 +736,7 @@ body.layer-4 {
   inset: 0;
   background: #0a0a0a;
   color: #ddd;
-  z-index: 10000;
+  z-index: 10005;
   display: none;
   flex-direction: column;
   align-items: center;
@@ -768,7 +768,7 @@ body.layer-4 {
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
-  font-family: var(--font-sans);
+  font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
   transition: all 0.3s;
 }
 .ending-restart:hover {
@@ -891,7 +891,7 @@ body.layer-4 {
   padding: 10px 20px;
   border-radius: 4px;
   font-size: 13px;
-  z-index: 10000;
+  z-index: 10005;
   opacity: 0;
   transition: all 0.3s ease;
   pointer-events: none;
@@ -1032,7 +1032,7 @@ body.layer-4 {
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
-  font-family: var(--font-sans);
+  font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
   transition: all 0.3s;
 }
 .well-choice:hover {
@@ -1075,7 +1075,7 @@ body.layer-4 {
   position: fixed;
   inset: 0;
   background: #000;
-  z-index: 9999;
+  z-index: 10004;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1180,9 +1180,17 @@ body.layer-4 {
 
 /* ===== 进度50%特效 ===== */
 .progress-50-overlay {
-  position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100%; height: 100%;
-  background: rgba(120, 0, 0, 0.15);
-  pointer-events: none; z-index: 9998; display: none;
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100vw; height: 100vh;
+  background: rgba(120, 0, 0, 0.2);
+  pointer-events: none; z-index: 10003; display: none;
+}
+body.progress-50-mode {
+  filter: sepia(0.3) hue-rotate(-20deg) saturate(1.2);
+}
+body.progress-50-mode .site-header,
+body.progress-50-mode .nav,
+body.progress-50-mode .top-banner {
+  filter: sepia(0.3) hue-rotate(-20deg) saturate(1.2);
 }
 .progress-50-overlay.active { display: block; animation: overlayPulse 3s ease-in-out infinite; }
 @keyframes overlayPulse {
@@ -1193,7 +1201,7 @@ body.layer-4 {
   position: fixed; top: 0; left: 0; right: 0;
   background: linear-gradient(90deg, #8b0000, #a01830, #8b0000);
   color: #fff; text-align: center; padding: 6px 12px;
-  font-size: 13px; z-index: 9999; display: none;
+  font-size: 13px; z-index: 10004; display: none;
   box-shadow: 0 2px 10px rgba(139,0,0,0.5);
   letter-spacing: 1px;
 
@@ -1251,7 +1259,7 @@ body.progress-50-mode .hero { filter: hue-rotate(-20deg) saturate(1.2); }
       </div>
       <div class="header-search">
         <input type="text" id="siteSearch" placeholder="搜索站内信息...">
-        <button id="searchBtn" onclick="handleSearch()">搜索</button>
+        <button id="searchBtn" onclick="goSearch()">搜索</button>
       </div>
     </div>
   </div>
@@ -1423,7 +1431,7 @@ body.progress-50-mode .hero { filter: hue-rotate(-20deg) saturate(1.2); }
   </div>
 </div>
 <script>
-// ========== 游戏状态 ==========
+function goSearch(){var q=document.getElementById('siteSearch');if(q&&q.value.trim()){window.location.href='search.html?q='+encodeURIComponent(q.value.trim());}else{var t=document.getElementById('toast');if(t){t.textContent='请输入关键词';t.className='toast show';}}}// ========== 游戏状态 ==========
 const GAME_STATE = {
   discoveries: {
     well_location: false,      // 发现北井位置
@@ -1444,13 +1452,13 @@ const TOTAL_CLUES = 6; // 主要线索数量
 // ========== 存档 ==========
 function saveProgress() {
   try {
-    localStorage.setItem('jingyue_save', JSON.stringify(GAME_STATE));
+    sessionStorage.setItem('jingyue_save', JSON.stringify(GAME_STATE));
   } catch(e) {}
 }
 
 function loadProgress() {
   try {
-    const saved = localStorage.getItem('jingyue_save');
+    const saved = sessionStorage.getItem('jingyue_save');
     if (saved) {
       const data = JSON.parse(saved);
       Object.assign(GAME_STATE.discoveries, data.discoveries || {});
@@ -1588,7 +1596,7 @@ function initPage(pageId) {
   var searchInput = document.getElementById('siteSearch');
   if (searchInput) {
     searchInput.addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') handleSearch();
+      if (e.key === 'Enter') goSearch();
     });
   }
 
@@ -2249,7 +2257,7 @@ function ending(type) {
 }
 
 function restartGame() {
-  localStorage.removeItem('jingyue_save');
+  sessionStorage.removeItem('jingyue_save');
   Object.keys(GAME_STATE.discoveries).forEach(k => GAME_STATE.discoveries[k] = false);
   GAME_STATE.fearLayer = 0;
   GAME_STATE.ending = null;
@@ -2268,32 +2276,33 @@ function handleSearch() {
   if (!query) { showToast('输入关键词'); return; }
   console.log('[搜索] 查询:', query);
   if (query.includes('井')) {
-    showToast('搜索结果：景月镇范围内有多处古井，其中北井位于井湾村北侧，已列入文物保护单位。', false);
+    showToast('搜索结果：找到 1 条相关文档...', false);
+    setTimeout(function(){ window.location.href = 'well_easter_egg.html'; }, 800);
     return;
   }
   if (query.includes('陈秀英')) {
     showToast('搜索结果：找到缅怀文档，正在跳转...', false);
-    window.open('memorial_chen.html', '_blank');
+    window.location.href = 'memorial_chen.html';
     return;
   }
   if (query.includes('张国强')) {
     showToast('搜索结果：找到相关用户主页，正在跳转...', false);
-    window.open('weibo_zhang.html', '_blank');
+    window.location.href = 'weibo_zhang.html';
     return;
   }
   if (query.includes('遇难者') || query.includes('遇难人员')) {
     showToast('搜索结果：找到相关人员档案，正在跳转...', true);
-    window.open('flood_victims.html', '_blank');
+    window.location.href = 'flood_victims.html';
     return;
   }
   if (query.includes('洪水') || query.includes('抗洪') || query.includes('名单') || query.includes('2003年7月')) {
     showToast('搜索结果：找到 1 条相关记录 - 2003年抗洪救灾纪实', true);
-    window.open('flood_victims.html', '_blank');
+    window.location.href = 'flood_victims.html';
     return;
   }
   if (query.includes('2003')) {
     showToast('搜索结果：找到 1 条相关记录 - 2003年抗洪救灾纪实', true);
-    window.open('flood_victims.html', '_blank');
+    window.location.href = 'flood_victims.html';
     return;
   }
   if (query.includes('李建国')) {
@@ -2302,7 +2311,7 @@ function handleSearch() {
   }
   if (query.includes('王大根') || query.includes('李小宝') || query.includes('刘桂兰')) {
     showToast('搜索结果：该人员信息见于2003年抗洪救灾纪实名单', true);
-    window.open('flood_victims.html', '_blank');
+    window.location.href = 'flood_victims.html';
     return;
   }
   if (query.includes('密码') || query.includes('0714')) {
@@ -2351,7 +2360,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // 搜索框回车
   document.getElementById('siteSearch').addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') handleSearch();
+    if (e.key === 'Enter') goSearch();
   });
 
   // 隐藏链接点击事件 - 发现隐藏链接线索

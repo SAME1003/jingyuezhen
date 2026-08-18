@@ -128,7 +128,7 @@ body.progress-50-mode .hero { filter: hue-rotate(-20deg) saturate(1.2); }
     </div>
     <div class="search-box">
       <input type="text" id="siteSearch" placeholder="搜索站内信息...">
-      <button id="searchBtn" onclick="handleSearch()">搜索</button>
+      <button id="searchBtn" onclick="goSearch()">搜索</button>
     </div>
   </div>
 </header>
@@ -296,8 +296,8 @@ const GAME_STATE = {
   fearLayer: 0, ending: null, playthrough: 1,
 };
 const TOTAL_CLUES = 6;
-function saveProgress() { try { localStorage.setItem('jingyue_save', JSON.stringify(GAME_STATE)); } catch(e) {} }
-function loadProgress() { try { const s = localStorage.getItem('jingyue_save'); if(s){const d=JSON.parse(s); Object.assign(GAME_STATE.discoveries,d.discoveries||{}); GAME_STATE.fearLayer=d.fearLayer||0;} } catch(e) {} }
+function saveProgress() { try { sessionStorage.setItem('jingyue_save', JSON.stringify(GAME_STATE)); } catch(e) {} }
+function loadProgress() { try { const s = sessionStorage.getItem('jingyue_save'); if(s){const d=JSON.parse(s); Object.assign(GAME_STATE.discoveries,d.discoveries||{}); GAME_STATE.fearLayer=d.fearLayer||0;} } catch(e) {} }
 function applyFearLayer() { document.body.classList.remove('layer-1','layer-2','layer-3','layer-4'); if(GAME_STATE.fearLayer>0) document.body.classList.add('layer-'+GAME_STATE.fearLayer); }
 
 function showToast(msg, imp) { const t=document.createElement('div'); t.style.cssText='position:fixed;top:80px;left:50%;transform:translateX(-50%);background:'+(imp?'#c41e3a':'#333')+';color:#fff;padding:12px 24px;border-radius:4px;z-index:9999;font-size:14px;'; t.textContent=msg; document.body.appendChild(t); setTimeout(()=>t.remove(),3000); }

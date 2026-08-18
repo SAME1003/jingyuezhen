@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>井 - Word</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #000;
+    font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  /* Word标题栏 */
+  .word-titlebar {
+    background: #1a1a1a;
+    color: #888;
+    padding: 6px 12px;
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #333;
+  }
+  .word-titlebar .controls span {
+    display: inline-block;
+    width: 28px;
+    text-align: center;
+  }
+  /* Word菜单栏 */
+  .word-menubar {
+    background: #111;
+    border-bottom: 1px solid #333;
+    padding: 4px 12px;
+    font-size: 12px;
+    color: #666;
+  }
+  .word-menubar span { margin-right: 16px; }
+  /* 工具栏 */
+  .word-toolbar {
+    background: #0d0d0d;
+    border-bottom: 1px solid #222;
+    padding: 6px 12px;
+    display: flex;
+    gap: 12px;
+    font-size: 12px;
+    color: #555;
+  }
+  /* 文档区域 */
+  .doc-wrapper {
+    flex: 1;
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  .doc-page {
+    background: #2a2a2a;
+    width: 700px;
+    min-height: 900px;
+    padding: 70px 80px;
+    box-shadow: 0 0 40px rgba(255,0,0,0.1);
+    position: relative;
+  }
+  .doc-page::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 28px,
+      rgba(255,0,0,0.03) 28px,
+      rgba(255,0,0,0.03) 29px
+    );
+    pointer-events: none;
+  }
+  .doc-title {
+    text-align: center;
+    font-size: 26px;
+    color: #ff0000;
+    margin-bottom: 40px;
+    font-family: "SimSun", "宋体", serif;
+    animation: titleShake 0.08s infinite;
+    text-shadow: 0 0 15px rgba(255,0,0,0.6);
+    letter-spacing: 4px;
+  }
+  @keyframes titleShake {
+    0%,100% { transform: translate(0,0); }
+    25% { transform: translate(-1px,1px); }
+    50% { transform: translate(1px,-1px); }
+    75% { transform: translate(-1px,-1px); }
+  }
+  .doc-content {
+    font-size: 15px;
+    line-height: 2.4;
+    color: #cc3333;
+    text-indent: 2em;
+    font-family: "SimSun", "宋体", serif;
+  }
+  .doc-content p {
+    margin-bottom: 16px;
+    animation: textGlitch 3s infinite;
+  }
+  .doc-content p:nth-child(2) { animation-delay: 0.5s; }
+  .doc-content p:nth-child(3) { animation-delay: 1s; }
+  .doc-content p:nth-child(4) { animation-delay: 1.5s; }
+  @keyframes textGlitch {
+    0%,90%,100% { opacity: 1; }
+    92% { opacity: 0.3; transform: translateX(2px); }
+    94% { opacity: 1; transform: translateX(-1px); }
+    96% { opacity: 0.5; }
+  }
+  .watching {
+    text-align: center;
+    margin-top: 60px;
+    font-size: 18px;
+    color: #ff0000;
+    animation: watchingPulse 1.5s infinite;
+    letter-spacing: 6px;
+  }
+  @keyframes watchingPulse {
+    0%,100% { opacity: 0.4; text-shadow: 0 0 5px #ff0000; }
+    50% { opacity: 1; text-shadow: 0 0 25px #ff0000, 0 0 50px #ff0000; }
+  }
+  .eyes {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 40px;
+    color: #ff0000;
+    letter-spacing: 20px;
+    animation: eyesBlink 4s infinite;
+  }
+  @keyframes eyesBlink {
+    0%,45%,55%,100% { transform: scaleY(1); }
+    50% { transform: scaleY(0.1); }
+  }
+  .bottom-note {
+    position: absolute;
+    bottom: 40px;
+    left: 80px;
+    right: 80px;
+    text-align: center;
+    font-size: 11px;
+    color: #440000;
+    border-top: 1px solid #330000;
+    padding-top: 12px;
+  }
+  /* 状态栏 */
+  .word-statusbar {
+    background: #1a1a1a;
+    color: #555;
+    padding: 4px 12px;
+    font-size: 11px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .back-btn {
+    position: fixed;
+    top: 50px;
+    right: 20px;
+    background: #330000;
+    color: #ff4444;
+    border: 1px solid #660000;
+    padding: 8px 16px;
+    font-size: 12px;
+    cursor: pointer;
+    z-index: 100;
+  }
+  .back-btn:hover { background: #440000; }
+  /* 扫描线 */
+  .scanline {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: rgba(255,0,0,0.15);
+    animation: scan 5s linear infinite;
+    pointer-events: none;
+    z-index: 99;
+  }
+  @keyframes scan {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(100vh); }
+  }
+</style>
+</head>
+<body>
+
+<div class="scanline"></div>
+
+<div class="word-titlebar">
+  <span>井.docx - Word</span>
+  <div class="controls"><span>—</span><span>▢</span><span>×</span></div>
+</div>
+
+<div class="word-menubar">
+  <span>文件</span><span>开始</span><span>插入</span><span>页面布局</span><span>引用</span><span>审阅</span><span>视图</span>
+</div>
+
+<div class="word-toolbar">
+  <span>宋体</span><span>五号</span><span>B I U</span><span>居中</span>
+</div>
+
+<button class="back-btn" onclick="window.location.href='home.html'">← 返回官网</button>
+
+<div class="doc-wrapper">
+  <div class="doc-page">
+    <div class="doc-title">井 里 的 孩 子 们 正 在 观 察 你</div>
+
+    <div class="doc-content">
+      <p>他们说井是1958年挖的。他们说错了。</p>
+      <p>这口井比景月镇还老。比镇上所有的房子都老。老人们说，在还没有景月镇的时候，井就在那里了。</p>
+      <p>1958年只是把井圈重新砌了一遍。井底从来没有变过。</p>
+      <p>井水从来没有干过。哪怕是最旱的年份，井底的水始终是满的。打水的人说，水桶放下去，从来碰不到底。</p>
+      <p>2003年洪水那天，井水不是往上涨的。是从下面往上涌的。咕嘟咕嘟，像有什么东西在井底呼吸。</p>
+      <p>陈秀英老师最后一次去井边，是为了取她藏在井圈缝里的笔记。她以为没人知道。</p>
+      <p>她不知道的是，井底的那些东西，早就认识她了。</p>
+      <p>它们认识每一个靠近井的人。它们记得每一张脸。它们在等。</p>
+      <p>等什么呢？等一个愿意把名字念出来的人。</p>
+      <p>你现在正在念吗？</p>
+    </div>
+
+    <div class="eyes">👁  👁</div>
+    <div class="watching">它 们 看 到 你 了</div>
+
+    <div class="bottom-note">
+      第 1 页，共 1 页 &nbsp;&nbsp; 字数：??? &nbsp;&nbsp; 最后修改：2003-07-14 03:20
+    </div>
+  </div>
+</div>
+
+<div class="word-statusbar">
+  <span>中文(中国) &nbsp;&nbsp; 100%</span>
+  <span>光标位置：第 ? 行，第 ? 列</span>
+</div>
+
+<script>
+  // 随机文字抖动
+  setInterval(function() {
+    var title = document.querySelector('.doc-title');
+    if (title) {
+      var x = (Math.random() - 0.5) * 3;
+      var y = (Math.random() - 0.5) * 3;
+      title.style.transform = 'translate(' + x + 'px,' + y + 'px)';
+    }
+  }, 100);
+
+  // 页面加载时的音效提示（文字形式）
+  console.log('%c你不应该搜索这个词。', 'color:#ff0000;font-size:20px;font-weight:bold;');
+  console.log('%c它们现在知道你在这了。', 'color:#ff0000;font-size:14px;');
+</script>
+
+</body>
+</html>
