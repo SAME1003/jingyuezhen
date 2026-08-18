@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>景月镇人民政府</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #000;
+    color: #fff;
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+  body::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 40%, rgba(139,0,0,0.15) 100%);
+    pointer-events: none;
+  }
+  .escape-text {
+    font-size: 72px;
+    font-weight: bold;
+    color: #ff0000;
+    text-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000, 0 0 80px #8b0000;
+    letter-spacing: 8px;
+    text-align: center;
+    animation: shake 0.12s infinite;
+    user-select: none;
+    position: relative;
+    z-index: 2;
+  }
+  @keyframes shake {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    10% { transform: translate(-4px, -3px) rotate(-1deg); }
+    20% { transform: translate(4px, 3px) rotate(1deg); }
+    30% { transform: translate(-3px, 4px) rotate(0deg); }
+    40% { transform: translate(3px, -4px) rotate(1deg); }
+    50% { transform: translate(-4px, 2px) rotate(-1deg); }
+    60% { transform: translate(4px, -2px) rotate(0deg); }
+    70% { transform: translate(-2px, 3px) rotate(1deg); }
+    80% { transform: translate(2px, -3px) rotate(-1deg); }
+    90% { transform: translate(-3px, -1px) rotate(0deg); }
+  }
+  .escape-sub {
+    margin-top: 40px;
+    font-size: 16px;
+    color: #8b0000;
+    letter-spacing: 4px;
+    animation: shake 0.2s infinite;
+    position: relative;
+    z-index: 2;
+  }
+  .escape-hint {
+    margin-top: 60px;
+    font-size: 13px;
+    color: #444;
+    letter-spacing: 2px;
+    position: relative;
+    z-index: 2;
+  }
+  .escape-hint a {
+    color: #666;
+    text-decoration: none;
+    border-bottom: 1px solid #444;
+    padding-bottom: 2px;
+  }
+  .escape-hint a:hover {
+    color: #8b0000;
+    border-color: #8b0000;
+  }
+  .flash {
+    position: absolute;
+    inset: 0;
+    background: #1a0000;
+    opacity: 0;
+    animation: flashRed 2s infinite;
+    pointer-events: none;
+    z-index: 1;
+  }
+  @keyframes flashRed {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 0.3; }
+  }
+  @media (max-width: 600px) {
+    .escape-text { font-size: 36px; letter-spacing: 4px; }
+    .escape-sub { font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+  <div class="flash"></div>
+  <div class="escape-text">逃避不是答案！</div>
+  <div class="escape-sub">你以为关掉页面就没事了吗</div>
+  <div class="escape-hint">
+    <a href="home.html" target="_blank">回 去 把 事 情 了 结</a>
+  </div>
+</body>
+</html>

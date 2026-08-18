@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>景月镇人民政府 - 镇长信箱</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: "PingFang SC", "Microsoft YaHei", sans-serif; background: #f5f3ee; color: #333; line-height: 1.6; }
+  .top-banner { background: #c41e3a; color: #fff; font-size: 12px; padding: 4px 0; }
+  .top-banner .container { display: flex; justify-content: space-between; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+  .top-banner a { color: #fff; text-decoration: none; }
+  header { background: #fff; border-bottom: 3px solid #c41e3a; padding: 16px 0; }
+  .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
+  .logo { display: flex; align-items: center; gap: 12px; }
+  .logo-circle { width: 56px; height: 56px; border-radius: 50%; background: #c41e3a; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 24px; font-weight: bold; }
+  .logo-text h1 { font-size: 24px; color: #c41e3a; }
+  .logo-text p { font-size: 11px; color: #999; letter-spacing: 2px; }
+  .search-box { display: flex; gap: 8px; }
+  .search-box input { padding: 8px 12px; border: 1px solid #ddd; border-radius: 4px; width: 200px; }
+  .search-box button { padding: 8px 16px; background: #c41e3a; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
+  nav { background: #c41e3a; }
+  .nav-list { max-width: 1200px; margin: 0 auto; padding: 0 20px; list-style: none; display: flex; gap: 0; }
+  .nav-list li a { display: block; padding: 12px 20px; color: #fff; text-decoration: none; font-size: 14px; }
+  .nav-list li a:hover { background: #a01830; }
+  .main-content { max-width: 1200px; margin: 24px auto; padding: 0 20px; }
+  .breadcrumb { font-size: 12px; color: #999; margin-bottom: 16px; }
+  .breadcrumb a { color: #666; text-decoration: none; }
+  .section-card { background: #fff; border-radius: 4px; padding: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); margin-bottom: 24px; }
+  .section-title { font-size: 20px; color: #222; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid #c41e3a; }
+  .notice-box { background: #fff8e6; border-left: 4px solid #daa520; padding: 12px 16px; margin-bottom: 20px; font-size: 13px; color: #666; }
+  .letter-item { border-bottom: 1px solid #eee; padding: 16px 0; }
+  .letter-item:last-child { border-bottom: none; }
+  .letter-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .letter-title { font-size: 15px; font-weight: 600; color: #333; }
+  .letter-date { font-size: 12px; color: #999; }
+  .letter-content { font-size: 14px; color: #555; margin-bottom: 8px; }
+  .letter-reply { background: #f8f5f0; padding: 10px 14px; border-radius: 4px; font-size: 13px; color: #666; margin-top: 8px; }
+  .letter-reply strong { color: #c41e3a; }
+  .letter-status { display: inline-block; padding: 2px 8px; border-radius: 3px; font-size: 11px; }
+  .status-done { background: #e8f5e9; color: #2e7d32; }
+  .status-processing { background: #fff3e0; color: #e65100; }
+  .status-pending { background: #fce4ec; color: #c62828; }
+  .letter-weird { color: #999; font-style: italic; }
+  .letter-weird .letter-title { color: #888; }
+  .pagination { text-align: center; margin-top: 20px; }
+  .pagination a { display: inline-block; padding: 6px 12px; margin: 0 4px; border: 1px solid #ddd; border-radius: 4px; color: #666; text-decoration: none; font-size: 13px; }
+  .pagination a.active { background: #c41e3a; color: #fff; border-color: #c41e3a; }
+  .footer { background: #2a2a2a; color: #999; padding: 32px 0; margin-top: 48px; font-size: 12px; }
+  .footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+  .footer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-bottom: 24px; }
+  .footer h4 { color: #ccc; margin-bottom: 12px; font-size: 14px; }
+  .footer ul { list-style: none; }
+  .footer li { margin-bottom: 6px; }
+  .footer a { color: #888; text-decoration: none; }
+  .footer-bottom { text-align: center; padding-top: 16px; border-top: 1px solid #444; }
+  .progress-hud { position: fixed; bottom: 20px; right: 20px; background: #fff; border-radius: 8px; padding: 12px 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.15); z-index: 100; }
+  .progress-hud h4 { font-size: 12px; color: #c41e3a; margin-bottom: 6px; }
+  .progress-bar { width: 120px; height: 6px; background: #eee; border-radius: 3px; overflow: hidden; }
+  .progress-fill { height: 100%; background: #c41e3a; transition: width 0.3s; }
+  @media (max-width: 768px) {
+    .nav-list { flex-wrap: wrap; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+/* ===== 进度50%特效 ===== */
+.progress-50-overlay {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(120, 0, 0, 0.12);
+  pointer-events: none; z-index: 9998; display: none;
+}
+.progress-50-overlay.active { display: block; animation: overlayPulse 3s ease-in-out infinite; }
+@keyframes overlayPulse {
+  0%,100% { background: rgba(120,0,0,0.10); }
+  50% { background: rgba(120,0,0,0.20); }
+}
+.admin-alert {
+  position: fixed; top: 0; left: 0; right: 0;
+  background: linear-gradient(90deg, #8b0000, #a01830, #8b0000);
+  color: #fff; text-align: center; padding: 6px 12px;
+  font-size: 13px; z-index: 9999; display: none;
+  box-shadow: 0 2px 10px rgba(139,0,0,0.5);
+  letter-spacing: 1px;
+}
+.admin-alert.active { display: block; animation: alertShake 0.5s ease-in-out; }
+@keyframes alertShake {
+  0%,100% { transform: translateX(0); }
+  25% { transform: translateX(-3px); }
+  75% { transform: translateX(3px); }
+}
+.admin-alert .alert-main { font-weight: bold; }
+.admin-alert .alert-sub { font-size: 10px; color: #ffaaaa; margin-top: 1px; opacity: 0.9; }
+body.progress-50-mode { background-color: #f0e8e8 !important; }
+body.progress-50-mode .hero { filter: hue-rotate(-20deg) saturate(1.2); }
+</style>
+</head>
+<body>
+<div class="progress-50-overlay" id="progress50Overlay"></div>
+<div class="admin-alert" id="adminAlert">
+  <div class="alert-main">管理员修改了文档</div>
+  <div class="alert-sub">你在调查洪水吗？</div>
+</div>
+
+
+<div class="top-banner">
+  <div class="container">
+    <span>欢迎访问景月镇人民政府官方网站</span>
+    <span><a href="#" onclick="showToast('无障碍浏览功能开发中')">无障碍浏览</a> | <a href="#" onclick="showToast('繁體版本建設中')">繁體中文</a> | <a href="escape.html" target="_blank" id="escapeLink">^_^</a></span>
+  </div>
+</div>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-circle">★</div>
+      <div class="logo-text">
+        <h1>景月镇人民政府</h1>
+        <p>JINGYUE TOWN PEOPLE'S GOVERNMENT</p>
+      </div>
+    </div>
+    <div class="search-box">
+      <input type="text" id="siteSearch" placeholder="搜索站内信息...">
+      <button onclick="handleSearch()">搜索</button>
+    </div>
+  </div>
+</header>
+
+<nav>
+  <ul class="nav-list">
+    <li><a href="home.html" target="_blank">首页</a></li>
+    <li><a href="news.html" target="_blank">新闻动态</a></li>
+    <li><a href="about.html" target="_blank">镇情介绍</a></li>
+    <li><a href="government.html" target="_blank">政务公开</a></li>
+    <li><a href="service.html" target="_blank">便民服务</a></li>
+    <li><a href="culture.html" target="_blank">文化旅游</a></li>
+    <li><a href="forum.html" target="_blank">景月论坛</a></li>
+    <li><a href="archive.html" target="_blank">镇史馆</a></li>
+    <li><a href="contact.html" target="_blank">联系我们</a></li>
+  </ul>
+</nav>
+
+<div class="main-content">
+  <div class="breadcrumb">
+    <a href="home.html">首页</a> &gt; <a href="government.html">政务公开</a> &gt; 镇长信箱
+  </div>
+
+  <div class="section-card">
+    <h2 class="section-title">镇长信箱</h2>
+    <div class="notice-box">
+      <strong>说明：</strong>本栏目受理群众对镇政府工作的意见、建议和投诉。来信请注明联系方式，我们将在15个工作日内答复。涉及信访事项的，请通过正规信访渠道反映。
+    </div>
+
+    <!-- 正常留言 -->
+    <div class="letter-item">
+      <div class="letter-header">
+        <span class="letter-title">关于古镇景区停车位不足的建议</span>
+        <span class="letter-date">2024-03-10</span>
+      </div>
+      <div class="letter-content">周末去古镇玩，停车场满了，车停到很远的地方。建议在景区周边增设临时停车场，或者开通接驳车。</div>
+      <div class="letter-reply"><strong>镇旅游办回复：</strong>感谢您的建议。我镇已规划在古镇东侧建设新停车场，预计2024年下半年开工。节假日期间将协调周边单位开放内部停车位。</div>
+      <div style="margin-top:8px;"><span class="letter-status status-done">已答复</span></div>
+    </div>
+
+    <div class="letter-item">
+      <div class="letter-header">
+        <span class="letter-title">景月湖水质问题</span>
+        <span class="letter-date">2024-02-28</span>
+      </div>
+      <div class="letter-content">最近景月湖边有异味，水也有点浑浊，希望环保部门查一下。</div>
+      <div class="letter-reply"><strong>镇环保所回复：</strong>经检测，景月湖水质达标，异味为季节性水生植物腐烂所致，已组织清理。后续将加强日常巡查。</div>
+      <div style="margin-top:8px;"><span class="letter-status status-done">已答复</span></div>
+    </div>
+
+    <div class="letter-item">
+      <div class="letter-header">
+        <span class="letter-title">农村医保报销流程咨询</span>
+        <span class="letter-date">2024-02-15</span>
+      </div>
+      <div class="letter-content">家里老人住院，医保报销需要什么材料？去哪里办？</div>
+      <div class="letter-reply"><strong>镇便民服务中心回复：</strong>请携带身份证、医保卡、住院发票、费用清单、出院小结到便民服务中心2号窗口办理。详情可咨询0572-8866001。</div>
+      <div style="margin-top:8px;"><span class="letter-status status-done">已答复</span></div>
+    </div>
+
+    <div class="letter-item">
+      <div class="letter-header">
+        <span class="letter-title">井湾村道路损坏</span>
+        <span class="letter-date">2024-01-20</span>
+      </div>
+      <div class="letter-content">井湾村进村的路有好几处坑洼，下雨天积水严重，出行不便。</div>
+      <div class="letter-reply"><strong>镇交通站回复：</strong>井湾村道路已列入2024年维修计划，预计上半年开工。在此期间请注意出行安全。</div>
+      <div style="margin-top:8px;"><span class="letter-status status-processing">处理中</span></div>
+    </div>
+
+    <!-- 微妙诡异的留言 -->
+    <div class="letter-item">
+      <div class="letter-header">
+        <span class="letter-title">关于北井公园围栏的疑问</span>
+        <span class="letter-date">2023-12-05</span>
+      </div>
+      <div class="letter-content">北井公园那口井周围的围栏什么时候能拆？都围了好几年了，游客都看不到井。</div>
+      <div class="letter-reply"><strong>镇文旅办回复：</strong>北井因地质结构不稳定，围栏为安全措施，暂时不予拆除。请谅解。</div>
+      <div style="margin-top:8px;"><span class="letter-status status-done">已答复</span></div>
+    </div>
+
+    <div class="letter-item letter-weird">
+      <div class="letter-header">
+        <span class="letter-title">（匿名）晚上听到的声音</span>
+        <span class="letter-date">2023-10-18</span>
+      </div>
+      <div class="letter-content">我是井湾村的，最近半个月每天凌晨三点左右能听到从北边传来的声音，像有人在敲什么东西。问了邻居，有人说也听到了，有人说没听到。不知道是不是工地施工？</div>
+      <div class="letter-reply"><strong>镇派出所回复：</strong>经核查，井湾村周边近期无夜间施工项目。如再次听到，请及时拨打110或镇值班室电话0572-8866000。</div>
+      <div style="margin-top:8px;"><span class="letter-status status-done">已答复</span></div>
+    </div>
+
+    <div class="letter-item letter-weird">
+      <div class="letter-header">
+        <span class="letter-title">（匿名）寻人</span>
+        <span class="letter-date">2003-08-02</span>
+      </div>
+      <div class="letter-content">我母亲陈秀英，68岁，井湾村人，退休教师，于7月14日洪水当天走失。身高约1米55，花白头发，走失时穿蓝色上衣。有知情者请联系138xxxxxxxxx，万分感谢。</div>
+      <div class="letter-reply" style="color:#999;">（该留言已归档）</div>
+      <div style="margin-top:8px;"><span class="letter-status status-pending">已归档</span></div>
+    </div>
+
+    <div class="letter-item letter-weird">
+      <div class="letter-header">
+        <span class="letter-title">（内容已删除）</span>
+        <span class="letter-date">2003-07-20</span>
+      </div>
+      <div class="letter-content" style="color:#ccc;">［该留言内容不符合相关规定，已被管理员删除］</div>
+      <div style="margin-top:8px;"><span class="letter-status status-pending">已删除</span></div>
+    </div>
+
+    <div class="pagination">
+      <a href="#" class="active">1</a>
+      <a href="#" onclick="showToast('暂无更多内容')">2</a>
+      <a href="#" onclick="showToast('暂无更多内容')">3</a>
+      <a href="#" onclick="showToast('暂无更多内容')">下一页</a>
+    </div>
+  </div>
+</div>
+
+<div class="progress-hud">
+  <h4>探索进度</h4>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <h4>景月镇人民政府</h4>
+        <p>地址：江南省月城市景月镇人民路18号</p>
+        <p>邮编：313300</p>
+        <p>电话：0572-8866000</p>
+      </div>
+      <div>
+        <h4>快速导航</h4>
+        <ul>
+          <li><a href="home.html" target="_blank">首页</a></li>
+          <li><a href="news.html" target="_blank">新闻动态</a></li>
+          <li><a href="about.html" target="_blank">镇情介绍</a></li>
+          <li><a href="service.html" target="_blank">便民服务</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>友情链接</h4>
+        <ul>
+          <li><a href="#" onclick="showToast('跳转至月城市政府官网')">月城市人民政府</a></li>
+          <li><a href="#" onclick="showToast('跳转至江南省政府官网')">江南省人民政府</a></li>
+          <li><a href="#" onclick="showToast('跳转至中央人民政府')">中央人民政府</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>网站说明</h4>
+        <p>主办：景月镇人民政府</p>
+        <p>承办：景月镇信息化办公室</p>
+        <p>备案号：浙ICP备05012345号</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 景月镇人民政府 版权所有 | 建议1920×1080分辨率浏览</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+const GAME_STATE = {
+  discoveries: { well_location:false, forum_secret:false, archive_2003:false, phone_easter:false, glitch_text:false, hidden_link:false, found_all_clues:false },
+  fearLayer: 0, ending: null, playthrough: 1,
+};
+const TOTAL_CLUES = 6;
+function saveProgress() { try { localStorage.setItem('jingyue_save', JSON.stringify(GAME_STATE)); } catch(e) {} }
+function loadProgress() { try { const s = localStorage.getItem('jingyue_save'); if(s){const d=JSON.parse(s); Object.assign(GAME_STATE.discoveries,d.discoveries||{}); GAME_STATE.fearLayer=d.fearLayer||0;} } catch(e) {} }
+function applyFearLayer() { document.body.classList.remove('layer-1','layer-2','layer-3','layer-4'); if(GAME_STATE.fearLayer>0) document.body.classList.add('layer-'+GAME_STATE.fearLayer); }
+function updateProgressHUD() {
+  const clues = [{id:'well_location',name:'发现北井位置'},{id:'forum_secret',name:'发现论坛秘密'},{id:'archive_2003',name:'解锁2003档案'},{id:'phone_easter',name:'发现异常号码'},{id:'glitch_text',name:'注意到文字异常'},{id:'hidden_link',name:'发现隐藏链接'}];
+  const found = clues.filter(c=>GAME_STATE.discoveries[c.id]).length;
+  const pct = Math.round((found/TOTAL_CLUES)*100);
+  const f = document.getElementById('progressFill'); if(f) f.style.width = pct+'%';
+}
+function showToast(msg, imp) { const t=document.createElement('div'); t.style.cssText='position:fixed;top:80px;left:50%;transform:translateX(-50%);background:'+(imp?'#c41e3a':'#333')+';color:#fff;padding:12px 24px;border-radius:4px;z-index:9999;font-size:14px;'; t.textContent=msg; document.body.appendChild(t); setTimeout(()=>t.remove(),3000); }
+function handleSearch() {
+  const q = document.getElementById('siteSearch').value.trim();
+  if(!q){showToast('输入关键词');return;}
+  if(q.includes('井')){showToast('搜索结果：找到相关内容');return;}
+  if(q.includes('陈秀英')||q.includes('张国强')){showToast('搜索结果：找到相关人员档案',true);window.open('flood_victims.html','_blank');return;}
+  if(q.includes('洪水')||q.includes('抗洪')||q.includes('名单')){showToast('搜索结果：找到 1 条相关记录',true);window.open('flood_victims.html','_blank');return;}
+  if(q.includes('2003')){showToast('搜索结果：找到 1 条相关记录 - 2003年抗洪救灾纪实',true);window.open('flood_victims.html','_blank');return;}
+  if(q.includes('李建国')){showToast('搜索结果：李建国，景月镇镇长。');return;}
+  showToast('搜索"'+q+'"：共找到 0 条结果');
+}
+loadProgress(); checkProgress50(); applyFearLayer(); updateProgressHUD();
+
+function checkProgress50() {
+  const clues = ['well_location','forum_secret','archive_2003','phone_easter','glitch_text','hidden_link'];
+  const found = clues.filter(function(c){return GAME_STATE.discoveries[c];}).length;
+  if (found >= 3) {
+    var overlay = document.getElementById('progress50Overlay');
+    var alert = document.getElementById('adminAlert');
+    if (overlay) overlay.classList.add('active');
+    if (alert) alert.classList.add('active');
+    document.body.classList.add('progress-50-mode');
+    // 替换hero图为诡异版
+    var hero = document.querySelector('.hero');
+    if (hero) hero.style.backgroundImage = \"url('town_horror.jpg')\";
+    // 替换画廊中的正常图
+    var imgs = document.querySelectorAll('.gallery-item img, .news-img, .about-img');
+    for (var i = 0; i < imgs.length; i++) {
+      var src = imgs[i].src;
+      if (src.indexOf('town_day') >= 0) imgs[i].src = 'town_horror.jpg';
+      else if (src.indexOf('gov_day') >= 0) imgs[i].src = 'gov_horror.jpg';
+      else if (src.indexOf('lake_day') >= 0) imgs[i].src = 'lake_horror.jpg';
+      else if (src.indexOf('street_day') >= 0) imgs[i].src = 'street_horror.jpg';
+    }
+  }
+}
+</script>
+</body>
+</html>
