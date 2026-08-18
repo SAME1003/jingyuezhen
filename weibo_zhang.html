@@ -1,0 +1,375 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>张国强的微博 - 微博</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #f5f5f5;
+    font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+    min-height: 100vh;
+  }
+  /* 顶部导航 */
+  .weibo-header {
+    background: #fff;
+    border-bottom: 1px solid #e6e6e6;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    height: 50px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .weibo-logo {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ff8200;
+    margin-right: 30px;
+  }
+  .weibo-nav {
+    display: flex;
+    gap: 20px;
+    font-size: 14px;
+    color: #333;
+  }
+  .weibo-nav span { cursor: default; }
+  .weibo-nav span.active { color: #ff8200; font-weight: bold; }
+  .weibo-search {
+    margin-left: auto;
+    display: flex;
+    gap: 8px;
+  }
+  .weibo-search input {
+    padding: 6px 10px;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    font-size: 13px;
+    width: 200px;
+  }
+  /* 主内容 */
+  .main-container {
+    max-width: 900px;
+    margin: 20px auto;
+    display: flex;
+    gap: 20px;
+    padding: 0 20px;
+  }
+  /* 左侧用户卡片 */
+  .user-card {
+    width: 260px;
+    background: #fff;
+    border-radius: 4px;
+    padding: 20px;
+    text-align: center;
+    height: fit-content;
+  }
+  .user-avatar {
+    width: 80px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin: 0 auto 12px;
+    display: block;
+  }
+  .user-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 4px;
+  }
+  .user-verified {
+    font-size: 12px;
+    color: #ff8200;
+    margin-bottom: 12px;
+  }
+  .user-desc {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  .user-stats {
+    display: flex;
+    justify-content: space-around;
+    padding: 12px 0;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 16px;
+  }
+  .user-stats .stat {
+    text-align: center;
+  }
+  .user-stats .num {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+  }
+  .user-stats .label {
+    font-size: 12px;
+    color: #999;
+  }
+  .follow-btn {
+    width: 100%;
+    padding: 8px;
+    background: #ff8200;
+    color: #fff;
+    border: none;
+    border-radius: 2px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .follow-btn:hover { background: #e67300; }
+  .follow-btn.followed {
+    background: #f5f5f5;
+    color: #999;
+    border: 1px solid #ddd;
+  }
+  /* 右侧微博列表 */
+  .weibo-list {
+    flex: 1;
+  }
+  .weibo-post {
+    background: #fff;
+    border-radius: 4px;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+  }
+  .weibo-post .post-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .weibo-post .post-avatar {
+    width: 40px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-right: 10px;
+  }
+  .weibo-post .post-info .post-name {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+  }
+  .weibo-post .post-info .post-time {
+    font-size: 12px;
+    color: #999;
+  }
+  .weibo-post .post-content {
+    font-size: 14px;
+    line-height: 1.8;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  .weibo-post .post-actions {
+    display: flex;
+    gap: 30px;
+    font-size: 12px;
+    color: #999;
+    padding-top: 10px;
+    border-top: 1px solid #f0f0f0;
+  }
+  .weibo-post .post-actions span { cursor: default; }
+  /* 乱码微博 */
+  .glitch-post {
+    background: #1a1a1a;
+    color: #0f0;
+    font-family: "Courier New", monospace;
+    position: relative;
+    overflow: hidden;
+  }
+  .glitch-post .post-content {
+    color: #0f0;
+    font-size: 13px;
+    letter-spacing: 1px;
+    word-break: break-all;
+  }
+  .glitch-post .morse-code {
+    color: #ff0;
+    font-weight: bold;
+    letter-spacing: 3px;
+  }
+  .glitch-post::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: rgba(0,255,0,0.3);
+    animation: scanline 3s linear infinite;
+  }
+  @keyframes scanline {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(200px); }
+  }
+  .new-post-badge {
+    display: inline-block;
+    background: #ff4d4f;
+    color: #fff;
+    font-size: 10px;
+    padding: 1px 6px;
+    border-radius: 2px;
+    margin-left: 8px;
+    animation: blink 1s infinite;
+  }
+  @keyframes blink {
+    0%,100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+  .back-btn {
+    position: fixed;
+    top: 60px;
+    right: 20px;
+    background: #ff8200;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    font-size: 12px;
+    cursor: pointer;
+    z-index: 100;
+    border-radius: 2px;
+  }
+</style>
+</head>
+<body>
+
+<div class="weibo-header">
+  <div class="weibo-logo">微博</div>
+  <div class="weibo-nav">
+    <span>首页</span><span class="active">他的主页</span><span>视频</span><span>发现</span>
+  </div>
+  <div class="weibo-search">
+    <input type="text" placeholder="搜索微博">
+  </div>
+</div>
+
+<button class="back-btn" onclick="window.location.href='home.html'">← 返回官网</button>
+
+<div class="main-container">
+  <!-- 左侧用户卡片 -->
+  <div class="user-card">
+    <img src="zhang_guoqiang.jpg" alt="张国强" class="user-avatar">
+    <div class="user-name">沉湖村张国强</div>
+    <div class="user-verified">✓ 沉湖村党支部书记</div>
+    <div class="user-desc">为村民办实事，为沉湖谋发展。有事找老张。</div>
+    <div class="user-stats">
+      <div class="stat"><div class="num" id="followerCount">128</div><div class="label">粉丝</div></div>
+      <div class="stat"><div class="num">56</div><div class="label">关注</div></div>
+      <div class="stat"><div class="num">89</div><div class="label">微博</div></div>
+    </div>
+    <button class="follow-btn" id="followBtn" onclick="toggleFollow()">+ 关注</button>
+  </div>
+
+  <!-- 右侧微博列表 -->
+  <div class="weibo-list" id="weiboList">
+    <!-- 微博1 -->
+    <div class="weibo-post">
+      <div class="post-header">
+        <img src="zhang_guoqiang.jpg" class="post-avatar">
+        <div class="post-info">
+          <div class="post-name">沉湖村张国强</div>
+          <div class="post-time">2003-07-10 08:30</div>
+        </div>
+      </div>
+      <div class="post-content">接到镇上通知，近期可能有大暴雨。已经通知各户做好防汛准备，低洼地带的村民今晚转移到村小学。大家有困难随时找我。</div>
+      <div class="post-actions"><span>转发 3</span><span>评论 12</span><span>赞 28</span></div>
+    </div>
+
+    <!-- 微博2 -->
+    <div class="weibo-post">
+      <div class="post-header">
+        <img src="zhang_guoqiang.jpg" class="post-avatar">
+        <div class="post-info">
+          <div class="post-name">沉湖村张国强</div>
+          <div class="post-time">2003-07-12 16:45</div>
+        </div>
+      </div>
+      <div class="post-content">雨越下越大了，沉湖水位已经超过警戒水位半米。刚从堤坝回来，沙袋还在补。镇里说今晚可能要炸堤分洪，我去问问井湾村那边什么情况。</div>
+      <div class="post-actions"><span>转发 8</span><span>评论 34</span><span>赞 56</span></div>
+    </div>
+
+    <!-- 微博3 -->
+    <div class="weibo-post">
+      <div class="post-header">
+        <img src="zhang_guoqiang.jpg" class="post-avatar">
+        <div class="post-info">
+          <div class="post-name">沉湖村张国强</div>
+          <div class="post-time">2003-07-13 22:10</div>
+        </div>
+      </div>
+      <div class="post-content">井湾村的陈秀英老师今天来找我，说北井那边不对劲，井水在往上冒，还咕嘟咕嘟响。我去看了一眼，确实邪门。已经报给镇上了，希望是我多想了。</div>
+      <div class="post-actions"><span>转发 15</span><span>评论 67</span><span>赞 102</span></div>
+    </div>
+
+    <!-- 微博4 -->
+    <div class="weibo-post">
+      <div class="post-header">
+        <img src="zhang_guoqiang.jpg" class="post-avatar">
+        <div class="post-info">
+          <div class="post-name">沉湖村张国强</div>
+          <div class="post-time">2003-07-14 03:20</div>
+        </div>
+      </div>
+      <div class="post-content">堤坝决口了。我带人去北井那边救人，陈老师还在村里没出来。如果我回不来……大家记住，井里的东西，不是水。</div>
+      <div class="post-actions"><span>转发 324</span><span>评论 891</span><span>赞 2048</span></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  var followed = false;
+
+  function toggleFollow() {
+    var btn = document.getElementById('followBtn');
+    var followerCount = document.getElementById('followerCount');
+    var list = document.getElementById('weiboList');
+
+    if (!followed) {
+      followed = true;
+      btn.textContent = '已关注';
+      btn.classList.add('followed');
+      followerCount.textContent = '129';
+
+      // 发现线索
+      try {
+        var saved = localStorage.getItem('jingyue_save');
+        var state = saved ? JSON.parse(saved) : { discoveries: {}, fearLayer: 0 };
+        if (!state.discoveries) state.discoveries = {};
+        state.discoveries.zhang_weibo = true;
+        localStorage.setItem('jingyue_save', JSON.stringify(state));
+      } catch(e) {}
+
+      // 添加乱码微博
+      var glitchPost = document.createElement('div');
+      glitchPost.className = 'weibo-post glitch-post';
+      glitchPost.innerHTML = `
+        <div class="post-header">
+          <img src="zhang_guoqiang.jpg" class="post-avatar" style="filter:brightness(0.5) hue-rotate(90deg);">
+          <div class="post-info">
+            <div class="post-name" style="color:#0f0;">沉湖村张国强 <span class="new-post-badge">新</span></div>
+            <div class="post-time" style="color:#066;">2003-07-14 03:20</div>
+          </div>
+        </div>
+        <div class="post-content">
+          ██▓▒░你看到这条的时候我应该已经不在了░▒▓██<br>
+          ▓▒░不要相信镇上说的话░▒▓<br>
+          ░▒▓█他们把井封了█▓▒░<br>
+          <span class="morse-code">— — · · ·   · · · · —</span><br>
+          ▓▒░下面有人在等░▒▓<br>
+          ██▓▒░你找到我了吗░▒▓██
+        </div>
+        <div class="post-actions" style="color:#066;"><span>转发 ???</span><span>评论 ???</span><span>赞 ???</span></div>
+      `;
+      list.insertBefore(glitchPost, list.firstChild);
+
+      // 提示
+      alert('关注成功！张国强发布了一条新微博...');
+    }
+  }
+</script>
+
+</body>
+</html>

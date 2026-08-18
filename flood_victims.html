@@ -58,10 +58,10 @@
   .footer a { color: #888; text-decoration: none; }
   .footer a:hover { color: #c41e3a; }
   .footer-bottom { text-align: center; padding-top: 16px; border-top: 1px solid #444; }
-  .progress-hud { position: fixed; bottom: 20px; right: 20px; background: #fff; border-radius: 8px; padding: 12px 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.15); z-index: 100; }
+  
   .progress-hud h4 { font-size: 12px; color: #c41e3a; margin-bottom: 6px; }
-  .progress-bar { width: 120px; height: 6px; background: #eee; border-radius: 3px; overflow: hidden; }
-  .progress-fill { height: 100%; background: #c41e3a; transition: width 0.3s; }
+  
+  
   @media (max-width: 768px) {
     .nav-list { flex-wrap: wrap; }
     .footer-grid { grid-template-columns: 1fr 1fr; }
@@ -70,7 +70,7 @@
 
 /* ===== 进度50%特效 ===== */
 .progress-50-overlay {
-  position: fixed; inset: 0;
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100%; height: 100%;
   background: rgba(120, 0, 0, 0.15);
   pointer-events: none; z-index: 9998; display: none;
 }
@@ -209,9 +209,7 @@ body.progress-50-mode .hero { filter: hue-rotate(-20deg) saturate(1.2); }
   </div>
 </div>
 
-<div class="progress-hud">
-  <h4>探索进度</h4>
-  <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+
 </div>
 
 <footer class="footer">
@@ -280,37 +278,15 @@ function applyFearLayer() {
   document.body.classList.remove('layer-1','layer-2','layer-3','layer-4');
   if (GAME_STATE.fearLayer > 0) document.body.classList.add('layer-' + GAME_STATE.fearLayer);
 }
-function updateProgressHUD() {
-  const clues = [
-    { id: 'well_location', name: '发现北井位置' },
-    { id: 'forum_secret', name: '发现论坛秘密' },
-    { id: 'archive_2003', name: '解锁2003档案' },
-    { id: 'phone_easter', name: '发现异常号码' },
-    { id: 'glitch_text', name: '注意到文字异常' },
-    { id: 'hidden_link', name: '发现隐藏链接' },
-  ];
-  const found = clues.filter(c => GAME_STATE.discoveries[c.id]).length;
-  const percent = Math.round((found / TOTAL_CLUES) * 100);
-  const bar = document.getElementById('progressBar');
-  if (bar) bar.style.width = percent + '%';
-  const list = document.getElementById('progressList');
-  if (list) {
-    list.innerHTML = clues.map(c => {
-      if (GAME_STATE.discoveries[c.id]) {
-        return '<li><span class="progress-icon-done">✓</span> ' + c.name + '</li>';
-      } else {
-        return '<li style="color:#bbb;"><span class="progress-icon-todo">?</span> 未发现的线索</li>';
-      }
-    }).join('');
-  }
-}
+
+
 function discoverHidden(clueId) {
   if (GAME_STATE.discoveries[clueId]) return;
   GAME_STATE.discoveries[clueId] = true;
   if (GAME_STATE.fearLayer < 4) GAME_STATE.fearLayer++;
   applyFearLayer();
   saveProgress();
-  updateProgressHUD();
+  
   const messages = {
     well_location: '地图西北角有个红点，没有标注地名。',
     forum_secret: '这个帖子里有些内容不太对劲。',
@@ -332,7 +308,7 @@ function showToast(msg, important) {
 function showPerson(personId) {
   discoverHidden('flood_list');
   const persons = {
-    chen_xiuying: '陈秀英，女，1935年生，井湾村人，1995年从景月镇中心小学退休。2003年7月14日洪水当晚失踪，遗体三日后于下游发现。据邻居回忆，陈老师退休后一直在整理井湾村的村志，失踪前曾多次提到"井下的东西"。',
+    chen_xiuying: '陈秀英，女，1935年生，井湾村人，1995年退休。2003年7月14日洪水当晚失踪。搜索陈秀英查看详细缅怀文档。据邻居回忆，陈老师退休后一直在整理井湾村的村志，失踪前曾多次提到"井下的东西"。',
     zhang_guoqiang: '张国强，男，1958年生，沉湖村党支部书记。2003年抗洪中带队转移群众，最后一个撤离时被洪水冲走。其家属称，张国强生前曾多次向上级反映"井湾村地质异常"，但未获重视。',
   };
   if (persons[personId]) {
@@ -344,7 +320,10 @@ function showPerson(personId) {
 function handleSearch() {
   const query = document.getElementById('siteSearch').value.trim();
   if (!query) { showToast('输入关键词'); return; }
-  if (query.includes('井')) { discoverHidden('well_location'); return; }
+  if (query.includes('井')) {
+    showToast('搜索结果：景月镇范围内有多处古井，其中北井位于井湾村北侧，已列入文物保护单位。', false);
+    return;
+  }
   if (query.includes('陈秀英') || query.includes('张国强')) {
     showToast('搜索结果：找到相关人员档案，请查看2003年抗洪救灾纪实', true);
     return;
@@ -359,7 +338,7 @@ function handleSearch() {
 
 loadProgress(); checkProgress50();
 applyFearLayer();
-updateProgressHUD();
+
 // 进入此页面即发现洪水名单线索
 if (!GAME_STATE.discoveries.flood_list) {
   setTimeout(() => discoverHidden('flood_list'), 1000);

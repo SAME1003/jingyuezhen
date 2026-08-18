@@ -837,21 +837,7 @@ body.layer-4 {
 .modal-body p { margin-bottom: 10px; text-indent: 2em; }
 
 /* ========== 进度HUD ========== */
-.progress-hud {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: rgba(255,255,255,0.95);
-  border: 1px solid var(--border-color);
-  border-radius: 6px;
-  padding: 10px 14px;
-  font-size: 12px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-  z-index: 500;
-  cursor: pointer;
-  transition: all 0.3s;
-  max-width: 240px;
-}
+
 .progress-hud:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
 .progress-hud-title {
   font-weight: 600;
@@ -891,8 +877,8 @@ body.layer-4 {
   align-items: center;
   gap: 6px;
 }
-.progress-icon-done { color: #2a9d4f; }
-.progress-icon-todo { color: #ccc; }
+
+
 
 /* ========== Toast提示 ========== */
 .toast {
@@ -952,7 +938,7 @@ body.layer-4 {
   .hero-content p { font-size: 13px; }
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
   .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-  .progress-hud { bottom: 12px; right: 12px; max-width: 180px; padding: 8px 10px; font-size: 11px; }
+  
   .top-banner .container { flex-direction: column; gap: 4px; text-align: center; padding: 4px 12px; }
   .modal-box { max-height: 90vh; }
   .password-digit { width: 40px; height: 50px; font-size: 20px; }
@@ -1194,7 +1180,7 @@ body.layer-4 {
 
 /* ===== 进度50%特效 ===== */
 .progress-50-overlay {
-  position: fixed; inset: 0;
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100%; height: 100%;
   background: rgba(120, 0, 0, 0.15);
   pointer-events: none; z-index: 9998; display: none;
 }
@@ -1460,11 +1446,7 @@ body.progress-50-mode .hero { filter: hue-rotate(-20deg) saturate(1.2); }
 <!-- ========== Toast ========== -->
 <div class="toast" id="toast"></div>
 <!-- ========== 进度HUD ========== -->
-<div class="progress-hud" onclick="toggleProgressDetail()">
-  <div class="progress-hud-title">探索进度</div>
-  <div class="progress-bar-bg">
-    <div class="progress-bar-fill" id="progressBar" style="width:0%"></div>
-  </div>
+
   <div class="progress-hud-detail" id="progressDetail">
     <ul id="progressList"></ul>
   </div>
@@ -1535,7 +1517,7 @@ function discoverHidden(clueId) {
   if (GAME_STATE.discoveries[clueId]) return;
   GAME_STATE.discoveries[clueId] = true;
   increaseFear();
-  updateProgressHUD();
+  
   saveProgress();
 
   const messages = {
@@ -1566,31 +1548,7 @@ function checkAllClues() {
   }
 }
 
-// ========== 进度HUD ==========
-function updateProgressHUD() {
-  const clues = [
-    { id: 'well_location', name: '发现北井位置' },
-    { id: 'forum_secret', name: '发现论坛秘密' },
-    { id: 'archive_2003', name: '解锁2003档案' },
-    { id: 'phone_easter', name: '发现异常号码' },
-    { id: 'glitch_text', name: '注意到文字异常' },
-    { id: 'hidden_link', name: '发现隐藏链接' },
-  ];
-  const found = clues.filter(c => GAME_STATE.discoveries[c.id]).length;
-  const percent = Math.round((found / TOTAL_CLUES) * 100);
-  const bar = document.getElementById('progressBar');
-  if (bar) bar.style.width = percent + '%';
-  const list = document.getElementById('progressList');
-  if (list) {
-    list.innerHTML = clues.map(c => {
-      if (GAME_STATE.discoveries[c.id]) {
-        return '<li><span class="progress-icon-done">✓</span> ' + c.name + '</li>';
-      } else {
-        return '<li style="color:#bbb;"><span class="progress-icon-todo">?</span> 未发现的线索</li>';
-      }
-    }).join('');
-  }
-}
+
 
 function getTotalProgress() {
   const clues = ['well_location', 'forum_secret', 'archive_2003', 'phone_easter', 'glitch_text', 'hidden_link'];
@@ -1617,7 +1575,7 @@ function initPage(pageId) {
   var es = document.getElementById('endingScreen');
   if (es) es.style.display = 'none';
   applyFearLayer();
-  updateProgressHUD();
+  
 
   
 
@@ -2327,7 +2285,7 @@ function restartGame() {
   document.getElementById('endingScreen').style.display = 'none';
   document.body.classList.remove('layer-1','layer-2','layer-3','layer-4');
   document.querySelectorAll('.hidden-link.found').forEach(el => el.classList.remove('found'));
-  updateProgressHUD();
+  
   window.location.href = 'home.html';
   showToast('存档已清除。');
 }
@@ -2338,11 +2296,21 @@ function handleSearch() {
   const query = document.getElementById('siteSearch').value.trim();
   if (!query) { showToast('输入关键词'); return; }
   console.log('[搜索] 查询:', query);
-  if (query.includes('井') && !GAME_STATE.discoveries.well_location) {
-    discoverHidden('well_location');
+  if (query.includes('井')) {
+    showToast('搜索结果：景月镇范围内有多处古井，其中北井位于井湾村北侧，已列入文物保护单位。', false);
     return;
   }
-  if (query.includes('陈秀英') || query.includes('张国强') || query.includes('遇难者') || query.includes('遇难人员')) {
+  if (query.includes('陈秀英')) {
+    showToast('搜索结果：找到缅怀文档，正在跳转...', false);
+    window.open('memorial_chen.html', '_blank');
+    return;
+  }
+  if (query.includes('张国强')) {
+    showToast('搜索结果：找到相关用户主页，正在跳转...', false);
+    window.open('weibo_zhang.html', '_blank');
+    return;
+  }
+  if (query.includes('遇难者') || query.includes('遇难人员')) {
     showToast('搜索结果：找到相关人员档案，正在跳转...', true);
     window.open('flood_victims.html', '_blank');
     return;
@@ -2387,7 +2355,7 @@ document.addEventListener('DOMContentLoaded', function() {
   loadProgress(); checkProgress50();
   // 强制隐藏结局画面（防止刷新后残留）
   document.getElementById('endingScreen').style.display = 'none';
-  updateProgressHUD();
+  
 
   // 填充首页新闻列表
   const homeNews = document.getElementById('homeNewsList');

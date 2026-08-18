@@ -837,21 +837,7 @@ body.layer-4 {
 .modal-body p { margin-bottom: 10px; text-indent: 2em; }
 
 /* ========== 进度HUD ========== */
-.progress-hud {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: rgba(255,255,255,0.95);
-  border: 1px solid var(--border-color);
-  border-radius: 6px;
-  padding: 10px 14px;
-  font-size: 12px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-  z-index: 500;
-  cursor: pointer;
-  transition: all 0.3s;
-  max-width: 240px;
-}
+
 .progress-hud:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
 .progress-hud-title {
   font-weight: 600;
@@ -891,8 +877,8 @@ body.layer-4 {
   align-items: center;
   gap: 6px;
 }
-.progress-icon-done { color: #2a9d4f; }
-.progress-icon-todo { color: #ccc; }
+
+
 
 /* ========== Toast提示 ========== */
 .toast {
@@ -952,7 +938,7 @@ body.layer-4 {
   .hero-content p { font-size: 13px; }
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
   .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-  .progress-hud { bottom: 12px; right: 12px; max-width: 180px; padding: 8px 10px; font-size: 11px; }
+  
   .top-banner .container { flex-direction: column; gap: 4px; text-align: center; padding: 4px 12px; }
   .modal-box { max-height: 90vh; }
   .password-digit { width: 40px; height: 50px; font-size: 20px; }
@@ -1194,7 +1180,7 @@ body.layer-4 {
 
 /* ===== 进度50%特效 ===== */
 .progress-50-overlay {
-  position: fixed; inset: 0;
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100%; height: 100%;
   background: rgba(120, 0, 0, 0.15);
   pointer-events: none; z-index: 9998; display: none;
 }
@@ -1223,6 +1209,37 @@ body.layer-4 {
 .admin-alert .alert-sub { font-size: 10px; color: #ffaaaa; margin-top: 1px; opacity: 0.9; }
 body.progress-50-mode { background-color: #f0e8e8 !important; }
 body.progress-50-mode .hero { filter: hue-rotate(-20deg) saturate(1.2); }
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 10001;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-overlay.show { display: flex; }
+.modal-content {
+  background: #fff;
+  border-radius: 6px;
+  max-width: 500px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+.modal-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.modal-header h3 { margin: 0; font-size: 18px; color: #333; }
+.modal-close {
+  background: none; border: none; font-size: 24px; cursor: pointer; color: #999;
+}
+.modal-body { padding: 20px; }
 </style>
 </head>
 <body>
@@ -1304,7 +1321,7 @@ body.progress-50-mode .hero { filter: hue-rotate(-20deg) saturate(1.2); }
           <p>民国时为月城县第三区公所驻地。1958年成立景月人民公社，1983年改乡，1992年撤乡建镇。</p>
 
           <h4>行政区划</h4>
-          <p>景月镇辖3个社区、12个行政村：景月社区、月牙社区、古街社区；井湾村、<span class="glitch-text" data-text="沉湖村" onclick="discoverHidden('glitch_text');this.style.color='#ff0040';this.style.textShadow='0 0 10px #ff0040';return false;" style="cursor:pointer" title="">沉湖村</span>、石桥村、清水村、东塘村、西塘村、南山村、北岭村、前溪村、后溪村、李村、王村。</p>
+          <p>景月镇辖3个社区、12个行政村：景月社区、月牙社区、古街社区；井湾村、<span class="glitch-text" data-text="沉湖村" onclick="showChenhuDetail();discoverHidden('glitch_text');this.style.color='#ff0040';this.style.textShadow='0 0 10px #ff0040';return false;" style="cursor:pointer" title="">沉湖村</span>、石桥村、清水村、东塘村、西塘村、南山村、北岭村、前溪村、后溪村、李村、王村。</p>
 
           <h4>人口民族</h4>
           <p>全镇人口约4.2万，其中城镇1.8万、农村2.4万。</p>
@@ -1436,11 +1453,7 @@ body.progress-50-mode .hero { filter: hue-rotate(-20deg) saturate(1.2); }
 <!-- ========== Toast ========== -->
 <div class="toast" id="toast"></div>
 <!-- ========== 进度HUD ========== -->
-<div class="progress-hud" onclick="toggleProgressDetail()">
-  <div class="progress-hud-title">探索进度</div>
-  <div class="progress-bar-bg">
-    <div class="progress-bar-fill" id="progressBar" style="width:0%"></div>
-  </div>
+
   <div class="progress-hud-detail" id="progressDetail">
     <ul id="progressList"></ul>
   </div>
@@ -1511,7 +1524,7 @@ function discoverHidden(clueId) {
   if (GAME_STATE.discoveries[clueId]) return;
   GAME_STATE.discoveries[clueId] = true;
   increaseFear();
-  updateProgressHUD();
+  
   saveProgress();
 
   const messages = {
@@ -1542,31 +1555,7 @@ function checkAllClues() {
   }
 }
 
-// ========== 进度HUD ==========
-function updateProgressHUD() {
-  const clues = [
-    { id: 'well_location', name: '发现北井位置' },
-    { id: 'forum_secret', name: '发现论坛秘密' },
-    { id: 'archive_2003', name: '解锁2003档案' },
-    { id: 'phone_easter', name: '发现异常号码' },
-    { id: 'glitch_text', name: '注意到文字异常' },
-    { id: 'hidden_link', name: '发现隐藏链接' },
-  ];
-  const found = clues.filter(c => GAME_STATE.discoveries[c.id]).length;
-  const percent = Math.round((found / TOTAL_CLUES) * 100);
-  const bar = document.getElementById('progressBar');
-  if (bar) bar.style.width = percent + '%';
-  const list = document.getElementById('progressList');
-  if (list) {
-    list.innerHTML = clues.map(c => {
-      if (GAME_STATE.discoveries[c.id]) {
-        return '<li><span class="progress-icon-done">✓</span> ' + c.name + '</li>';
-      } else {
-        return '<li style="color:#bbb;"><span class="progress-icon-todo">?</span> 未发现的线索</li>';
-      }
-    }).join('');
-  }
-}
+
 
 function getTotalProgress() {
   const clues = ['well_location', 'forum_secret', 'archive_2003', 'phone_easter', 'glitch_text', 'hidden_link'];
@@ -1593,7 +1582,7 @@ function initPage(pageId) {
   var es = document.getElementById('endingScreen');
   if (es) es.style.display = 'none';
   applyFearLayer();
-  updateProgressHUD();
+  
 
   
 
@@ -2303,7 +2292,7 @@ function restartGame() {
   document.getElementById('endingScreen').style.display = 'none';
   document.body.classList.remove('layer-1','layer-2','layer-3','layer-4');
   document.querySelectorAll('.hidden-link.found').forEach(el => el.classList.remove('found'));
-  updateProgressHUD();
+  
   window.location.href = 'home.html';
   showToast('存档已清除。');
 }
@@ -2314,11 +2303,21 @@ function handleSearch() {
   const query = document.getElementById('siteSearch').value.trim();
   if (!query) { showToast('输入关键词'); return; }
   console.log('[搜索] 查询:', query);
-  if (query.includes('井') && !GAME_STATE.discoveries.well_location) {
-    discoverHidden('well_location');
+  if (query.includes('井')) {
+    showToast('搜索结果：景月镇范围内有多处古井，其中北井位于井湾村北侧，已列入文物保护单位。', false);
     return;
   }
-  if (query.includes('陈秀英') || query.includes('张国强') || query.includes('遇难者') || query.includes('遇难人员')) {
+  if (query.includes('陈秀英')) {
+    showToast('搜索结果：找到缅怀文档，正在跳转...', false);
+    window.open('memorial_chen.html', '_blank');
+    return;
+  }
+  if (query.includes('张国强')) {
+    showToast('搜索结果：找到相关用户主页，正在跳转...', false);
+    window.open('weibo_zhang.html', '_blank');
+    return;
+  }
+  if (query.includes('遇难者') || query.includes('遇难人员')) {
     showToast('搜索结果：找到相关人员档案，正在跳转...', true);
     window.open('flood_victims.html', '_blank');
     return;
@@ -2363,7 +2362,7 @@ document.addEventListener('DOMContentLoaded', function() {
   loadProgress(); checkProgress50();
   // 强制隐藏结局画面（防止刷新后残留）
   document.getElementById('endingScreen').style.display = 'none';
-  updateProgressHUD();
+  
 
   // 填充首页新闻列表
   const homeNews = document.getElementById('homeNewsList');
@@ -2445,6 +2444,9 @@ function checkProgress50() {
     }
   }
 }
+function showChenhuDetail() {
+  document.getElementById('chenhuModal').classList.add('show');
+}
 </script>
 <script>initPage('about');
 function checkProgress50() {
@@ -2471,5 +2473,20 @@ function checkProgress50() {
   }
 }
 </script>
+<!-- 沉湖村详情弹窗 -->
+<div class="modal-overlay" id="chenhuModal">
+  <div class="modal-content" style="max-width:500px;">
+    <div class="modal-header">
+      <h3>沉湖村 · 村情简介</h3>
+      <button class="modal-close" onclick="document.getElementById('chenhuModal').classList.remove('show')">&times;</button>
+    </div>
+    <div class="modal-body" style="padding:20px;">
+      <p style="line-height:2;color:#333;font-size:14px;">沉湖村位于景月镇西南部，因村南有沉湖而得名。全村现有村民216户，847人，以张、吴两姓为主。</p>
+      <p style="line-height:2;color:#333;font-size:14px;margin-top:12px;">沉湖水域面积约120亩，水质优良，盛产鱼虾。村民多以水产养殖和水稻种植为生。</p>
+      <p style="line-height:2;color:#333;font-size:14px;margin-top:12px;">2003年7月洪灾中，沉湖村受灾严重，全村转移安置群众187人，倒塌房屋43间。村支书张国强在抗洪中英勇牺牲，被追授为"抗洪抢险先进个人"。</p>
+      <p style="line-height:2;color:#666;font-size:12px;margin-top:16px;font-style:italic;">注：本页面内容由景月镇党政办提供，最后更新于2024年3月。</p>
+    </div>
+  </div>
+</div>
 </body>
 </html>

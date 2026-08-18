@@ -60,10 +60,10 @@
   .footer li { margin-bottom: 6px; }
   .footer a { color: #888; text-decoration: none; }
   .footer-bottom { text-align: center; padding-top: 16px; border-top: 1px solid #444; }
-  .progress-hud { position: fixed; bottom: 20px; right: 20px; background: #fff; border-radius: 8px; padding: 12px 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.15); z-index: 100; }
+  
   .progress-hud h4 { font-size: 12px; color: #c41e3a; margin-bottom: 6px; }
-  .progress-bar { width: 120px; height: 6px; background: #eee; border-radius: 3px; overflow: hidden; }
-  .progress-fill { height: 100%; background: #c41e3a; transition: width 0.3s; }
+  
+  
   @media (max-width: 768px) {
     .nav-list { flex-wrap: wrap; }
     .footer-grid { grid-template-columns: 1fr 1fr; }
@@ -248,9 +248,7 @@ body.progress-50-mode .hero { filter: hue-rotate(-20deg) saturate(1.2); }
   </div>
 </div>
 
-<div class="progress-hud">
-  <h4>探索进度</h4>
-  <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+
 </div>
 
 <footer class="footer">
@@ -301,12 +299,7 @@ const TOTAL_CLUES = 6;
 function saveProgress() { try { localStorage.setItem('jingyue_save', JSON.stringify(GAME_STATE)); } catch(e) {} }
 function loadProgress() { try { const s = localStorage.getItem('jingyue_save'); if(s){const d=JSON.parse(s); Object.assign(GAME_STATE.discoveries,d.discoveries||{}); GAME_STATE.fearLayer=d.fearLayer||0;} } catch(e) {} }
 function applyFearLayer() { document.body.classList.remove('layer-1','layer-2','layer-3','layer-4'); if(GAME_STATE.fearLayer>0) document.body.classList.add('layer-'+GAME_STATE.fearLayer); }
-function updateProgressHUD() {
-  const clues = [{id:'well_location',name:'发现北井位置'},{id:'forum_secret',name:'发现论坛秘密'},{id:'archive_2003',name:'解锁2003档案'},{id:'phone_easter',name:'发现异常号码'},{id:'glitch_text',name:'注意到文字异常'},{id:'hidden_link',name:'发现隐藏链接'}];
-  const found = clues.filter(c=>GAME_STATE.discoveries[c.id]).length;
-  const pct = Math.round((found/TOTAL_CLUES)*100);
-  const f = document.getElementById('progressFill'); if(f) f.style.width = pct+'%';
-}
+
 function showToast(msg, imp) { const t=document.createElement('div'); t.style.cssText='position:fixed;top:80px;left:50%;transform:translateX(-50%);background:'+(imp?'#c41e3a':'#333')+';color:#fff;padding:12px 24px;border-radius:4px;z-index:9999;font-size:14px;'; t.textContent=msg; document.body.appendChild(t); setTimeout(()=>t.remove(),3000); }
 function handleSearch() {
   const q = document.getElementById('siteSearch').value.trim();
@@ -318,7 +311,7 @@ function handleSearch() {
   if(q.includes('李建国')){showToast('搜索结果：李建国，景月镇镇长。');return;}
   showToast('搜索"'+q+'"：共找到 0 条结果');
 }
-loadProgress(); checkProgress50(); applyFearLayer(); updateProgressHUD();
+loadProgress(); checkProgress50(); applyFearLayer(); 
 
 function checkProgress50() {
   const clues = ['well_location','forum_secret','archive_2003','phone_easter','glitch_text','hidden_link'];
