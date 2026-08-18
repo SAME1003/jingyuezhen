@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -26,9 +26,9 @@ a{color:inherit;text-decoration:none}
 .search-big input:focus{box-shadow:0 0 0 3px rgba(255,255,255,.3)}
 .search-big button{padding:14px 32px;background:#1a1a1a;color:#fff;border:none;border-radius:0 6px 6px 0;font-size:15px;cursor:pointer;font-family:inherit;transition:background .2s}
 .search-big button:hover{background:#333}
-.hot-search{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:16px;flex-wrap:wrap}
-.hot-search span{color:rgba(255,255,255,.6);font-size:12px}
-.hot-search a{color:rgba(255,255,255,.85);font-size:12px;background:rgba(255,255,255,.1);padding:4px 12px;border-radius:12px;transition:all .2s}
+
+
+
 .hot-search a:hover{background:rgba(255,255,255,.25);color:#fff}
 .main-nav{background:var(--gov-red)}
 .nav-list{display:flex;list-style:none}
@@ -77,7 +77,7 @@ body.progress-50-mode{filter:sepia(.3) hue-rotate(-20deg) saturate(1.2)}
 <div class="admin-alert" id="adminAlert"><div class="alert-main">管理员修改了文档</div><div class="alert-sub">你在调查洪水吗？</div></div>
 <div class="top-banner"><div class="container"><span>欢迎访问景月镇人民政府官方网站</span><span><a href="#" onclick="showToast('功能开发中')">无障碍浏览</a> | <a href="#" onclick="showToast('功能开发中')">繁體中文</a> | <a href="escape.html" target="_blank">^_^</a></span></div></div>
 <header class="site-header"><div class="container"><div class="header-inner"><div class="logo-area" onclick="window.location.href='home.html'"><svg class="logo-emblem" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="#c41e3a"/><circle cx="50" cy="50" r="40" fill="none" stroke="#daa520" stroke-width="2"/><polygon points="50,20 53,30 63,30 55,37 58,47 50,41 42,47 45,37 37,30 47,30" fill="#daa520"/><text x="50" y="90" text-anchor="middle" fill="#daa520" font-size="8" font-family="serif">景月</text></svg><div class="site-title"><h1>景月镇人民政府</h1><p>JINGYUE TOWN PEOPLE'S GOVERNMENT</p></div></div></div></div></header>
-<div class="search-hero"><div class="container"><h2>站内搜索</h2><p>输入关键词，查找景月镇政府公开信息</p><div class="search-big"><input type="text" id="bigSearch" placeholder="请输入搜索关键词..." autocomplete="off"><button onclick="doSearch()">搜索</button></div><div class="hot-search"><span>热门搜索：</span><a href="javascript:void(0)" onclick="searchKeyword('社保')">社保</a><a href="javascript:void(0)" onclick="searchKeyword('医保')">医保</a><a href="javascript:void(0)" onclick="searchKeyword('镇长')">镇长</a><a href="javascript:void(0)" onclick="searchKeyword('洪水')">洪水</a><a href="javascript:void(0)" onclick="searchKeyword('旅游')">旅游</a><a href="javascript:void(0)" onclick="searchKeyword('陈秀英')">陈秀英</a></div></div></div>
+<div class="search-hero"><div class="container"><h2>站内搜索</h2><p>输入关键词，查找景月镇政府公开信息</p><div class="search-big"><input type="text" id="bigSearch" placeholder="请输入搜索关键词..." autocomplete="off"><button onclick="doSearch()">搜索</button></div></div></div>
 <nav class="main-nav"><div class="container"><ul class="nav-list"><li><a href="home.html">首页</a></li><li><a href="news.html">新闻动态</a></li><li><a href="about.html">镇情介绍</a></li><li><a href="government.html">政务公开</a></li><li><a href="service.html">便民服务</a></li><li><a href="culture.html">文化旅游</a></li><li><a href="forum.html">景月论坛</a></li><li><a href="archive.html">镇史馆</a></li><li><a href="contact.html">联系我们</a></li></ul></div></nav>
 <main class="main-content"><div class="container"><div class="search-result-header" id="resultHeader" style="display:none"><h3>搜索结果：<em id="resultKeyword"></em></h3><p>共找到 <span id="resultCount">0</span> 条相关结果</p></div><div class="result-list" id="resultList"></div><div class="no-result" id="noResult" style="display:none"><div class="icon">🔍</div><p>未找到相关结果</p><p class="suggest">请尝试其他关键词，或查看热门搜索</p></div><div class="no-result" id="initTip"><div class="icon">📋</div><p>请在上方输入关键词进行搜索</p><p class="suggest">支持搜索：新闻、政策、人员、地名等</p></div></div></main>
 <footer class="site-footer"><div class="container"><div class="footer-grid"><div><h5>景月镇人民政府</h5><p>地址：江南省月城市景月镇人民路18号</p><p>邮编：313300</p><p>电话：0572-8866000</p></div><div><h5>快速导航</h5><ul><li><a href="home.html">首页</a></li><li><a href="news.html">新闻动态</a></li><li><a href="service.html">便民服务</a></li></ul></div><div><h5>友情链接</h5><ul><li><a href="#" onclick="showToast('跳转中')">月城市人民政府</a></li><li><a href="#" onclick="showToast('跳转中')">江南省人民政府</a></li></ul></div><div><h5>网站说明</h5><p>主办：景月镇人民政府</p><p>备案号：浙ICP备05012345号</p></div></div><div class="footer-bottom"><p>© 2024 景月镇人民政府 版权所有</p></div></div></footer>
