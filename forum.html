@@ -72,6 +72,9 @@ a:hover { text-decoration: underline; }
   background: var(--bg-header);
   border-bottom: 3px solid var(--gov-red);
   box-shadow: var(--shadow-light);
+
+  position: relative;
+  z-index: 10001;
 }
 .header-inner {
   display: flex;
@@ -123,6 +126,9 @@ a:hover { text-decoration: underline; }
   cursor: pointer;
   font-size: 13px;
   font-family: var(--font-sans);
+
+  position: relative;
+  z-index: 10002;
 }
 .header-search button:hover { background: var(--gov-red-dark); }
 
@@ -219,6 +225,9 @@ a:hover { text-decoration: underline; }
   padding: 14px 18px;
   border-bottom: 2px solid var(--gov-red);
   background: linear-gradient(90deg, rgba(196,30,58,0.05) 0%, transparent 100%);
+
+  position: relative;
+  z-index: 10001;
 }
 .section-title {
   font-size: 16px;
@@ -495,6 +504,9 @@ a:hover { text-decoration: underline; }
   padding: 16px 20px;
   border-bottom: 1px solid var(--border-color);
   background: #fafaf7;
+
+  position: relative;
+  z-index: 10001;
 }
 .forum-thread-header h3 {
   font-size: 18px;
@@ -796,6 +808,9 @@ body.layer-4 {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  position: relative;
+  z-index: 10001;
 }
 .modal-header h3 {
   font-size: 16px;
@@ -1195,6 +1210,8 @@ body.layer-4 {
   font-size: 13px; z-index: 9999; display: none;
   box-shadow: 0 2px 10px rgba(139,0,0,0.5);
   letter-spacing: 1px;
+
+  pointer-events: none;
 }
 .admin-alert.active { display: block; animation: alertShake 0.5s ease-in-out; }
 @keyframes alertShake {
@@ -1248,7 +1265,7 @@ body.progress-50-mode .hero { filter: hue-rotate(-20deg) saturate(1.2); }
       </div>
       <div class="header-search">
         <input type="text" id="siteSearch" placeholder="搜索站内信息...">
-        <button onclick="handleSearch()">搜索</button>
+        <button id="searchBtn" onclick="handleSearch()">搜索</button>
       </div>
     </div>
   </div>
@@ -2316,8 +2333,10 @@ function restartGame() {
 
 // ========== 搜索功能 ==========
 function handleSearch() {
+  try {
   const query = document.getElementById('siteSearch').value.trim();
   if (!query) { showToast('输入关键词'); return; }
+  console.log('[搜索] 查询:', query);
   if (query.includes('井') && !GAME_STATE.discoveries.well_location) {
     discoverHidden('well_location');
     return;
@@ -2355,6 +2374,10 @@ function handleSearch() {
     return;
   }
   showToast('搜索"' + query + '"：共找到 0 条结果');
+  } catch(err) {
+    console.error('[搜索错误]', err);
+    showToast('搜索功能暂时不可用');
+  }
 }
 
 // ========== 初始化 ==========
@@ -2433,7 +2456,7 @@ function checkProgress50() {
     document.body.classList.add('progress-50-mode');
     // 替换hero图为诡异版
     var hero = document.querySelector('.hero');
-    if (hero) hero.style.backgroundImage = \"url('town_horror.jpg')\";
+    if (hero) hero.style.backgroundImage = "url('town_horror.jpg')";
     // 替换画廊中的正常图
     var imgs = document.querySelectorAll('.gallery-item img, .news-img, .about-img');
     for (var i = 0; i < imgs.length; i++) {
@@ -2473,7 +2496,7 @@ function checkProgress50() {
     document.body.classList.add('progress-50-mode');
     // 替换hero图为诡异版
     var hero = document.querySelector('.hero');
-    if (hero) hero.style.backgroundImage = \"url('town_horror.jpg')\";
+    if (hero) hero.style.backgroundImage = "url('town_horror.jpg')";
     // 替换画廊中的正常图
     var imgs = document.querySelectorAll('.gallery-item img, .news-img, .about-img');
     for (var i = 0; i < imgs.length; i++) {
