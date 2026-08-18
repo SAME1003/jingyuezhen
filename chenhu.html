@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>沉湖村村民委员会</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--primary:#1a7a6e;--primary-dark:#0f5c52;--primary-light:#2a9d8f;--accent:#264653;--bg:#f0f7f5;--paper:#fff;--text:#2c3e50;--text-light:#6b7c85;--border:#c8e0db}
+html,body{height:100%;font-family:'PingFang SC','Microsoft YaHei',sans-serif;color:var(--text);background:var(--bg);font-size:15px;line-height:1.7}
+a{color:inherit;text-decoration:none}
+.top-bar{background:linear-gradient(90deg,var(--primary-dark),var(--primary));color:#fff;font-size:12px;padding:5px 0}
+.top-bar .wrap{max-width:1100px;margin:0 auto;padding:0 20px;display:flex;justify-content:space-between}
+.header{background:var(--paper);border-bottom:3px solid var(--primary);box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.header .wrap{max-width:1100px;margin:0 auto;padding:18px 20px;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:12px;cursor:pointer}
+.logo-icon{width:48px;height:48px;background:linear-gradient(135deg,var(--primary),var(--primary-light));border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;font-weight:bold}
+.logo-text h1{font-size:22px;color:var(--primary);font-weight:700}
+.logo-text p{font-size:11px;color:var(--text-light);letter-spacing:2px}
+.search-box{display:flex;gap:6px}
+.search-box input{padding:7px 12px;border:1px solid var(--border);border-radius:4px;font-size:13px;width:180px;font-family:inherit}
+.search-box button{padding:7px 16px;background:var(--primary);color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:13px;font-family:inherit}
+.nav{background:var(--primary)}
+.nav .wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+.nav ul{display:flex;list-style:none}
+.nav li a{display:block;padding:12px 20px;color:#fff;font-size:14px;transition:background .2s}
+.nav li a:hover{background:var(--primary-dark)}
+.banner{height:280px;background:url('chenhu_village.jpg') center/cover;position:relative;display:flex;align-items:center;justify-content:center}
+.banner::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(26,122,110,.3),rgba(15,92,82,.5))}
+.banner-text{position:relative;z-index:1;text-align:center;color:#fff}
+.banner-text h2{font-size:36px;margin-bottom:8px;text-shadow:0 2px 8px rgba(0,0,0,.3)}
+.banner-text p{font-size:15px;opacity:.9}
+.main{max-width:1100px;margin:0 auto;padding:28px 20px}
+.grid{display:grid;grid-template-columns:2fr 1fr;gap:24px}
+.card{background:var(--paper);border-radius:6px;padding:24px;box-shadow:0 1px 4px rgba(0,0,0,.06);margin-bottom:20px}
+.card h3{font-size:17px;color:var(--primary);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #e8f2f0}
+.card p{color:var(--text-light);font-size:14px;margin-bottom:10px}
+.info-row{display:flex;padding:8px 0;border-bottom:1px dashed #e0ebe8;font-size:14px}
+.info-row .label{color:var(--text-light);width:90px;flex-shrink:0}
+.info-row .val{color:var(--text)}
+.news-item{padding:10px 0;border-bottom:1px dashed #e0ebe8}
+.news-item .title{font-size:14px;color:var(--text);cursor:pointer}
+.news-item .title:hover{color:var(--primary)}
+.news-item .date{font-size:12px;color:var(--text-light);margin-top:3px}
+.village-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.stat{background:#f0f7f5;border-radius:4px;padding:14px;text-align:center}
+.stat .num{font-size:24px;color:var(--primary);font-weight:bold}
+.stat .lbl{font-size:12px;color:var(--text-light);margin-top:2px}
+.committee{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.committee-member{padding:10px;background:#f7faf9;border-radius:4px;font-size:13px}
+.committee-member .name{color:var(--primary);font-weight:bold}
+.committee-member .role{color:var(--text-light);font-size:12px}
+.footer{background:var(--accent);color:#a8c0bc;padding:24px 0;margin-top:30px}
+.footer .wrap{max-width:1100px;margin:0 auto;padding:0 20px;text-align:center;font-size:12px;line-height:2}
+.toast{position:fixed;top:60px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.8);color:#fff;padding:10px 20px;border-radius:4px;font-size:13px;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none}
+.toast.show{opacity:1}
+@media(max-width:768px){.grid{grid-template-columns:1fr}.nav ul{overflow-x:auto}.banner-text h2{font-size:26px}}
+</style>
+</head>
+<body>
+<div class="top-bar"><div class="wrap"><span>欢迎访问沉湖村村民委员会官方网站</span><span><a href="home.html">返回景月镇</a></span></div></div>
+<header class="header"><div class="wrap"><div class="logo" onclick="window.location.href='home.html'"><div class="logo-icon">沉</div><div class="logo-text"><h1>沉湖村村民委员会</h1><p>CHENHU VILLAGE COMMITTEE</p></div></div><div class="search-box"><input type="text" id="vSearch" placeholder="搜索..."><button onclick="vSearch()">搜索</button></div></div></header>
+<nav class="nav"><div class="wrap"><ul><li><a href="#intro">村情概况</a></li><li><a href="#committee">村委会</a></li><li><a href="#news">村务公开</a></li><li><a href="#contact">联系我们</a></li></ul></div></nav>
+<div class="banner"><div class="banner-text"><h2>水韵沉湖 · 生态家园</h2><p>景月镇沉湖村 · 江南水乡古村落</p></div></div>
+<main class="main">
+<div class="grid">
+<div>
+  <div class="card" id="intro">
+    <h3>村情概况</h3>
+    <p>沉湖村位于景月镇西南部，因村南有沉湖而得名。全村占地面积约3.2平方公里，下辖5个村民小组，常住人口860余人。</p>
+    <p>沉湖村始建于明代，村内保留有清代石拱桥、古码头等历史遗迹。沉湖水域面积约120亩，是景月镇重要的水源涵养地。</p>
+    <p>近年来，沉湖村依托水乡资源，发展生态农业和乡村旅游，先后获评"市级文明村""省级生态村"等荣誉。</p>
+    <div class="village-stats">
+      <div class="stat"><div class="num">860</div><div class="lbl">常住人口</div></div>
+      <div class="stat"><div class="num">5</div><div class="lbl">村民小组</div></div>
+      <div class="stat"><div class="num">120</div><div class="lbl">沉湖水域(亩)</div></div>
+      <div class="stat"><div class="num">3.2</div><div class="lbl">村域面积(km²)</div></div>
+    </div>
+  </div>
+  <div class="card" id="committee">
+    <h3>村委会成员</h3>
+    <div class="committee">
+      <div class="committee-member"><div class="name">王德福</div><div class="role">村党支部书记</div></div>
+      <div class="committee-member"><div class="name">李秀兰</div><div class="role">村委会主任</div></div>
+      <div class="committee-member"><div class="name">张建国</div><div class="role">村委会副主任</div></div>
+      <div class="committee-member"><div class="name">陈美玲</div><div class="role">妇女主任</div></div>
+      <div class="committee-member"><div class="name">刘大壮</div><div class="role">治保主任</div></div>
+      <div class="committee-member"><div class="name">赵小燕</div><div class="role">会计</div></div>
+    </div>
+    <p style="margin-top:14px;font-size:13px;color:var(--text-light);">注：2007年，原景月镇副镇长周驰同志曾到沉湖村挂职调研，为期半年，主要调研沉湖上游水系及古井水质情况。调研结束后返回镇政府，后调任他处。</p>
+  </div>
+  <div class="card" id="news">
+    <h3>村务公开</h3>
+    <div class="news-item"><div class="title" onclick="showToast('该公告已归档')">关于沉湖水域生态保护的通知</div><div class="date">2024-06-15</div></div>
+    <div class="news-item"><div class="title" onclick="showToast('该公告已归档')">2024年上半年村财务收支公示</div><div class="date">2024-07-01</div></div>
+    <div class="news-item"><div class="title" onclick="showToast('该公告已归档')">沉湖村古桥修缮工程招标公告</div><div class="date">2024-05-20</div></div>
+    <div class="news-item"><div class="title" onclick="showToast('该公告已归档')">关于村内古井维护的通知</div><div class="date">2023-11-08</div></div>
+    <div class="news-item"><div class="title" onclick="showToast('2003年档案，内容已缺失')">2003年抗洪救灾工作总结</div><div class="date">2003-08-30</div></div>
+  </div>
+</div>
+<div>
+  <div class="card">
+    <h3>便民信息</h3>
+    <div class="info-row"><span class="label">村部地址：</span><span class="val">沉湖村中心路1号</span></div>
+    <div class="info-row"><span class="label">联系电话：</span><span class="val">0572-8866012</span></div>
+    <div class="info-row"><span class="label">办公时间：</span><span class="val">周一至周五 8:30-17:00</span></div>
+    <div class="info-row"><span class="label">邮政编码：</span><span class="val">313300</span></div>
+  </div>
+  <div class="card">
+    <h3>历史沿革</h3>
+    <p style="font-size:13px;">沉湖村历史悠久，村内有明代古井一口，位于村北，据传与景月镇北井同源。2003年洪水后，村内古井水位异常升高，后经镇水利站勘察，认为与地下水系连通有关。</p>
+    <p style="font-size:13px;margin-top:8px;">2007年，镇政府派员来村调研上游水系，具体结论未公开。</p>
+  </div>
+  <div class="card" id="contact">
+    <h3>温馨提示</h3>
+    <p style="font-size:13px;">沉湖水域水深危险，请勿私自下水。村内古井已封闭，请勿靠近。</p>
+  </div>
+</div>
+</div>
+</main>
+<footer class="footer"><div class="wrap"><p>沉湖村村民委员会 版权所有</p><p>地址：景月镇沉湖村中心路1号 | 电话：0572-8866012</p><p>技术支持：景月镇信息中心</p></div></footer>
+<div class="toast" id="toast"></div>
+<script>
+function showToast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2500);}
+function vSearch(){var q=document.getElementById('vSearch');if(q&&q.value.trim()){window.location.href='search.html?q='+encodeURIComponent(q.value.trim());}}
+document.getElementById('vSearch').addEventListener('keypress',function(e){if(e.key==='Enter')vSearch();});
+</script>
+</body>
+</html>

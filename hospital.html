@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>景月镇人民医院</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--hosp-blue:#1a5276;--hosp-blue-light:#2980b9;--hosp-blue-dark:#0e3a5c;--bg:#f0f5fa;--paper:#fff;--text:#2c3e50;--text-light:#7f8c8d;--border:#d5e1ec}
+body{font-family:'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.7}
+a{color:inherit;text-decoration:none}
+.top-bar{background:var(--hosp-blue-dark);color:#fff;font-size:12px;padding:4px 0}
+.top-bar .wrap{max-width:1100px;margin:0 auto;padding:0 20px;display:flex;justify-content:space-between}
+.header{background:var(--paper);border-bottom:3px solid var(--hosp-blue-dark)}
+.header .wrap{max-width:1100px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:14px}
+.logo-icon{width:52px;height:52px;background:var(--hosp-blue-dark);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:26px;font-weight:bold}
+.logo-text h1{font-size:22px;color:var(--hosp-blue-dark);font-weight:700}
+.logo-text p{font-size:11px;color:var(--text-light);letter-spacing:2px}
+.emergency{background:var(--hosp-blue);color:#fff;padding:8px 18px;border-radius:4px;font-size:13px;font-weight:bold;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.7}}
+.nav{background:var(--hosp-blue-dark)}
+.nav .wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+.nav ul{display:flex;list-style:none}
+.nav li a{display:block;padding:12px 20px;color:#fff;font-size:14px}
+.nav li a:hover{background:var(--hosp-blue)}
+.banner{height:220px;background:url('hospital_building.jpg') center/cover;position:relative}
+.banner::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(14,58,92,.75),transparent)}
+.banner-text{position:absolute;left:40px;top:50%;transform:translateY(-50%);color:#fff;z-index:1}
+.banner-text h2{font-size:28px;margin-bottom:6px}
+.banner-text p{font-size:14px;opacity:.9}
+.main{max-width:1100px;margin:0 auto;padding:28px 20px}
+.grid{display:grid;grid-template-columns:2fr 1fr;gap:24px}
+.card{background:var(--paper);border-radius:6px;padding:22px;box-shadow:0 1px 4px rgba(0,0,0,.06);margin-bottom:20px}
+.card h3{font-size:17px;color:var(--hosp-blue);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #d6eaf8}
+.doc-list{list-style:none}
+.doc-list li{padding:12px 0;border-bottom:1px dashed #e8e8e8;display:flex;justify-content:space-between;align-items:center}
+.doc-list .doc-title{font-size:14px;cursor:pointer}
+.doc-list .doc-title.available{color:var(--hosp-blue-dark);font-weight:bold}
+.doc-list .doc-title.available:hover{text-decoration:underline}
+.doc-list .doc-title.disabled{color:#bbb;text-decoration:line-through;cursor:not-allowed}
+.doc-list .doc-date{font-size:12px;color:#aaa}
+.doc-list .doc-tag{font-size:11px;padding:2px 8px;border-radius:3px;margin-left:8px}
+.doc-tag.open{background:#eaf2f8;color:var(--hosp-blue-dark)}
+.doc-tag.closed{background:#f5f5f5;color:#999}
+.dept-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:10px}
+.dept{padding:10px;background:#f8f9fa;border-radius:4px;text-align:center;font-size:13px;color:#555}
+.hospital-info{font-size:13px;color:var(--text-light);line-height:2}
+.hospital-info .row{display:flex;padding:4px 0}
+.hospital-info .label{width:80px;color:#999}
+.footer{background:var(--hosp-blue-dark);color:#aaa;padding:24px 0;margin-top:30px}
+.footer .wrap{max-width:1100px;margin:0 auto;padding:0 20px;text-align:center;font-size:12px;line-height:2}
+@media(max-width:768px){.grid{grid-template-columns:1fr}.nav ul{overflow-x:auto}.dept-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="top-bar"><div class="wrap"><span>景月镇人民医院 · 救死扶伤 服务人民</span><span>急诊电话：0572-8866120</span></div></div>
+<header class="header"><div class="wrap"><div class="logo"><div class="logo-icon">+</div><div class="logo-text"><h1>景月镇人民医院</h1><p>JINGYUE TOWN PEOPLE'S HOSPITAL</p></div></div><div class="emergency">急诊 24小时</div></div></header>
+<nav class="nav"><div class="wrap"><ul><li><a href="#">医院首页</a></li><li><a href="#">医院介绍</a></li><li><a href="#">科室导航</a></li><li><a href="#">就医指南</a></li><li><a href="#">健康科普</a></li><li><a href="#">联系我们</a></li></ul></div></nav>
+<div class="banner"><div class="banner-text"><h2>景月镇人民医院</h2><p>一级甲等综合医院 · 服务景月镇及周边群众</p></div></div>
+<main class="main">
+<div class="grid">
+<div>
+  <div class="card">
+    <h3>医院公告 / 档案</h3>
+    <ul class="doc-list">
+      <li><span class="doc-title disabled">关于2024年春节门诊安排的通知<span class="doc-tag closed">已归档</span></span><span class="doc-date">2024-01-20</span></li>
+      <li><span class="doc-title disabled">2023年度医院工作总结<span class="doc-tag closed">已归档</span></span><span class="doc-date">2024-01-05</span></li>
+      <li><span class="doc-title disabled">关于流感疫苗接种的通知<span class="doc-tag closed">已归档</span></span><span class="doc-date">2023-10-15</span></li>
+      <li><span class="doc-title disabled">医院信息化系统升级公告<span class="doc-tag closed">已归档</span></span><span class="doc-date">2023-06-01</span></li>
+      <li><span class="doc-title disabled">2010年医院改扩建工程总结<span class="doc-tag closed">已归档</span></span><span class="doc-date">2010-12-20</span></li>
+      <li><span class="doc-title disabled">2005年医疗质量检查报告<span class="doc-tag closed">已归档</span></span><span class="doc-date">2005-09-10</span></li>
+      <li><span class="doc-title available" onclick="window.location.href='hospital_death_list.html'">2003年抗洪救灾医疗救援死亡人员名单<span class="doc-tag open">可查阅</span></span><span class="doc-date">2003-08-15</span></li>
+      <li><span class="doc-title disabled">2003年上半年医院工作总结<span class="doc-tag closed">已归档</span></span><span class="doc-date">2003-07-01</span></li>
+      <li><span class="doc-title disabled">1998年医院等级评审材料<span class="doc-tag closed">已归档</span></span><span class="doc-date">1998-11-05</span></li>
+    </ul>
+    <p style="margin-top:14px;font-size:12px;color:#999;">注：2003年以前的档案因系统迁移，部分已无法在线查阅。如需查阅纸质档案，请联系院办。</p>
+  </div>
+  <div class="card">
+    <h3>科室导航</h3>
+    <div class="dept-grid">
+      <div class="dept">内科</div><div class="dept">外科</div><div class="dept">儿科</div>
+      <div class="dept">妇产科</div><div class="dept">急诊科</div><div class="dept">中医科</div>
+      <div class="dept">口腔科</div><div class="dept">眼科</div><div class="dept">检验科</div>
+    </div>
+  </div>
+</div>
+<div>
+  <div class="card">
+    <h3>医院信息</h3>
+    <div class="hospital-info">
+      <div class="row"><span class="label">医院等级：</span><span>一级甲等</span></div>
+      <div class="row"><span class="label">建院时间：</span><span>1958年</span></div>
+      <div class="row"><span class="label">床位数量：</span><span>80张</span></div>
+      <div class="row"><span class="label">医护人员：</span><span>120余人</span></div>
+      <div class="row"><span class="label">医院地址：</span><span>景月镇健康路8号</span></div>
+      <div class="row"><span class="label">急诊电话：</span><span>0572-8866120</span></div>
+      <div class="row"><span class="label">门诊时间：</span><span>8:00-17:00</span></div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>就医指南</h3>
+    <p style="font-size:13px;color:var(--text-light);">1. 门诊患者请先到一楼挂号窗口挂号<br>2. 持挂号单到相应科室就诊<br>3. 急诊患者请直接前往急诊科<br>4. 住院患者请持医生开具的住院证到一楼住院处办理</p>
+  </div>
+</div>
+</div>
+</main>
+<footer class="footer"><div class="wrap"><p>景月镇人民医院 版权所有</p><p>地址：景月镇健康路8号 | 急诊：0572-8866120 | 邮编：313300</p></div></footer>
+</body>
+</html>

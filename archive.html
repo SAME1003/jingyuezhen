@@ -93,10 +93,25 @@ a{color:inherit;text-decoration:none}
 .toast.creepy{background:rgba(60,0,20,.9);color:#ffb3b3;border:1px solid rgba(255,100,100,.3)}
 
 /* 进度50% */
-.progress-50-overlay{position:fixed;top:0;left:0;right:0;bottom:0;width:100vw;height:100vh;background:rgba(120,0,0,.2);pointer-events:none;z-index:10003;display:none}
-.progress-50-overlay.active{display:block;animation:overlayPulse 3s ease-in-out infinite}
-@keyframes overlayPulse{0%,100%{background:rgba(120,0,0,.10)}50%{background:rgba(120,0,0,.20)}}
-body.progress-50-mode{filter:sepia(.3) hue-rotate(-20deg) saturate(1.2)}
+.progress-50-overlay { display: none; }
+body.progress-50-mode {
+  --bg-main: #3a1010;
+  --bg-paper: #2a0808;
+  --bg-header: #2a0808;
+  --text-primary: #ccaaaa;
+  --text-secondary: #997777;
+  --text-muted: #665555;
+  --border-color: #4a2020;
+  background: #3a1010;
+}
+body.progress-50-mode .main-content,
+body.progress-50-mode .content-card,
+body.progress-50-mode .card,
+body.progress-50-mode .site-header,
+body.progress-50-mode .header,
+body.progress-50-mode .top-banner {
+  background: #2a0808 !important;
+}
 .admin-alert{position:fixed;top:0;left:0;right:0;background:linear-gradient(90deg,#8b0000,#a01830,#8b0000);color:#fff;text-align:center;padding:6px 12px;font-size:13px;z-index:10004;display:none;box-shadow:0 2px 10px rgba(139,0,0,.5);letter-spacing:1px;pointer-events:none}
 .admin-alert.active{display:block;animation:alertShake .5s ease-in-out}
 @keyframes alertShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
@@ -196,7 +211,7 @@ body.progress-50-mode{filter:sepia(.3) hue-rotate(-20deg) saturate(1.2)}
     <div class="archive-section">
       <div class="archive-section-title">
         <h3>公开档案</h3>
-        <span class="count">4 份</span>
+        <span class="count">5 份</span>
       </div>
       <div class="archive-grid">
         <div class="archive-card" onclick="showArchive(0)">
@@ -239,6 +254,16 @@ body.progress-50-mode{filter:sepia(.3) hue-rotate(-20deg) saturate(1.2)}
             </div>
           </div>
         </div>
+        <div class="archive-card" onclick="window.location.href='leadership_archive.html'">
+          <div class="archive-card-cover"><img src="leadership_2003.jpg" alt="领导班子合影" style="filter:sepia(.3)"></div>
+          <div class="archive-card-body">
+            <div class="archive-card-title">2003年领导班子合影</div>
+            <div class="archive-card-meta">
+              <span class="archive-card-year">2003</span>
+              <span class="archive-card-status status-public">公开</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -246,7 +271,7 @@ body.progress-50-mode{filter:sepia(.3) hue-rotate(-20deg) saturate(1.2)}
     <div class="archive-section">
       <div class="archive-section-title">
         <h3>受限档案 · 需授权查阅</h3>
-        <span class="count">3 份</span>
+        <span class="count">4 份</span>
       </div>
       <div class="archive-grid">
         <div class="archive-card secret" onclick="window.location.href='password_archive.html?type=2003'">
@@ -279,6 +304,16 @@ body.progress-50-mode{filter:sepia(.3) hue-rotate(-20deg) saturate(1.2)}
             </div>
           </div>
         </div>
+        <div class="archive-card secret" onclick="window.location.href='password_archive.html?type=well_survey'">
+          <div class="archive-card-cover"><img src="well_closeup.jpg" alt="井深勘测" style="filter:sepia(.5) brightness(.6)"></div>
+          <div class="archive-card-body">
+            <div class="archive-card-title">北井深度勘测记录</div>
+            <div class="archive-card-meta">
+              <span class="archive-card-year">1958</span>
+              <span class="archive-card-status status-secret">绝密</span>
+            </div>
+          </div>
+        </div>
         <!-- 井文档：进度100%时显示 -->
         <div class="archive-card well-card" id="wellArchiveCard" style="display:none" onclick="openWellDocument()">
           <div class="archive-card-cover"><img src="well_closeup.jpg" alt="井" style="filter:sepia(.4) brightness(.7)"></div>
@@ -294,6 +329,11 @@ body.progress-50-mode{filter:sepia(.3) hue-rotate(-20deg) saturate(1.2)}
     </div>
 
   </div>
+
+    <!-- 北井引导 -->
+    <div style="text-align:center;margin-top:40px;padding:20px;border-top:1px dashed #ddd;">
+      <span onclick="showWellHint()" style="font-size:14px;color:#999;cursor:pointer;letter-spacing:8px;transition:color .3s;" onmouseover="this.style.color='#c41e3a'" onmouseout="this.style.color='#999'">北 井</span>
+    </div>
 </main>
 
 <!-- 页脚 -->
@@ -362,7 +402,7 @@ body.progress-50-mode{filter:sepia(.3) hue-rotate(-20deg) saturate(1.2)}
       <p>后面几页几乎看不清，只能辨认出零星几个词："它们不是鬼"、"是被留下来的"、"井不是井"、"不要念名字"。</p>
       <p style="color:#888;font-style:italic;">最后一页只有一行字，写得很用力，纸都划破了："如果你看到这个，赶紧走。别回头。"</p>
       <div style="text-align:center;margin-top:28px;">
-        <button onclick="nextPageWellDoc()" style="background:#1a1a1a;color:#ccc;border:1px solid #444;padding:12px 48px;cursor:pointer;font-size:14px;letter-spacing:4px;border-radius:4px;">下一页</button>
+        <button onclick="alert('按钮被点击了！');document.getElementById('wellDocModal').classList.remove('show');document.getElementById('climberOverlay').style.display='flex';setTimeout(function(){document.getElementById('climberOverlay').style.display='none';var rain=document.getElementById('redTextRain');var container=document.getElementById('rainContainer');rain.style.display='block';container.innerHTML='';var texts=['你居然还是找到这里了','别再往下看了','它们知道你在这','井不是井','不要念名字'];for(var i=0;i<60;i++){(function(idx){setTimeout(function(){var span=document.createElement('span');span.className='rain-text';span.textContent=texts[idx%texts.length];span.style.left=Math.random()*100+'%';span.style.fontSize=(18+Math.random()*20)+'px';span.style.animationDuration=(2+Math.random()*2)+'s';span.style.opacity=.4+Math.random()*.6;container.appendChild(span);},idx*80);})(i);}setTimeout(function(){rain.style.display='none';document.getElementById('escapeExit').style.display='flex';},6000);},2500);" style="background:#1a1a1a;color:#ccc;border:1px solid #444;padding:12px 48px;cursor:pointer;font-size:14px;letter-spacing:4px;border-radius:4px;">下一页</button>
       </div>
     </div>
   </div>
@@ -408,9 +448,9 @@ function saveProgress(){
 }
 
 function getTotalProgress(){
-  var clues=['well_location','forum_secret','archive_2003','phone_easter','glitch_text','hidden_link'];
+  var clues=['well_location','forum_secret','archive_2003','archive_teacher','archive_secretary','phone_easter','glitch_text','hidden_link','chen_memorial','zhang_weibo','morse_74','zhou_chi','leadership_photo','hospital_13th','chenhu_village'];
   var found=clues.filter(function(c){return GAME_STATE.discoveries[c];}).length;
-  return Math.round(found/6*100);
+  return Math.round(found/4*100);
 }
 
 // 公开档案数据
@@ -432,11 +472,11 @@ function closeModal(id){ document.getElementById(id).classList.remove('show'); }
 // 井文档
 function openWellDocument(){ document.getElementById('wellDocModal').classList.add('show'); }
 function nextPageWellDoc(){
+  document.getElementById('wellDocModal').classList.remove('show');
   var climber=document.getElementById('climberOverlay');
   climber.style.display='flex';
   setTimeout(function(){
     climber.style.display='none';
-    document.getElementById('wellDocModal').classList.remove('show');
     var rain=document.getElementById('redTextRain');
     var container=document.getElementById('rainContainer');
     rain.style.display='block'; container.innerHTML='';
@@ -486,9 +526,9 @@ function handleSearch(){
 
 // 进度50%
 function checkProgress50(){
-  var clues=['well_location','forum_secret','archive_2003','phone_easter','glitch_text','hidden_link'];
+  var clues=['well_location','forum_secret','archive_2003','archive_teacher','archive_secretary','phone_easter','glitch_text','hidden_link','chen_memorial','zhang_weibo','morse_74','zhou_chi','leadership_photo','hospital_13th','chenhu_village'];
   var found=clues.filter(function(c){return GAME_STATE.discoveries[c];}).length;
-  if(found>=3){
+  if(found>=2){
     var o=document.getElementById('progress50Overlay');
     var a=document.getElementById('adminAlert');
     if(o)o.classList.add('active');
@@ -522,6 +562,8 @@ document.addEventListener('keydown',function(e){
     konami=[];
   }
 });
+function goSearch(){var q=document.getElementById('siteSearch');if(q&&q.value.trim()){window.location.href='search.html?q='+encodeURIComponent(q.value.trim());}}
+function showWellHint(){showToast('你应该看看洪水名单。',true);try{var s=sessionStorage.getItem('jingyue_save');var state=s?JSON.parse(s):{discoveries:{},fearLayer:0};if(!state.discoveries)state.discoveries={};state.discoveries['well_location']=true;sessionStorage.setItem('jingyue_save',JSON.stringify(state));}catch(e){}}
 </script>
 </body>
 </html>

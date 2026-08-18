@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>结局选择 - 景月镇</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #000;
+  color: #c41e3a;
+  font-family: 'SimSun', 'Songti SC', serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.ending-title {
+  font-size: 36px;
+  letter-spacing: 12px;
+  margin-bottom: 60px;
+  text-shadow: 0 0 20px rgba(196,30,58,0.5);
+  animation: titlePulse 3s ease-in-out infinite;
+}
+@keyframes titlePulse {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; text-shadow: 0 0 40px rgba(196,30,58,0.8); }
+}
+.ending-choices {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+.ending-choice {
+  padding: 18px 50px;
+  background: transparent;
+  border: 2px solid #c41e3a;
+  color: #c41e3a;
+  font-size: 18px;
+  letter-spacing: 6px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: inherit;
+  text-decoration: none;
+  display: inline-block;
+}
+.ending-choice:hover {
+  background: #c41e3a;
+  color: #000;
+  box-shadow: 0 0 30px rgba(196,30,58,0.6);
+}
+.ending-hint {
+  color: #444;
+  font-size: 14px;
+  letter-spacing: 8px;
+}
+.bg-text {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 200px;
+  color: rgba(196,30,58,0.03);
+  font-weight: bold;
+  pointer-events: none;
+  z-index: -1;
+}
+</style>
+</head>
+<body>
+<div class="bg-text">逃</div>
+<div class="ending-title">你 已 经 知 道 得 太 多 了</div>
+<div class="ending-choices">
+  <a href="ending_leave.html" class="ending-choice">转身离开</a>
+  <a href="ending_stay.html" class="ending-choice">跳下去</a>
+  <a href="ending_truth.html" class="ending-choice">说出真相</a>
+</div>
+<div class="ending-hint">选 择 你 的 结 局</div>
+</body>
+</html>

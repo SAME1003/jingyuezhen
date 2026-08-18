@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -441,11 +441,317 @@ a:hover { text-decoration: underline; }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
 /* ========== 论坛 ========== */
-.forum-categories {
+.forum-wrap { display: grid; grid-template-columns: 1fr 280px; gap: 20px; }
+.forum-main { min-width: 0; }
+
+/* 论坛公告条 */
+.forum-notice {
+  background: linear-gradient(90deg, #fff8e6, #fffdf5);
+  border: 1px solid #f0d98a;
+  border-radius: 4px;
+  padding: 10px 16px;
+  margin-bottom: 16px;
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: #8b6914;
 }
+.forum-notice .notice-icon { flex-shrink: 0; font-size: 16px; }
+.forum-notice .notice-text { flex: 1; overflow: hidden; }
+.forum-notice .notice-text span { animation: noticeScroll 15s linear infinite; display: inline-block; white-space: nowrap; }
+@keyframes noticeScroll { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+
+/* 版块列表 */
+.forum-board-list { display: flex; flex-direction: column; gap: 0; }
+.forum-board {
+  display: grid;
+  grid-template-columns: 56px 1fr 100px 160px;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: var(--bg-paper);
+  border-bottom: 1px solid var(--border-color);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.forum-board:first-child { border-radius: 4px 4px 0 0; }
+.forum-board:last-child { border-radius: 0 0 4px 4px; border-bottom: none; }
+.forum-board:hover { background: #f8f8f5; }
+.forum-board:hover .board-name { color: var(--gov-red); }
+.board-icon {
+  width: 48px; height: 48px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+.board-icon.life { background: #e8f5e9; }
+.board-icon.tour { background: #e3f2fd; }
+.board-icon.culture { background: #fff3e0; }
+.board-icon.lost { background: #fce4ec; }
+.board-info { min-width: 0; }
+.board-name {
+  font-size: 15px; font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  transition: color 0.2s;
+}
+.board-desc {
+  font-size: 12px; color: var(--text-muted);
+  margin-bottom: 4px;
+}
+.board-moderator {
+  font-size: 11px; color: #aaa;
+}
+.board-moderator span { color: var(--link-color); }
+.board-stats {
+  text-align: center;
+  border-left: 1px solid var(--border-color);
+  padding-left: 12px;
+}
+.board-stats .stat-num {
+  font-size: 18px; font-weight: bold;
+  color: var(--gov-red);
+  display: block;
+}
+.board-stats .stat-label {
+  font-size: 11px; color: var(--text-muted);
+}
+.board-lastpost {
+  border-left: 1px solid var(--border-color);
+  padding-left: 12px;
+  min-width: 0;
+}
+.lastpost-title {
+  font-size: 12px; color: var(--text-primary);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  margin-bottom: 3px;
+}
+.lastpost-meta {
+  font-size: 11px; color: var(--text-muted);
+}
+
+/* 侧边栏 */
+.forum-sidebar { display: flex; flex-direction: column; gap: 16px; }
+.sidebar-box {
+  background: var(--bg-paper);
+  border-radius: 4px;
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+.sidebar-box h4 {
+  font-size: 14px; font-weight: 600;
+  color: var(--text-primary);
+  padding: 12px 16px;
+  border-bottom: 2px solid var(--gov-red);
+  background: linear-gradient(90deg, rgba(196,30,58,0.04), transparent);
+}
+.sidebar-content { padding: 12px 16px; }
+.stat-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 6px 0;
+  font-size: 13px;
+  border-bottom: 1px dashed #eee;
+}
+.stat-row:last-child { border-bottom: none; }
+.stat-row span { color: var(--text-secondary); }
+.stat-row strong { color: var(--gov-red); font-size: 15px; }
+.hot-list { list-style: none; counter-reset: hot; }
+.hot-list li {
+  counter-increment: hot;
+  padding: 8px 0;
+  font-size: 13px;
+  border-bottom: 1px dashed #eee;
+  display: flex; align-items: flex-start; gap: 8px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.hot-list li:last-child { border-bottom: none; }
+.hot-list li:hover { color: var(--gov-red); }
+.hot-list li::before {
+  content: counter(hot);
+  width: 18px; height: 18px;
+  background: #ddd; color: #fff;
+  border-radius: 3px;
+  font-size: 11px; font-weight: bold;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.hot-list li:nth-child(1)::before { background: #e74c3c; }
+.hot-list li:nth-child(2)::before { background: #e67e22; }
+.hot-list li:nth-child(3)::before { background: #f1c40f; }
+.signin-btn {
+  width: 100%;
+  padding: 10px;
+  background: linear-gradient(135deg, var(--gov-red), #a01830);
+  color: #fff; border: none; border-radius: 4px;
+  font-size: 14px; cursor: pointer;
+  transition: opacity 0.2s;
+}
+.signin-btn:hover { opacity: 0.9; }
+.signin-btn.signed { background: #95a5a6; cursor: default; }
+.friend-links { display: flex; flex-wrap: wrap; gap: 6px; }
+.friend-links a {
+  font-size: 12px; color: var(--text-secondary);
+  padding: 4px 8px;
+  background: #f5f5f0;
+  border-radius: 3px;
+  text-decoration: none;
+}
+.friend-links a:hover { background: var(--gov-red); color: #fff; }
+
+/* 帖子列表 */
+.thread-list-header {
+  display: grid;
+  grid-template-columns: 50px 1fr 100px 120px 140px;
+  gap: 12px;
+  padding: 10px 16px;
+  background: #f5f5f0;
+  border-radius: 4px 4px 0 0;
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+.thread-item {
+  display: grid;
+  grid-template-columns: 50px 1fr 100px 120px 140px;
+  gap: 12px;
+  align-items: center;
+  padding: 14px 16px;
+  background: var(--bg-paper);
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.thread-item:hover { background: #fafaf7; }
+.thread-item:hover .thread-title { color: var(--gov-red); }
+.thread-type {
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  text-align: center;
+  flex-shrink: 0;
+}
+.thread-type.discuss { background: #e8f5e9; color: #2e7d32; }
+.thread-type.question { background: #fff3e0; color: #e65100; }
+.thread-type.share { background: #e3f2fd; color: #1565c0; }
+.thread-type.news { background: #fce4ec; color: #c62828; }
+.thread-title {
+  font-size: 14px;
+  color: var(--text-primary);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  transition: color 0.2s;
+}
+.thread-author {
+  font-size: 12px; color: var(--link-color);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.thread-stats {
+  font-size: 12px; color: var(--text-muted);
+  text-align: center;
+}
+.thread-stats span { display: block; }
+.thread-lastreply {
+  font-size: 11px; color: var(--text-muted);
+  min-width: 0;
+}
+.thread-lastreply .lr-user { color: var(--link-color); margin-bottom: 2px; }
+.thread-pagination {
+  display: flex; justify-content: center; gap: 6px;
+  padding: 16px;
+  background: var(--bg-paper);
+  border-radius: 0 0 4px 4px;
+}
+.thread-pagination span, .thread-pagination a {
+  padding: 6px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  text-decoration: none;
+}
+.thread-pagination .current {
+  background: var(--gov-red); color: #fff; border-color: var(--gov-red);
+}
+
+/* 帖子详情 */
+.post-view { background: var(--bg-paper); border-radius: 4px; overflow: hidden; }
+.post-view-header {
+  padding: 16px 20px;
+  border-bottom: 2px solid var(--gov-red);
+  background: linear-gradient(90deg, rgba(196,30,58,0.03), transparent);
+}
+.post-view-title {
+  font-size: 18px; font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+.post-view-meta {
+  font-size: 12px; color: var(--text-muted);
+  display: flex; gap: 16px;
+}
+.post-item {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  border-bottom: 1px solid #eee;
+}
+.post-item:last-child { border-bottom: none; }
+.post-user {
+  padding: 16px;
+  background: #fafaf7;
+  border-right: 1px solid #eee;
+  text-align: center;
+}
+.post-avatar {
+  width: 60px; height: 60px;
+  border-radius: 50%;
+  margin: 0 auto 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px; font-weight: bold; color: #fff;
+}
+.post-username {
+  font-size: 13px; font-weight: 600;
+  color: var(--link-color);
+  margin-bottom: 4px;
+}
+.post-level {
+  font-size: 11px; color: var(--gov-red);
+  margin-bottom: 4px;
+}
+.post-userinfo {
+  font-size: 11px; color: var(--text-muted);
+  line-height: 1.6;
+}
+.post-body-wrap { padding: 16px 20px; }
+.post-time {
+  font-size: 11px; color: var(--text-muted);
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed #eee;
+}
+.post-content {
+  font-size: 14px; line-height: 1.8;
+  color: var(--text-primary);
+  white-space: pre-wrap;
+  margin-bottom: 12px;
+}
+.post-actions {
+  font-size: 12px; color: var(--text-muted);
+  display: flex; gap: 16px;
+  padding-top: 8px;
+  border-top: 1px dashed #eee;
+}
+.post-actions span { cursor: pointer; }
+.post-actions span:hover { color: var(--gov-red); }
+.post-floor {
+  font-size: 11px; color: #aaa;
+  float: right;
+}
+
+/* 旧论坛样式保留（兼容） */
+.forum-categories { display: flex; flex-direction: column; gap: 12px; }
 .forum-category {
   background: var(--bg-paper);
   border-radius: 4px;
@@ -925,6 +1231,19 @@ body.layer-4 {
 
 /* ========== 响应式 ========== */
 @media (max-width: 768px) {
+  .forum-wrap { grid-template-columns: 1fr; }
+  .forum-sidebar { order: 2; }
+  .forum-board { grid-template-columns: 48px 1fr; gap: 10px; padding: 12px; }
+  .board-stats, .board-lastpost { display: none; }
+  .thread-list-header { display: none; }
+  .thread-item { grid-template-columns: 1fr; gap: 6px; padding: 12px; }
+  .thread-type { display: inline-block; width: auto; }
+  .thread-stats, .thread-lastreply { display: none; }
+  .post-item { grid-template-columns: 1fr; }
+  .post-user { display: flex; align-items: center; gap: 12px; text-align: left; border-right: none; border-bottom: 1px solid #eee; }
+  .post-avatar { margin: 0; width: 40px; height: 40px; font-size: 18px; }
+  .post-userinfo { display: none; }
+
   .header-inner { flex-direction: column; gap: 16px; padding: 16px 0; }
   .logo-emblem { width: 48px; height: 48px; }
   .site-title h1 { font-size: 22px; }
@@ -1179,23 +1498,72 @@ body.layer-4 {
 }
 
 /* ===== 进度50%特效 ===== */
-.progress-50-overlay {
-  position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100vw; height: 100vh;
-  background: rgba(120, 0, 0, 0.2);
-  pointer-events: none; z-index: 10003; display: none;
-}
+.progress-50-overlay { display: none; }
 body.progress-50-mode {
-  filter: sepia(0.3) hue-rotate(-20deg) saturate(1.2);
+  --bg-main: #3a1010;
+  --bg-paper: #2a0808;
+  --bg-header: #2a0808;
+  --text-primary: #ccaaaa;
+  --text-secondary: #997777;
+  --text-muted: #665555;
+  --border-color: #4a2020;
+  background: #3a1010;
 }
+body.progress-50-mode .main-content,
+body.progress-50-mode .content-card,
+body.progress-50-mode .card,
 body.progress-50-mode .site-header,
-body.progress-50-mode .nav,
+body.progress-50-mode .header,
 body.progress-50-mode .top-banner {
-  filter: sepia(0.3) hue-rotate(-20deg) saturate(1.2);
+  background: #2a0808 !important;
 }
-.progress-50-overlay.active { display: block; animation: overlayPulse 3s ease-in-out infinite; }
-@keyframes overlayPulse {
-  0%,100% { background: rgba(120,0,0,0.10); }
-  50% { background: rgba(120,0,0,0.20); }
+body.progress-50-mode,
+body.progress-50-mode div,
+body.progress-50-mode section,
+body.progress-50-mode article,
+body.progress-50-mode header,
+body.progress-50-mode nav,
+body.progress-50-mode footer,
+body.progress-50-mode main,
+body.progress-50-mode ul,
+body.progress-50-mode li,
+body.progress-50-mode p,
+body.progress-50-mode h1,
+body.progress-50-mode h2,
+body.progress-50-mode h3,
+body.progress-50-mode h4,
+body.progress-50-mode h5,
+body.progress-50-mode span,
+body.progress-50-mode a,
+body.progress-50-mode label {
+  background-color: #2a0808 !important;
+}
+body.progress-50-mode img,
+body.progress-50-mode video,
+body.progress-50-mode iframe,
+body.progress-50-mode input,
+body.progress-50-mode button,
+body.progress-50-mode textarea,
+body.progress-50-mode select {
+  background-color: initial !important;
+}
+body.progress-50-mode .section-card,
+body.progress-50-mode .content-card,
+body.progress-50-mode .card,
+body.progress-50-mode .town-intro,
+body.progress-50-mode .notice-box,
+body.progress-50-mode .quick-links,
+body.progress-50-mode .sidebar,
+body.progress-50-mode .main-content,
+body.progress-50-mode .site-header,
+body.progress-50-mode .header,
+body.progress-50-mode .top-banner,
+body.progress-50-mode .modal-box,
+body.progress-50-mode .modal-content,
+body.progress-50-mode .modal-body,
+body.progress-50-mode .modal-header {
+  background: #1f0606 !important;
+}
 }
 .admin-alert {
   position: fixed; top: 0; left: 0; right: 0;
@@ -1288,60 +1656,153 @@ body.progress-50-mode .hero { filter: hue-rotate(-20deg) saturate(1.2); }
       <div style="margin-bottom:20px;border-radius:4px;overflow:hidden;">
         <img src="forum_crt.jpg" style="width:100%;height:140px;object-fit:cover;display:block;filter:sepia(0.2);" alt="古戏台">
       </div>
+      <div class="forum-wrap">
+        <div class="forum-main">
+          <div class="forum-notice">
+            <span class="notice-icon">📢</span>
+            <div class="notice-text"><span>【公告】景月论坛实名制认证进行中，请未认证用户尽快完成认证。文明上网，理性发言。 | 2003年抗洪救灾二十周年纪念活动筹备中，欢迎提供老照片和口述史料。</span></div>
+          </div>
       <div id="forumMain">
-        <div class="forum-categories">
-          <div class="forum-category" onclick="enterForumBoard('life')">
-            <div class="forum-cat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c41e3a" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
-            <div class="forum-cat-info">
-              <h4>民生生活</h4>
-              <p>日常生活、邻里互助</p>
+        <div class="forum-board-list">
+          <div class="forum-board" onclick="enterForumBoard('life')">
+            <div class="board-icon life">🏠</div>
+            <div class="board-info">
+              <div class="board-name">民生生活</div>
+              <div class="board-desc">日常生活、邻里互助、家长里短、柴米油盐</div>
+              <div class="board-moderator">版主：<span>镇居委会小周</span></div>
             </div>
-            <div class="forum-cat-stats"><strong>1,234</strong>帖子</div>
+            <div class="board-stats">
+              <span class="stat-num">1,234</span>
+              <span class="stat-label">主题 / 8,562 帖</span>
+            </div>
+            <div class="board-lastpost">
+              <div class="lastpost-title">镇东头那家早点铺现在还开着吗？</div>
+              <div class="lastpost-meta">老陈头 · 今天 09:23</div>
+            </div>
           </div>
-          <div class="forum-category" onclick="enterForumBoard('tour')">
-            <div class="forum-cat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c41e3a" stroke-width="1.8"><path d="M3 20l5-8 4 6 3-4 6 6z"/><circle cx="8" cy="7" r="2.5"/></svg></div>
-            <div class="forum-cat-info">
-              <h4>旅游交流</h4>
-              <p>游记、攻略、景点讨论</p>
+          <div class="forum-board" onclick="enterForumBoard('tour')">
+            <div class="board-icon tour">🏞️</div>
+            <div class="board-info">
+              <div class="board-name">旅游交流</div>
+              <div class="board-desc">游记攻略、景点讨论、食宿推荐、游客问答</div>
+              <div class="board-moderator">版主：<span>古镇导游阿明</span></div>
             </div>
-            <div class="forum-cat-stats"><strong>856</strong>帖子</div>
+            <div class="board-stats">
+              <span class="stat-num">856</span>
+              <span class="stat-label">主题 / 5,234 帖</span>
+            </div>
+            <div class="board-lastpost">
+              <div class="lastpost-title">求一份两日游攻略！</div>
+              <div class="lastpost-meta">上海游客 · 今天 10:30</div>
+            </div>
           </div>
-          <div class="forum-category" onclick="enterForumBoard('culture')">
-            <div class="forum-cat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c41e3a" stroke-width="1.8"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
-            <div class="forum-cat-info">
-              <h4>文史天地</h4>
-              <p>地方历史、民俗、老故事</p>
+          <div class="forum-board" onclick="enterForumBoard('culture')">
+            <div class="board-icon culture">📚</div>
+            <div class="board-info">
+              <div class="board-name">文史天地</div>
+              <div class="board-desc">地方历史、民俗传说、老故事、古籍整理</div>
+              <div class="board-moderator">版主：<span>文化站周老师</span></div>
             </div>
-            <div class="forum-cat-stats"><strong>432</strong>帖子</div>
+            <div class="board-stats">
+              <span class="stat-num">432</span>
+              <span class="stat-label">主题 / 3,876 帖</span>
+            </div>
+            <div class="board-lastpost">
+              <div class="lastpost-title">2003年的洪水到底有多大？</div>
+              <div class="lastpost-meta">90后镇民 · 昨天 11:05</div>
+            </div>
           </div>
-          <div class="forum-category" onclick="enterForumBoard('lost')">
-            <div class="forum-cat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c41e3a" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
-            <div class="forum-cat-info">
-              <h4>寻人寻物</h4>
-              <p>失物招领、找人</p>
+          <div class="forum-board" onclick="enterForumBoard('lost')">
+            <div class="board-icon lost">🔍</div>
+            <div class="board-info">
+              <div class="board-name">寻人寻物</div>
+              <div class="board-desc">失物招领、寻人启事、宠物走失、物品交换</div>
+              <div class="board-moderator">版主：<span>综治办小王</span></div>
             </div>
-            <div class="forum-cat-stats"><strong>89</strong>帖子</div>
+            <div class="board-stats">
+              <span class="stat-num">89</span>
+              <span class="stat-label">主题 / 234 帖</span>
+            </div>
+            <div class="board-lastpost">
+              <div class="lastpost-title">寻找走失的母亲，72岁</div>
+              <div class="lastpost-meta">焦急的儿子 · 3天前</div>
+            </div>
           </div>
         </div>
       </div>
 
       <div id="forumBoard" style="display:none;">
-        <div class="section-card">
+        <div class="section-card" style="box-shadow:none;">
           <div class="section-header">
             <span class="section-title" id="boardTitle">版块</span>
             <span class="section-more" onclick="backToForum()">← 返回论坛首页</span>
           </div>
-          <ul class="news-list" id="forumThreadList"></ul>
+          <div class="thread-list-header">
+            <span>类型</span><span>标题</span><span>作者</span><span>回复/查看</span><span>最后回复</span>
+          </div>
+          <div id="forumThreadList"></div>
+          <div class="thread-pagination">
+            <span class="current">1</span><a href="#">2</a><a href="#">3</a><a href="#">下一页</a>
+          </div>
         </div>
       </div>
 
       <div id="forumThreadView" style="display:none;">
-        <div class="section-card">
-          <div class="section-header">
-            <span class="section-title" id="threadTitle">帖子</span>
-            <span class="section-more" onclick="backToBoard()">← 返回版块</span>
+        <div class="post-view">
+          <div class="post-view-header">
+            <div class="post-view-title" id="threadTitle">帖子标题</div>
+            <div class="post-view-meta">
+              <span onclick="backToBoard()" style="cursor:pointer;color:var(--link-color);">← 返回版块</span>
+              <span>发布时间：2024-03-15</span>
+              <span>浏览：1,234</span>
+            </div>
           </div>
-          <div id="threadPosts" style="padding: 0;"></div>
+          <div id="threadPosts"></div>
+        </div>
+      </div>
+        </div>
+        <div class="forum-sidebar">
+          <div class="sidebar-box">
+            <h4>论坛统计</h4>
+            <div class="sidebar-content">
+              <div class="stat-row"><span>当前在线</span><strong>128</strong></div>
+              <div class="stat-row"><span>今日发帖</span><strong>56</strong></div>
+              <div class="stat-row"><span>昨日发帖</span><strong>89</strong></div>
+              <div class="stat-row"><span>注册会员</span><strong>12,456</strong></div>
+              <div class="stat-row"><span>最高在线</span><strong>892</strong></div>
+            </div>
+          </div>
+          <div class="sidebar-box">
+            <h4>热门帖子</h4>
+            <div class="sidebar-content">
+              <ol class="hot-list">
+                <li onclick="enterForumBoard('culture');setTimeout(function(){openThread('culture',4)},300)">2003年的洪水到底有多大？</li>
+                <li onclick="enterForumBoard('culture');setTimeout(function(){openThread('culture',2)},300)">井湾村老人讲的那个故事</li>
+                <li onclick="enterForumBoard('tour');setTimeout(function(){openThread('tour',5)},300)">夜游的时候迷路了...</li>
+                <li onclick="enterForumBoard('life');setTimeout(function(){openThread('life',6)},300)">昨晚又听到奇怪的声音了</li>
+                <li onclick="enterForumBoard('culture');setTimeout(function(){openThread('culture',0)},300)">景月镇名的真正由来</li>
+              </ol>
+            </div>
+          </div>
+          <div class="sidebar-box">
+            <h4>每日签到</h4>
+            <div class="sidebar-content">
+              <button class="signin-btn" id="signinBtn" onclick="doSignin()">签到领积分</button>
+              <p style="font-size:11px;color:var(--text-muted);margin-top:8px;text-align:center;">已连续签到 0 天</p>
+            </div>
+          </div>
+          <div class="sidebar-box">
+            <h4>友情链接</h4>
+            <div class="sidebar-content">
+              <div class="friend-links">
+                <a href="#" onclick="showToast('跳转中...')">月城市民论坛</a>
+                <a href="#" onclick="showToast('跳转中...')">江南文旅网</a>
+                <a href="#" onclick="showToast('跳转中...')">古镇联盟</a>
+                <a href="#" onclick="showToast('跳转中...')">县档案馆</a>
+                <a href="#" onclick="showToast('跳转中...')">景月湖景区</a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1477,7 +1938,7 @@ const GAME_STATE = {
   playthrough: 1,
 };
 
-const TOTAL_CLUES = 6; // 主要线索数量
+const TOTAL_CLUES = 15; // 主要线索数量
 
 // ========== 存档 ==========
 function saveProgress() {
@@ -2097,10 +2558,14 @@ function enterForumBoard(boardKey) {
   if (!board) return;
   document.getElementById('boardTitle').textContent = board.title;
   const listEl = document.getElementById('forumThreadList');
+  const types = ['discuss','question','share','news','discuss','question','share','discuss','news'];
   listEl.innerHTML = board.threads.map((t, i) => `
-    <div style="padding:14px 20px;border-bottom:1px solid #eee;cursor:pointer;transition:background 0.2s;" onclick="openThread('${boardKey}', ${i})" onmouseover="this.style.background='#fafafa'" onmouseout="this.style.background=''">
-      <div style="font-size:14px;color:var(--text-primary);margin-bottom:4px;">${t.title}</div>
-      <div style="font-size:12px;color:var(--text-muted);">${t.author} · ${t.time} · 回复 ${t.replies} · 浏览 ${t.views}</div>
+    <div class="thread-item" onclick="openThread('${boardKey}', ${i})">
+      <span class="thread-type ${types[i % types.length]}">${['讨论','求助','分享','资讯'][i % 4]}</span>
+      <span class="thread-title">${t.title}</span>
+      <span class="thread-author">${t.author}</span>
+      <span class="thread-stats"><span>回复 ${t.replies}</span><span>查看 ${t.views}</span></span>
+      <span class="thread-lastreply"><div class="lr-user">热心居民</div><div>${t.time.substring(5)}</div></span>
     </div>
   `).join('');
   document.getElementById('forumMain').style.display = 'none';
@@ -2156,17 +2621,31 @@ function openThread(boardKey, threadIndex) {
 
 function renderThreadPosts(posts) {
   const postsEl = document.getElementById('threadPosts');
-  postsEl.innerHTML = `
-    <div style="padding:10px 20px;background:#f5f5f0;border-bottom:1px solid #eee;font-size:12px;color:var(--text-muted);">
-      <span onclick="backToBoard()" style="cursor:pointer;color:var(--link-color);">← 返回版块</span>
-    </div>
-  ` + posts.map(post => `
-    <div style="padding:16px 20px;border-bottom:1px dashed #eee;display:flex;gap:14px;">
-      <div style="width:44px;height:44px;border-radius:50%;background:${post.color || '#4a8b7a'};flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:bold;color:#fff;">${post.avatar || '?'}</div>
-      <div style="flex:1;">
-        <div style="font-size:13px;font-weight:600;color:${post.color || 'var(--link-color)'};margin-bottom:6px;">${post.author}</div>
-        <div style="font-size:14px;line-height:1.7;color:var(--text-primary);white-space:pre-wrap;">${post.content.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
-        <div style="font-size:11px;color:var(--text-muted);margin-top:6px;">${post.time}</div>
+  const levels = ['Lv.5 资深镇民','Lv.3 普通镇民','Lv.7 论坛元老','Lv.2 新手上路','Lv.4 活跃镇民','Lv.6 知名人士','Lv.9 管理员','Lv.1 游客'];
+  postsEl.innerHTML = posts.map((post, i) => `
+    <div class="post-item">
+      <div class="post-user">
+        <div class="post-avatar" style="background:${post.color || '#4a8b7a'};">${post.avatar || '?'}</div>
+        <div class="post-username">${post.author || '匿名'}</div>
+        <div class="post-level">${levels[i % levels.length]}</div>
+        <div class="post-userinfo">
+          发帖：${120 + i * 37}<br>
+          积分：${560 + i * 89}<br>
+          注册：2019-0${(i % 9) + 1}
+        </div>
+      </div>
+      <div class="post-body-wrap">
+        <div class="post-time">
+          ${post.time}
+          <span class="post-floor">${i === 0 ? '楼主' : (i + 1) + '楼'}</span>
+        </div>
+        <div class="post-content">${post.content.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
+        <div class="post-actions">
+          <span>👍 赞 (${Math.floor(Math.random() * 50) + 1})</span>
+          <span>💬 回复</span>
+          <span>📋 引用</span>
+          <span>⚠️ 举报</span>
+        </div>
       </div>
     </div>
   `).join('');
@@ -2413,6 +2892,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // ========== Konami彩蛋 ==========
 let konamiCode = [];
+function doSignin() {
+  var btn = document.getElementById('signinBtn');
+  if (btn.classList.contains('signed')) { showToast('今日已签到，明天再来吧'); return; }
+  btn.classList.add('signed');
+  btn.textContent = '✓ 已签到 +10积分';
+  showToast('签到成功！获得10积分，连续签到1天');
+}
 const secretCode = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
 document.addEventListener('keydown', function(e) {
   konamiCode.push(e.key);
@@ -2425,9 +2911,9 @@ document.addEventListener('keydown', function(e) {
 });
 
 function checkProgress50() {
-  const clues = ['well_location','forum_secret','archive_2003','phone_easter','glitch_text','hidden_link'];
+  const clues = ['well_location','forum_secret','archive_2003','archive_teacher','archive_secretary','phone_easter','glitch_text','hidden_link','chen_memorial','zhang_weibo','morse_74','zhou_chi','leadership_photo','hospital_13th','chenhu_village'];
   const found = clues.filter(function(c){return GAME_STATE.discoveries[c];}).length;
-  if (found >= 3) {
+  if (found >= 2) {
     var overlay = document.getElementById('progress50Overlay');
     var alert = document.getElementById('adminAlert');
     if (overlay) overlay.classList.add('active');
@@ -2454,7 +2940,7 @@ function showHiddenPost() {
 function verifyForumPassword() {
   const pwd = document.getElementById('forumPasswordInput').value;
   // 密码：遇难者人数 12
-  if (pwd === '12') {
+  if (pwd === '13') {
     document.getElementById('forumPasswordModal').style.display = 'none';
     showToast('帖子内容：7月14号凌晨，我看到北井那边有光，还有人在喊。第二天洪水就来了。', true);
     discoverHidden('forum_secret');
@@ -2465,9 +2951,9 @@ function verifyForumPassword() {
 </script>
 <script>initPage('forum');
 function checkProgress50() {
-  const clues = ['well_location','forum_secret','archive_2003','phone_easter','glitch_text','hidden_link'];
+  const clues = ['well_location','forum_secret','archive_2003','archive_teacher','archive_secretary','phone_easter','glitch_text','hidden_link','chen_memorial','zhang_weibo','morse_74','zhou_chi','leadership_photo','hospital_13th','chenhu_village'];
   const found = clues.filter(function(c){return GAME_STATE.discoveries[c];}).length;
-  if (found >= 3) {
+  if (found >= 2) {
     var overlay = document.getElementById('progress50Overlay');
     var alert = document.getElementById('adminAlert');
     if (overlay) overlay.classList.add('active');
@@ -2494,7 +2980,7 @@ function showHiddenPost() {
 function verifyForumPassword() {
   const pwd = document.getElementById('forumPasswordInput').value;
   // 密码：遇难者人数 12
-  if (pwd === '12') {
+  if (pwd === '13') {
     document.getElementById('forumPasswordModal').style.display = 'none';
     showToast('帖子内容：7月14号凌晨，我看到北井那边有光，还有人在喊。第二天洪水就来了。', true);
     discoverHidden('forum_secret');
@@ -2511,7 +2997,7 @@ function verifyForumPassword() {
     <p style="font-size:12px;color:#666;margin-bottom:12px;">请输入密码（2位）：</p>
     <input type="text" id="forumPasswordInput" maxlength="2" style="width:100%;padding:10px;border:1px solid #ddd;border-radius:4px;text-align:center;font-size:18px;letter-spacing:8px;">
     <p id="forumPasswordError" style="color:#c41e3a;font-size:12px;margin-top:8px;min-height:16px;"></p>
-    <p style="font-size:11px;color:#999;margin-top:8px;font-style:italic;">提示：2003年洪水，遇难者共有多少人？</p>
+    <p style="font-size:11px;color:#999;margin-top:8px;font-style:italic;">提示：2003年洪水，遇难者加上神秘人共有多少人？</p>
     <div style="margin-top:16px;text-align:right;">
       <button onclick="verifyForumPassword()" style="padding:8px 20px;background:#c41e3a;color:#fff;border:none;border-radius:4px;cursor:pointer;">确认</button>
       <button onclick="document.getElementById('forumPasswordModal').style.display='none'" style="padding:8px 16px;background:#f0f0f0;border:none;border-radius:4px;cursor:pointer;margin-left:8px;">取消</button>

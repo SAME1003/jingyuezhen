@@ -1179,23 +1179,72 @@ body.layer-4 {
 }
 
 /* ===== 进度50%特效 ===== */
-.progress-50-overlay {
-  position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100vw; height: 100vh;
-  background: rgba(120, 0, 0, 0.2);
-  pointer-events: none; z-index: 10003; display: none;
-}
+.progress-50-overlay { display: none; }
 body.progress-50-mode {
-  filter: sepia(0.3) hue-rotate(-20deg) saturate(1.2);
+  --bg-main: #3a1010;
+  --bg-paper: #2a0808;
+  --bg-header: #2a0808;
+  --text-primary: #ccaaaa;
+  --text-secondary: #997777;
+  --text-muted: #665555;
+  --border-color: #4a2020;
+  background: #3a1010;
 }
+body.progress-50-mode .main-content,
+body.progress-50-mode .content-card,
+body.progress-50-mode .card,
 body.progress-50-mode .site-header,
-body.progress-50-mode .nav,
+body.progress-50-mode .header,
 body.progress-50-mode .top-banner {
-  filter: sepia(0.3) hue-rotate(-20deg) saturate(1.2);
+  background: #2a0808 !important;
 }
-.progress-50-overlay.active { display: block; animation: overlayPulse 3s ease-in-out infinite; }
-@keyframes overlayPulse {
-  0%,100% { background: rgba(120,0,0,0.10); }
-  50% { background: rgba(120,0,0,0.20); }
+body.progress-50-mode,
+body.progress-50-mode div,
+body.progress-50-mode section,
+body.progress-50-mode article,
+body.progress-50-mode header,
+body.progress-50-mode nav,
+body.progress-50-mode footer,
+body.progress-50-mode main,
+body.progress-50-mode ul,
+body.progress-50-mode li,
+body.progress-50-mode p,
+body.progress-50-mode h1,
+body.progress-50-mode h2,
+body.progress-50-mode h3,
+body.progress-50-mode h4,
+body.progress-50-mode h5,
+body.progress-50-mode span,
+body.progress-50-mode a,
+body.progress-50-mode label {
+  background-color: #2a0808 !important;
+}
+body.progress-50-mode img,
+body.progress-50-mode video,
+body.progress-50-mode iframe,
+body.progress-50-mode input,
+body.progress-50-mode button,
+body.progress-50-mode textarea,
+body.progress-50-mode select {
+  background-color: initial !important;
+}
+body.progress-50-mode .section-card,
+body.progress-50-mode .content-card,
+body.progress-50-mode .card,
+body.progress-50-mode .town-intro,
+body.progress-50-mode .notice-box,
+body.progress-50-mode .quick-links,
+body.progress-50-mode .sidebar,
+body.progress-50-mode .main-content,
+body.progress-50-mode .site-header,
+body.progress-50-mode .header,
+body.progress-50-mode .top-banner,
+body.progress-50-mode .modal-box,
+body.progress-50-mode .modal-content,
+body.progress-50-mode .modal-body,
+body.progress-50-mode .modal-header {
+  background: #1f0606 !important;
+}
 }
 .admin-alert {
   position: fixed; top: 0; left: 0; right: 0;
@@ -1447,7 +1496,7 @@ const GAME_STATE = {
   playthrough: 1,
 };
 
-const TOTAL_CLUES = 6; // 主要线索数量
+const TOTAL_CLUES = 15; // 主要线索数量
 
 // ========== 存档 ==========
 function saveProgress() {
@@ -2395,9 +2444,9 @@ document.addEventListener('keydown', function(e) {
 });
 
 function checkProgress50() {
-  const clues = ['well_location','forum_secret','archive_2003','phone_easter','glitch_text','hidden_link'];
+  const clues = ['well_location','forum_secret','archive_2003','archive_teacher','archive_secretary','phone_easter','glitch_text','hidden_link','chen_memorial','zhang_weibo','morse_74','zhou_chi','leadership_photo','hospital_13th','chenhu_village'];
   const found = clues.filter(function(c){return GAME_STATE.discoveries[c];}).length;
-  if (found >= 3) {
+  if (found >= 2) {
     var overlay = document.getElementById('progress50Overlay');
     var alert = document.getElementById('adminAlert');
     if (overlay) overlay.classList.add('active');
@@ -2420,9 +2469,9 @@ function checkProgress50() {
 </script>
 <script>initPage('culture');
 function checkProgress50() {
-  const clues = ['well_location','forum_secret','archive_2003','phone_easter','glitch_text','hidden_link'];
+  const clues = ['well_location','forum_secret','archive_2003','archive_teacher','archive_secretary','phone_easter','glitch_text','hidden_link','chen_memorial','zhang_weibo','morse_74','zhou_chi','leadership_photo','hospital_13th','chenhu_village'];
   const found = clues.filter(function(c){return GAME_STATE.discoveries[c];}).length;
-  if (found >= 3) {
+  if (found >= 2) {
     var overlay = document.getElementById('progress50Overlay');
     var alert = document.getElementById('adminAlert');
     if (overlay) overlay.classList.add('active');

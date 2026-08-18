@@ -107,23 +107,6 @@
     <button class="restart-btn" onclick="restart()">重 新 开 始</button>
   </div>
 </div>
-<script>
-  // 显示进度
-  try {
-    var saved = sessionStorage.getItem('jingyue_save');
-    if (saved) {
-      var data = JSON.parse(saved);
-      var found = 0;
-      var clues = ['well_location','forum_secret','archive_2003','phone_easter','glitch_text','hidden_link'];
-      clues.forEach(function(c) { if (data.discoveries && data.discoveries[c]) found++; });
-      document.getElementById('progressText').textContent = '【发现进度：' + Math.round(found/6*100) + '%】';
-    }
-  } catch(e) {}
 
-  function restart() {
-    sessionStorage.removeItem('jingyue_save');
-    window.location.href = 'home.html';
-  }
-</script>
 </body>
 </html>
