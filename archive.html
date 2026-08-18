@@ -736,7 +736,7 @@ body.layer-4 {
   inset: 0;
   background: #0a0a0a;
   color: #ddd;
-  z-index: 2000;
+  z-index: 10000;
   display: none;
   flex-direction: column;
   align-items: center;
@@ -781,7 +781,7 @@ body.layer-4 {
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.5);
-  z-index: 1000;
+  z-index: 10001;
   display: none;
   align-items: center;
   justify-content: center;
@@ -897,7 +897,7 @@ body.layer-4 {
 /* ========== Toast提示 ========== */
 .toast {
   position: fixed;
-  top: 20px;
+  top: 70px;
   left: 50%;
   transform: translateX(-50%) translateY(-20px);
   background: rgba(0,0,0,0.85);
@@ -905,7 +905,7 @@ body.layer-4 {
   padding: 10px 20px;
   border-radius: 4px;
   font-size: 13px;
-  z-index: 2000;
+  z-index: 10000;
   opacity: 0;
   transition: all 0.3s ease;
   pointer-events: none;
@@ -1194,8 +1194,8 @@ body.layer-4 {
 
 /* ===== 进度50%特效 ===== */
 .progress-50-overlay {
-  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(120, 0, 0, 0.12);
+  position: fixed; inset: 0;
+  background: rgba(120, 0, 0, 0.15);
   pointer-events: none; z-index: 9998; display: none;
 }
 .progress-50-overlay.active { display: block; animation: overlayPulse 3s ease-in-out infinite; }
@@ -1324,6 +1324,11 @@ body.progress-50-mode .hero { filter: hue-rotate(-20deg) saturate(1.2); }
           <div class="archive-item" onclick="showTeacherArchive()">
             <div class="archive-img" style="background:url('library_day.jpg') center/cover no-repeat;"></div>
             <div class="archive-label">退休教师档案</div>
+          <div class="archive-item" id="wellArchiveCard" style="display:none;border-color:#c41e3a;box-shadow:0 0 12px rgba(196,30,58,0.3);" onclick="openWellDocument()">
+            <div class="archive-img" style="background:url('well_closeup.jpg') center/cover no-repeat;filter:sepia(0.4) brightness(0.7);"></div>
+            <div class="archive-label" style="color:#c41e3a;">井</div>
+            <div class="archive-year">无编号</div>
+          </div>
             <div class="archive-year">1995 · 需授权</div>
           </div>
           <div class="archive-item" onclick="showPartySecretaryArchive()">
@@ -1664,6 +1669,10 @@ function initPage(pageId) {
       var l = document.getElementById('archive2003Label');
       if (l) l.textContent = '2003年异常事件调查档案';
     }
+    if (getTotalProgress() >= 100) {
+      var wellCard = document.getElementById('wellArchiveCard');
+      if (wellCard) wellCard.style.display = 'block';
+    }
   }
 }
 
@@ -1673,6 +1682,40 @@ function openModal(id) {
 }
 function closeModal(id) {
   document.getElementById(id).classList.remove('show');
+}
+
+// 井文档相关
+function openWellDocument() {
+  document.getElementById('wellDocModal').classList.add('show');
+}
+function nextPageWellDoc() {
+  document.getElementById('wellDocModal').classList.remove('show');
+  var rain = document.getElementById('redTextRain');
+  var container = document.getElementById('rainContainer');
+  rain.style.display = 'block';
+  container.innerHTML = '';
+  var texts = ['你居然还是找到这里了','你居然还是找到这里了','你居然还是找到这里了','别再往下看了','它们知道你在这','井不是井','不要念名字','你居然还是找到这里了'];
+  for (var i = 0; i < 60; i++) {
+    (function(idx) {
+      setTimeout(function() {
+        var span = document.createElement('span');
+        span.className = 'rain-text';
+        span.textContent = texts[idx % texts.length];
+        span.style.left = Math.random() * 100 + '%';
+        span.style.fontSize = (18 + Math.random() * 20) + 'px';
+        span.style.animationDuration = (2 + Math.random() * 2) + 's';
+        span.style.opacity = 0.4 + Math.random() * 0.6;
+        container.appendChild(span);
+      }, idx * 80);
+    })(i);
+  }
+  setTimeout(function() {
+    rain.style.display = 'none';
+    document.getElementById('escapeExit').style.display = 'flex';
+  }, 6000);
+}
+function escapeToEnding() {
+  window.location.href = 'well.html?ending=show';
 }
 
 // ========== Toast ==========
@@ -2612,5 +2655,62 @@ function verifySecretaryPassword() {
     </div>
   </div>
 </div>
-</body>
+
+<!-- 井文档modal -->
+<div class="modal-overlay" id="wellDocModal">
+  <div class="modal-content" style="max-width:600px;max-height:80vh;overflow-y:auto;background:#f5f2ec;border:1px solid #ccc;">
+    <div style="padding:30px 36px;">
+      <div style="text-align:center;margin-bottom:24px;border-bottom:1px solid #ccc;padding-bottom:16px;">
+        <h3 style="color:#333;font-size:20px;letter-spacing:4px;">井</h3>
+        <p style="color:#999;font-size:12px;margin-top:6px;">无编号 · 牛皮纸信封 · 未归档</p>
+      </div>
+      <div style="color:#444;font-size:14px;line-height:2.2;">
+        <p style="text-indent:2em;margin-bottom:16px;">这份材料不在任何档案目录里。信封上没有寄件人，没有日期，只有用蓝黑钢笔写的一个字：井。</p>
+        <p style="text-indent:2em;margin-bottom:16px;">里面是一叠手写纸，纸页发黄，边角有水渍。字迹很潦草，像是在很暗的地方写的，越往后越乱。</p>
+        <p style="text-indent:2em;margin-bottom:16px;">第一页写着："7月12日，水位又涨了。村支书说上面让撤，但陈老师不肯走。她说她要把名单抄完，那些名字不能就这么没了。"</p>
+        <p style="text-indent:2em;margin-bottom:16px;">第二页："7月13日夜，听到井里有声音。不是水声，是有人在数数。从一数到十二，又从一数到十二。我数了一下，井湾村正好十二户人家。"</p>
+        <p style="text-indent:2em;margin-bottom:16px;">第三页开始字迹变得难以辨认："7月14日凌晨，水漫进村子了。我往高处跑，路过井边的时候停下来看了一眼。井水没有涨，反而在往下退。井底有光，白的，有人影。"</p>
+        <p style="text-indent:2em;margin-bottom:16px;">后面几页几乎看不清，只能辨认出零星几个词："它们不是鬼"、"是被留下来的"、"井不是井"、"不要念名字"。</p>
+        <p style="text-indent:2em;margin-bottom:24px;color:#888;font-style:italic;">最后一页只有一行字，写得很用力，纸都划破了："如果你看到这个，赶紧走。别回头。"</p>
+      </div>
+      <div style="text-align:center;margin-top:30px;">
+        <button onclick="nextPageWellDoc()" style="background:#1a1a1a;color:#ccc;border:1px solid #444;padding:12px 48px;cursor:pointer;font-size:14px;letter-spacing:4px;">下一页</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 红色文字掉落动画层 -->
+<div id="redTextRain" style="position:fixed;inset:0;background:#000;z-index:10005;display:none;overflow:hidden;">
+  <div id="rainContainer" style="position:absolute;inset:0;"></div>
+</div>
+
+<!-- 逃离这里按钮 -->
+<div id="escapeExit" style="position:fixed;inset:0;background:#000;z-index:10006;display:none;align-items:center;justify-content:center;flex-direction:column;">
+  <div style="color:#2d8a2d;font-size:14px;letter-spacing:6px;margin-bottom:20px;animation:blink 1s infinite;">安 全 通 道</div>
+  <div style="width:200px;height:60px;border:2px solid #2d8a2d;display:flex;align-items:center;justify-content:center;cursor:pointer;animation:glow 2s ease-in-out infinite;" onclick="escapeToEnding()">
+    <span style="color:#4caf50;font-size:18px;letter-spacing:8px;">逃 离 这 里</span>
+  </div>
+  <div style="color:#444;font-size:11px;margin-top:30px;letter-spacing:2px;">← 出口方向</div>
+</div>
+
+<style>
+@keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+@keyframes glow { 0%,100%{box-shadow:0 0 5px #2d8a2d;} 50%{box-shadow:0 0 25px #2d8a2d,0 0 50px rgba(45,138,45,0.3);} }
+.rain-text {
+  position:absolute;
+  color:#c41e3a;
+  font-weight:bold;
+  font-size:24px;
+  text-shadow:0 0 10px #ff0000;
+  animation:rainDown linear forwards;
+  white-space:nowrap;
+}
+@keyframes rainDown {
+  0% { transform:translateY(-50px); opacity:0; }
+  10% { opacity:1; }
+  90% { opacity:1; }
+  100% { transform:translateY(110vh); opacity:0; }
+}
+</style></body>
 </html>

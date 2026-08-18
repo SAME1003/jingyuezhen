@@ -736,7 +736,7 @@ body.layer-4 {
   inset: 0;
   background: #0a0a0a;
   color: #ddd;
-  z-index: 2000;
+  z-index: 10000;
   display: none;
   flex-direction: column;
   align-items: center;
@@ -781,7 +781,7 @@ body.layer-4 {
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.5);
-  z-index: 1000;
+  z-index: 10001;
   display: none;
   align-items: center;
   justify-content: center;
@@ -897,7 +897,7 @@ body.layer-4 {
 /* ========== Toast提示 ========== */
 .toast {
   position: fixed;
-  top: 20px;
+  top: 70px;
   left: 50%;
   transform: translateX(-50%) translateY(-20px);
   background: rgba(0,0,0,0.85);
@@ -905,7 +905,7 @@ body.layer-4 {
   padding: 10px 20px;
   border-radius: 4px;
   font-size: 13px;
-  z-index: 2000;
+  z-index: 10000;
   opacity: 0;
   transition: all 0.3s ease;
   pointer-events: none;
@@ -1194,8 +1194,8 @@ body.layer-4 {
 
 /* ===== 进度50%特效 ===== */
 .progress-50-overlay {
-  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(120, 0, 0, 0.12);
+  position: fixed; inset: 0;
+  background: rgba(120, 0, 0, 0.15);
   pointer-events: none; z-index: 9998; display: none;
 }
 .progress-50-overlay.active { display: block; animation: overlayPulse 3s ease-in-out infinite; }

@@ -128,7 +128,7 @@ a:hover { text-decoration: underline; }
   font-family: var(--font-sans);
 
   position: relative;
-  z-index: 10002;
+  z-index: 10010;
 }
 .header-search button:hover { background: var(--gov-red-dark); }
 
@@ -736,7 +736,7 @@ body.layer-4 {
   inset: 0;
   background: #0a0a0a;
   color: #ddd;
-  z-index: 2000;
+  z-index: 10000;
   display: none;
   flex-direction: column;
   align-items: center;
@@ -781,7 +781,7 @@ body.layer-4 {
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.5);
-  z-index: 1000;
+  z-index: 10001;
   display: none;
   align-items: center;
   justify-content: center;
@@ -897,7 +897,7 @@ body.layer-4 {
 /* ========== Toast提示 ========== */
 .toast {
   position: fixed;
-  top: 20px;
+  top: 70px;
   left: 50%;
   transform: translateX(-50%) translateY(-20px);
   background: rgba(0,0,0,0.85);
@@ -905,7 +905,7 @@ body.layer-4 {
   padding: 10px 20px;
   border-radius: 4px;
   font-size: 13px;
-  z-index: 2000;
+  z-index: 10000;
   opacity: 0;
   transition: all 0.3s ease;
   pointer-events: none;
@@ -1089,7 +1089,7 @@ body.layer-4 {
   position: fixed;
   inset: 0;
   background: #000;
-  z-index: 9999;
+  z-index: 10003;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1144,7 +1144,7 @@ body.layer-4 {
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.92);
-  z-index: 9998;
+  z-index: 10010;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1194,8 +1194,8 @@ body.layer-4 {
 
 /* ===== 进度50%特效 ===== */
 .progress-50-overlay {
-  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(120, 0, 0, 0.12);
+  position: fixed; inset: 0;
+  background: rgba(120, 0, 0, 0.15);
   pointer-events: none; z-index: 9998; display: none;
 }
 .progress-50-overlay.active { display: block; animation: overlayPulse 3s ease-in-out infinite; }
@@ -1316,27 +1316,7 @@ body.progress-50-mode .hero { filter: hue-rotate(-20deg) saturate(1.2); }
       <p style="margin-top:40px;font-size:11px;color:#333;cursor:pointer;" onclick="window.location.href='home.html'">返回</p>
     </div>
 
-    <!-- 红字突脸剧情弹窗 -->
-    <div class="jump-scare-overlay" id="jumpScareOverlay">
-      <div>
-        <div class="jump-scare-text" id="jumpScareText">我需要赶紧搬离这里</div>
-        <div class="jump-scare-sub">井水在翻涌...它们知道我发现了...</div>
-      </div>
-    </div>
-
-    <!-- 结局选择弹窗 -->
-    <div class="ending-choice-overlay" id="endingChoiceOverlay">
-      <div class="ending-choice-title">你 已 经 知 道 得 太 多 了</div>
-      <div class="ending-choice-buttons">
-        <button class="ending-choice-btn" onclick="ending('leave')">转 身 离 开</button>
-        <button class="ending-choice-btn" onclick="ending('stay')">跳 下 去</button>
-        <button class="ending-choice-btn" onclick="ending('truth')">说 出 真 相</button>
-      </div>
-      <div class="ending-choice-hint">选 择 你 的 结 局</div>
-    </div>
-
-  
-    </div>
+    
   </div>
 </main>
 <!-- ========== 页脚 ========== -->
@@ -1613,7 +1593,11 @@ function initPage(pageId) {
       if (tb) tb.style.display = 'none';
       if (wc) wc.style.display = 'none';
       setTimeout(function() {
-        triggerJumpScare();
+        // 显示提示弹窗引导去镇史馆
+        // 如果从镇史馆逃离过来，不显示提示，直接由URL参数控制结局
+        if (window.location.search.indexOf('ending=show') < 0) {
+          showWellHint();
+        }
       }, 1500);
     } else if (GAME_STATE.discoveries.found_all_clues) {
       // 发现主要线索但未到100%：显示按钮
@@ -2204,6 +2188,22 @@ function showPhoneEasterEgg() {
 }
 
 // ========== 结局系统 ==========
+function showWellHint() {
+  var hint = document.createElement('div');
+  hint.id = 'wellHintModal';
+  hint.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:10004;display:flex;align-items:center;justify-content:center;';
+  var box = document.createElement('div');
+  box.style.cssText = 'background:#111;border:1px solid #2a2a2a;padding:40px 36px;max-width:480px;text-align:center;';
+  box.innerHTML = '<p style="color:#bbb;font-size:15px;line-height:2.2;margin-bottom:20px;">井水黑得像一面镜子。你往里看，看到一张脸——不是你的。</p><p style="color:#777;font-size:13px;line-height:2;margin-bottom:28px;">你退后一步。忽然想起，今天早上去镇史馆的时候，档案架最底层好像多了一个牛皮纸信封。</p><p style="color:#c41e3a;font-size:14px;letter-spacing:3px;margin-bottom:32px;">你既然找到这里了，不妨看看镇使馆多了些什么。</p>';
+  var btn = document.createElement('button');
+  btn.textContent = '离开井边';
+  btn.style.cssText = 'background:transparent;border:1px solid #444;color:#888;padding:10px 36px;cursor:pointer;font-size:13px;letter-spacing:2px;';
+  btn.onclick = function() { hint.remove(); };
+  box.appendChild(btn);
+  hint.appendChild(box);
+  document.body.appendChild(hint);
+}
+
 function triggerJumpScare() {
   var overlay = document.getElementById('jumpScareOverlay');
   var choiceOverlay = document.getElementById('endingChoiceOverlay');
@@ -2444,7 +2444,12 @@ function checkProgress50() {
   }
 }
 </script>
-<script>initPage('well');
+<script>// 检测URL参数，如果从镇史馆逃离过来则直接显示结局选择
+if (window.location.search.indexOf('ending=show') >= 0) {
+  document.write('<style>#endingChoiceOverlay{opacity:1!important;pointer-events:auto!important;}</style>');
+}
+initPage('well');
+
 function checkProgress50() {
   const clues = ['well_location','forum_secret','archive_2003','phone_easter','glitch_text','hidden_link'];
   const found = clues.filter(function(c){return GAME_STATE.discoveries[c];}).length;
@@ -2469,5 +2474,23 @@ function checkProgress50() {
   }
 }
 </script>
+<!-- 突脸弹窗 -->
+<div class="jump-scare-overlay" id="jumpScareOverlay">
+  <div>
+    <div class="jump-scare-text" id="jumpScareText">我需要赶紧搬离这里</div>
+    <div class="jump-scare-sub">井水在翻涌...它们知道我发现了...</div>
+  </div>
+</div>
+
+<!-- 结局选择弹窗 -->
+<div class="ending-choice-overlay" id="endingChoiceOverlay">
+  <div class="ending-choice-title">你 已 经 知 道 得 太 多 了</div>
+  <div class="ending-choice-buttons">
+    <button class="ending-choice-btn" onclick="ending('leave')">转 身 离 开</button>
+    <button class="ending-choice-btn" onclick="ending('stay')">跳 下 去</button>
+    <button class="ending-choice-btn" onclick="ending('truth')">说 出 真 相</button>
+  </div>
+  <div class="ending-choice-hint">选 择 你 的 结 局</div>
+</div>
 </body>
 </html>

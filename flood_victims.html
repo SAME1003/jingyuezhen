@@ -70,8 +70,8 @@
 
 /* ===== 进度50%特效 ===== */
 .progress-50-overlay {
-  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(120, 0, 0, 0.12);
+  position: fixed; inset: 0;
+  background: rgba(120, 0, 0, 0.15);
   pointer-events: none; z-index: 9998; display: none;
 }
 .progress-50-overlay.active { display: block; animation: overlayPulse 3s ease-in-out infinite; }
@@ -332,7 +332,7 @@ function showToast(msg, important) {
 function showPerson(personId) {
   discoverHidden('flood_list');
   const persons = {
-    chen_xiuying: '陈秀英，女，1935年生，井湾村人，退休小学教师。2003年7月14日洪水当晚失踪，遗体三日后于下游发现。据邻居回忆，陈老师退休后一直在整理井湾村的村志，失踪前曾多次提到"井下的东西"。',
+    chen_xiuying: '陈秀英，女，1935年生，井湾村人，1990年从景月镇中心小学退休。2003年7月14日洪水当晚失踪，遗体三日后于下游发现。据邻居回忆，陈老师退休后一直在整理井湾村的村志，失踪前曾多次提到"井下的东西"。',
     zhang_guoqiang: '张国强，男，1958年生，沉湖村党支部书记。2003年抗洪中带队转移群众，最后一个撤离时被洪水冲走。其家属称，张国强生前曾多次向上级反映"井湾村地质异常"，但未获重视。',
   };
   if (persons[personId]) {
