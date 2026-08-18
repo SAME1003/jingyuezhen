@@ -1303,7 +1303,7 @@ body.progress-50-mode .hero { filter: hue-rotate(-20deg) saturate(1.2); }
           <p><strong>镇政府办公室：</strong>0572-8866000</p>
           <p><strong>便民服务中心：</strong>0572-8866001</p>
           <p><strong>投诉举报：</strong>0572-8866002</p>
-          <p><strong>旅游咨询：</strong><span class="hidden-link" onclick="discoverHidden('phone_easter');showPhoneEaster();return false;">0572-8866003</span></p>
+          <p><strong>旅游咨询：</strong><span class="hidden-link" onclick="discoverHidden('phone_easter');showPhoneEasterEgg();return false;">0572-8866003</span></p>
           <p><strong>派出所：</strong>0572-8866110</p>
           <p><strong>卫生院：</strong>0572-8866120</p>
 
@@ -1711,7 +1711,9 @@ function showToast(msg, creepy) {
   }
   toast.textContent = msg;
   toast.className = 'toast show' + (creepy ? ' creepy' : '');
-  setTimeout(() => toast.classList.remove('show'), 3000);
+  toast.style.display = '';
+  if (window._toastTimer) clearTimeout(window._toastTimer);
+  window._toastTimer = setTimeout(() => { toast.classList.remove('show'); }, 4000);
 }
 
 // ========== 新闻数据 ==========

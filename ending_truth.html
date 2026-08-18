@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>结局 C · 真相 - 景月镇</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #000;
+    color: #ccc;
+    font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    overflow-x: hidden;
+  }
+  .ending-container {
+    max-width: 600px;
+    width: 100%;
+    animation: fadeIn 2s ease;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .ending-title {
+    font-size: 28px;
+    color: #c41e3a;
+    text-align: center;
+    margin-bottom: 50px;
+    letter-spacing: 8px;
+    text-shadow: 0 0 20px rgba(196,30,58,0.5);
+  }
+  .ending-content {
+    font-size: 15px;
+    line-height: 2.4;
+    color: #bbb;
+    margin-bottom: 40px;
+  }
+  .ending-content p {
+    margin-bottom: 18px;
+    text-indent: 2em;
+  }
+  .ending-content .epilogue {
+    color: #888;
+    margin-top: 30px;
+    font-size: 14px;
+  }
+  .ending-progress {
+    text-align: center;
+    color: #aa6666;
+    font-size: 12px;
+    margin-top: 40px;
+    letter-spacing: 2px;
+  }
+  .true-ending-tag {
+    text-align: center;
+    color: #666;
+    font-size: 11px;
+    margin-top: 10px;
+    letter-spacing: 3px;
+  }
+  .ending-actions {
+    text-align: center;
+    margin-top: 50px;
+  }
+  .restart-btn {
+    background: transparent;
+    border: 1px solid #444;
+    color: #888;
+    padding: 12px 40px;
+    font-size: 14px;
+    letter-spacing: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .restart-btn:hover {
+    border-color: #c41e3a;
+    color: #c41e3a;
+    box-shadow: 0 0 15px rgba(196,30,58,0.3);
+  }
+  .light-flicker {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(255,255,255,0.03) 0%, transparent 70%);
+    pointer-events: none;
+    animation: flicker 3s ease-in-out infinite;
+  }
+  @keyframes flicker {
+    0%,100% { opacity: 0.3; }
+    50% { opacity: 0.8; }
+  }
+</style>
+</head>
+<body>
+<div class="light-flicker"></div>
+<div class="ending-container">
+  <div class="ending-title">结 局 C · 真 相</div>
+  <div class="ending-content">
+    <p>你站在井边，把你知道的名字一个一个说了出来。</p>
+    <p>调查员的名字。失踪者的名字。井湾村老人的老伴的名字。那些被从记录里抹掉、从记忆里挖走的人。</p>
+    <p>井水开始翻涌，白色的光从井底亮起来。你听到声音，很多人的声音，不是说话，更像是叹气。</p>
+    <p>然后光灭了。水面恢复了平静，黑得像什么都没发生过。</p>
+    <p class="epilogue">
+      第二天，有人在镇政府门口放了一份材料，是2003年事件的调查报告复印件。<br><br>
+      县里来了人。北井被挖开了，井底没有别的东西，只有淤泥和几块碎石头。<br><br>
+      失踪者的名字被重新刻在了井湾村的碑上。老人们开始说起一些他们以为已经忘掉的事。<br><br>
+      事情没有完全解决。但至少，有人记得了。
+    </p>
+  </div>
+  <div class="ending-progress" id="progressText"></div>
+  <div class="true-ending-tag">真 结 局 · 感 谢 游 玩</div>
+  <div class="ending-actions">
+    <button class="restart-btn" onclick="restart()">重 新 开 始</button>
+  </div>
+</div>
+<script>
+  try {
+    var saved = localStorage.getItem('jingyue_save');
+    if (saved) {
+      var data = JSON.parse(saved);
+      var found = 0;
+      var clues = ['well_location','forum_secret','archive_2003','phone_easter','glitch_text','hidden_link'];
+      clues.forEach(function(c) { if (data.discoveries && data.discoveries[c]) found++; });
+      document.getElementById('progressText').textContent = '【发现进度：' + Math.round(found/6*100) + '%】';
+    }
+  } catch(e) {}
+
+  function restart() {
+    localStorage.removeItem('jingyue_save');
+    window.location.href = 'home.html';
+  }
+</script>
+</body>
+</html>

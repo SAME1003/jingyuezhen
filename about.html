@@ -1304,7 +1304,7 @@ body.progress-50-mode .hero { filter: hue-rotate(-20deg) saturate(1.2); }
           <p>民国时为月城县第三区公所驻地。1958年成立景月人民公社，1983年改乡，1992年撤乡建镇。</p>
 
           <h4>行政区划</h4>
-          <p>景月镇辖3个社区、12个行政村：景月社区、月牙社区、古街社区；井湾村、<span onclick="discoverHidden('glitch_text')" style="cursor:pointer" title="">沉湖村</span>、石桥村、清水村、东塘村、西塘村、南山村、北岭村、前溪村、后溪村、李村、王村。</p>
+          <p>景月镇辖3个社区、12个行政村：景月社区、月牙社区、古街社区；井湾村、<span class="glitch-text" data-text="沉湖村" onclick="discoverHidden('glitch_text');this.style.color='#ff0040';this.style.textShadow='0 0 10px #ff0040';return false;" style="cursor:pointer" title="">沉湖村</span>、石桥村、清水村、东塘村、西塘村、南山村、北岭村、前溪村、后溪村、李村、王村。</p>
 
           <h4>人口民族</h4>
           <p>全镇人口约4.2万，其中城镇1.8万、农村2.4万。</p>
@@ -1687,7 +1687,9 @@ function showToast(msg, creepy) {
   }
   toast.textContent = msg;
   toast.className = 'toast show' + (creepy ? ' creepy' : '');
-  setTimeout(() => toast.classList.remove('show'), 3000);
+  toast.style.display = '';
+  if (window._toastTimer) clearTimeout(window._toastTimer);
+  window._toastTimer = setTimeout(() => { toast.classList.remove('show'); }, 4000);
 }
 
 // ========== 新闻数据 ==========

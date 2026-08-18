@@ -1712,7 +1712,9 @@ function showToast(msg, creepy) {
   }
   toast.textContent = msg;
   toast.className = 'toast show' + (creepy ? ' creepy' : '');
-  setTimeout(() => toast.classList.remove('show'), 3000);
+  toast.style.display = '';
+  if (window._toastTimer) clearTimeout(window._toastTimer);
+  window._toastTimer = setTimeout(() => { toast.classList.remove('show'); }, 4000);
 }
 
 // ========== 新闻数据 ==========

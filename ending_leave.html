@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>结局 B · 逃离 - 景月镇</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #000;
+    color: #ccc;
+    font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    overflow-x: hidden;
+  }
+  .ending-container {
+    max-width: 600px;
+    width: 100%;
+    animation: fadeIn 2s ease;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .ending-title {
+    font-size: 28px;
+    color: #c41e3a;
+    text-align: center;
+    margin-bottom: 50px;
+    letter-spacing: 8px;
+    text-shadow: 0 0 20px rgba(196,30,58,0.5);
+  }
+  .ending-content {
+    font-size: 15px;
+    line-height: 2.4;
+    color: #bbb;
+    margin-bottom: 40px;
+  }
+  .ending-content p {
+    margin-bottom: 18px;
+    text-indent: 2em;
+  }
+  .ending-content .epilogue {
+    color: #777;
+    margin-top: 30px;
+    font-size: 14px;
+  }
+  .ending-progress {
+    text-align: center;
+    color: #555;
+    font-size: 12px;
+    margin-top: 40px;
+    letter-spacing: 2px;
+  }
+  .ending-actions {
+    text-align: center;
+    margin-top: 50px;
+  }
+  .restart-btn {
+    background: transparent;
+    border: 1px solid #444;
+    color: #888;
+    padding: 12px 40px;
+    font-size: 14px;
+    letter-spacing: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .restart-btn:hover {
+    border-color: #c41e3a;
+    color: #c41e3a;
+    box-shadow: 0 0 15px rgba(196,30,58,0.3);
+  }
+  .ambient-line {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(196,30,58,0.3), transparent);
+    animation: scan 4s linear infinite;
+  }
+  @keyframes scan {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(100vh); }
+  }
+</style>
+</head>
+<body>
+<div class="ambient-line"></div>
+<div class="ending-container">
+  <div class="ending-title">结 局 B · 逃 离</div>
+  <div class="ending-content">
+    <p>你转身就跑。</p>
+    <p>你没回头，一直跑到大路上，拦了辆车去县城。到县城的时候天刚亮，你在车站坐了两个小时，买了张去外地的票。</p>
+    <p class="epilogue">
+      之后你再没去过景月镇。<br><br>
+      你试过在地图上搜这个地方，搜不到。你跟别人提起，没人听说过这个镇。你甚至不确定它是不是真的存在过。<br><br>
+      但偶尔半夜醒来，你会听到有人在叫你的名字。声音从很远的地方传来，像是从井底。
+    </p>
+  </div>
+  <div class="ending-progress" id="progressText"></div>
+  <div class="ending-actions">
+    <button class="restart-btn" onclick="restart()">重 新 开 始</button>
+  </div>
+</div>
+<script>
+  // 显示进度
+  try {
+    var saved = localStorage.getItem('jingyue_save');
+    if (saved) {
+      var data = JSON.parse(saved);
+      var found = 0;
+      var clues = ['well_location','forum_secret','archive_2003','phone_easter','glitch_text','hidden_link'];
+      clues.forEach(function(c) { if (data.discoveries && data.discoveries[c]) found++; });
+      document.getElementById('progressText').textContent = '【发现进度：' + Math.round(found/6*100) + '%】';
+    }
+  } catch(e) {}
+
+  function restart() {
+    localStorage.removeItem('jingyue_save');
+    window.location.href = 'home.html';
+  }
+</script>
+</body>
+</html>

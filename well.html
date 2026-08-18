@@ -1671,7 +1671,9 @@ function showToast(msg, creepy) {
   }
   toast.textContent = msg;
   toast.className = 'toast show' + (creepy ? ' creepy' : '');
-  setTimeout(() => toast.classList.remove('show'), 3000);
+  toast.style.display = '';
+  if (window._toastTimer) clearTimeout(window._toastTimer);
+  window._toastTimer = setTimeout(() => { toast.classList.remove('show'); }, 4000);
 }
 
 // ========== 新闻数据 ==========
@@ -2228,71 +2230,11 @@ function triggerJumpScare() {
 function ending(type) {
   GAME_STATE.ending = type;
   saveProgress();
-
-  // 隐藏结局选择弹窗
-  var choiceOverlay = document.getElementById('endingChoiceOverlay');
-  if (choiceOverlay) choiceOverlay.classList.remove('active');
-
-  const screen = document.getElementById('endingScreen');
-  const titleEl = screen.querySelector('.ending-title');
-  const textEl = screen.querySelector('.ending-text');
-
-  screen.style.display = 'flex';
-
-  const endings = {
-    stay: {
-      title: '结局 A · 沉沦',
-      text: `<p>你跳了下去。</p>
-      <p>水比想象中暖。你一直往下沉，没有到底。</p>
-      <p>下面有光。不是灯光，是一种发白的、浑浊的光。光里有人影，很多，站着，不动。</p>
-      <p>其中一个转过身来。你看不清脸，但它朝你伸出了手。</p>
-      <p style="margin-top:30px;color:#888;">
-        后来井湾村多了一户人家。没人记得他们是什么时候搬来的，但所有人都觉得他们一直在这里。<br><br>
-        户口本上有你的名字。照片上的人你不认识，但邻居说那就是你。
-      </p>
-      <p style="margin-top:40px;color:#555;font-size:12px;">
-        【发现进度：${getTotalProgress()}%】
-      </p>`
-    },
-    leave: {
-      title: '结局 B · 逃离',
-      text: `<p>你转身就跑。</p>
-      <p>你没回头，一直跑到大路上，拦了辆车去县城。到县城的时候天刚亮，你在车站坐了两个小时，买了张去外地的票。</p>
-      <p style="margin-top:30px;color:#888;">
-        之后你再没去过景月镇。<br><br>
-        你试过在地图上搜这个地方，搜不到。你跟别人提起，没人听说过这个镇。你甚至不确定它是不是真的存在过。<br><br>
-        但偶尔半夜醒来，你会听到有人在叫你的名字。声音从很远的地方传来，像是从井底。
-      </p>
-      <p style="margin-top:40px;color:#555;font-size:12px;">
-        【发现进度：${getTotalProgress()}%】
-      </p>`
-    },
-    truth: {
-      title: '结局 C · 真相',
-      text: `<p>你站在井边，把你知道的名字一个一个说了出来。</p>
-      <p>调查员的名字。失踪者的名字。井湾村老人的老伴的名字。那些被从记录里抹掉、从记忆里挖走的人。</p>
-      <p>井水开始翻涌，白色的光从井底亮起来。你听到声音，很多人的声音，不是说话，更像是叹气。</p>
-      <p>然后光灭了。水面恢复了平静，黑得像什么都没发生过。</p>
-      <p style="margin-top:30px;color:#888;">
-        第二天，有人在镇政府门口放了一份材料，是2003年事件的调查报告复印件。<br><br>
-        县里来了人。北井被挖开了，井底没有别的东西，只有淤泥和几块碎石头。<br><br>
-        失踪者的名字被重新刻在了井湾村的碑上。老人们开始说起一些他们以为已经忘掉的事。<br><br>
-        事情没有完全解决。但至少，有人记得了。
-      </p>
-      <p style="margin-top:40px;color:#aa6666;font-size:12px;">
-        【发现进度：${getTotalProgress()}%】
-      </p>
-      <p style="color:#666;font-size:11px;margin-top:10px;">
-        真结局 · 感谢游玩
-      </p>`
-    },
-  };
-
-  const ending = endings[type];
-  titleEl.textContent = ending.title;
-  textEl.innerHTML = ending.text;
+  // 跳转到独立结局页面
+  if (type === 'stay') window.location.href = 'ending_stay.html';
+  else if (type === 'leave') window.location.href = 'ending_leave.html';
+  else if (type === 'truth') window.location.href = 'ending_truth.html';
 }
-
 function restartGame() {
   localStorage.removeItem('jingyue_save');
   Object.keys(GAME_STATE.discoveries).forEach(k => GAME_STATE.discoveries[k] = false);
