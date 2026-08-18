@@ -70,35 +70,25 @@
   }
 
 /* ===== 进度50%特效 ===== */
-.progress-50-overlay {
-  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(120, 0, 0, 0.12);
-  pointer-events: none; z-index: 9998; display: none;
+.progress-50-overlay { display: none; }
+body.progress-50-mode {
+  --bg-main: #3a1010;
+  --bg-paper: #2a0808;
+  --bg-header: #2a0808;
+  --text-primary: #ccaaaa;
+  --text-secondary: #997777;
+  --text-muted: #665555;
+  --border-color: #4a2020;
+  background: #3a1010;
 }
-.progress-50-overlay.active { display: block; animation: overlayPulse 3s ease-in-out infinite; }
-@keyframes overlayPulse {
-  0%,100% { background: rgba(120,0,0,0.10); }
-  50% { background: rgba(120,0,0,0.20); }
+body.progress-50-mode .main-content,
+body.progress-50-mode .content-card,
+body.progress-50-mode .card,
+body.progress-50-mode .site-header,
+body.progress-50-mode .header,
+body.progress-50-mode .top-banner {
+  background: #2a0808 !important;
 }
-.admin-alert {
-  position: fixed; top: 0; left: 0; right: 0;
-  background: linear-gradient(90deg, #8b0000, #a01830, #8b0000);
-  color: #fff; text-align: center; padding: 6px 12px;
-  font-size: 13px; z-index: 9999; display: none;
-  box-shadow: 0 2px 10px rgba(139,0,0,0.5);
-  letter-spacing: 1px;
-
-  pointer-events: none;
-}
-.admin-alert.active { display: block; animation: alertShake 0.5s ease-in-out; }
-@keyframes alertShake {
-  0%,100% { transform: translateX(0); }
-  25% { transform: translateX(-3px); }
-  75% { transform: translateX(3px); }
-}
-.admin-alert .alert-main { font-weight: bold; }
-.admin-alert .alert-sub { font-size: 10px; color: #ffaaaa; margin-top: 1px; opacity: 0.9; }
-body.progress-50-mode { background-color: #f0e8e8 !important; }
 body.progress-50-mode .hero { filter: hue-rotate(-20deg) saturate(1.2); }
 </style>
 </head>
@@ -295,7 +285,7 @@ const GAME_STATE = {
   discoveries: { well_location:false, forum_secret:false, archive_2003:false, phone_easter:false, glitch_text:false, hidden_link:false, found_all_clues:false },
   fearLayer: 0, ending: null, playthrough: 1,
 };
-const TOTAL_CLUES = 6;
+const TOTAL_CLUES = 15;
 function saveProgress() { try { sessionStorage.setItem('jingyue_save', JSON.stringify(GAME_STATE)); } catch(e) {} }
 function loadProgress() { try { const s = sessionStorage.getItem('jingyue_save'); if(s){const d=JSON.parse(s); Object.assign(GAME_STATE.discoveries,d.discoveries||{}); GAME_STATE.fearLayer=d.fearLayer||0;} } catch(e) {} }
 function applyFearLayer() { document.body.classList.remove('layer-1','layer-2','layer-3','layer-4'); if(GAME_STATE.fearLayer>0) document.body.classList.add('layer-'+GAME_STATE.fearLayer); }
@@ -314,9 +304,9 @@ function handleSearch() {
 loadProgress(); checkProgress50(); applyFearLayer(); 
 
 function checkProgress50() {
-  const clues = ['well_location','forum_secret','archive_2003','phone_easter','glitch_text','hidden_link'];
+  const clues = ['well_location','forum_secret','archive_2003','archive_teacher','archive_secretary','phone_easter','glitch_text','hidden_link','chen_memorial','zhang_weibo','morse_74','zhou_chi','leadership_photo','hospital_13th','chenhu_village'];
   const found = clues.filter(function(c){return GAME_STATE.discoveries[c];}).length;
-  if (found >= 3) {
+  if (found >= 2) {
     var overlay = document.getElementById('progress50Overlay');
     var alert = document.getElementById('adminAlert');
     if (overlay) overlay.classList.add('active');
@@ -336,6 +326,7 @@ function checkProgress50() {
     }
   }
 }
+function goSearch(){var q=document.getElementById('siteSearch');if(q&&q.value.trim()){window.location.href='search.html?q='+encodeURIComponent(q.value.trim());}}
 </script>
 </body>
 </html>

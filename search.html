@@ -59,10 +59,25 @@ a{color:inherit;text-decoration:none}
 .footer-col ul{list-style:none}
 .footer-col a{color:#888;font-size:12px}
 .footer-bottom{text-align:center;padding-top:14px;border-top:1px solid #3a3a3a;font-size:12px;color:#666}
-.progress-50-overlay{position:fixed;top:0;left:0;right:0;bottom:0;width:100vw;height:100vh;background:rgba(120,0,0,.2);pointer-events:none;z-index:10003;display:none}
-.progress-50-overlay.active{display:block;animation:overlayPulse 3s ease-in-out infinite}
-@keyframes overlayPulse{0%,100%{background:rgba(120,0,0,.10)}50%{background:rgba(120,0,0,.20)}}
-body.progress-50-mode{filter:sepia(.3) hue-rotate(-20deg) saturate(1.2)}
+.progress-50-overlay { display: none; }
+body.progress-50-mode {
+  --bg-main: #3a1010;
+  --bg-paper: #2a0808;
+  --bg-header: #2a0808;
+  --text-primary: #ccaaaa;
+  --text-secondary: #997777;
+  --text-muted: #665555;
+  --border-color: #4a2020;
+  background: #3a1010;
+}
+body.progress-50-mode .main-content,
+body.progress-50-mode .content-card,
+body.progress-50-mode .card,
+body.progress-50-mode .site-header,
+body.progress-50-mode .header,
+body.progress-50-mode .top-banner {
+  background: #2a0808 !important;
+}
 .admin-alert{position:fixed;top:0;left:0;right:0;background:linear-gradient(90deg,#8b0000,#a01830,#8b0000);color:#fff;text-align:center;padding:6px 12px;font-size:13px;z-index:10004;display:none;pointer-events:none}
 .admin-alert.active{display:block}
 .admin-alert .alert-main{font-weight:bold}
@@ -96,7 +111,7 @@ var searchDB=[
 {title:'便民服务大厅',desc:'景月镇便民服务中心提供社保、医保、户籍、计生等一站式服务。地址：人民路18号镇政府一楼。',type:'服务',url:'service.html',keywords:['社保','医保','便民','服务','大厅','户籍']},
 {title:'2003年抗洪救灾纪实',desc:'2003年7月14日，景月镇遭遇特大洪水。全镇上下众志成城，取得抗洪救灾胜利。',type:'专题',url:'flood_victims.html',keywords:['洪水','2003','抗洪','救灾','遇难者','名单','7月14日']},
 {title:'陈秀英 - 退休教师',desc:'陈秀英，井湾村人，1935年生，1995年退休，2003年7月14日洪水当晚失踪。',type:'人员',url:'memorial_chen.html',keywords:['陈秀英','退休教师','井湾村','失踪','缅怀'],secret:true},
-{title:'张国强 - 沉湖村原党支部书记',desc:'张国强，沉湖村人，1958年生，2003年7月14日抗洪中牺牲，享年45岁。',type:'人员',url:'weibo_zhang.html',keywords:['张国强','村支书','沉湖村','牺牲','抗洪'],secret:true},
+{title:'张国强 - 沉湖村原党支部书记',desc:'张国强，沉湖村人，1958年生，2003年7月14日抗洪中牺牲，享年45岁。',type:'人员',url:'zhang_guoqiang.html',keywords:['张国强','村支书','沉湖村','牺牲','抗洪'],secret:true},
 {title:'景月论坛',desc:'景月镇官方论坛，包含民生生活、旅游交流、文史天地、寻人寻物等版块。',type:'互动',url:'forum.html',keywords:['论坛','讨论','发帖','互动']},
 {title:'镇史馆',desc:'景月镇史馆馆藏档案、老照片、地方文献。包含公开档案和受限档案。',type:'文化',url:'archive.html',keywords:['镇史馆','档案','历史','文献','老照片']},
 {title:'文化旅游',desc:'景月古镇、景月湖、古戏台、月牙桥等景点。夜游项目已开放。',type:'旅游',url:'culture.html',keywords:['文化','旅游','景点','夜游','古镇','景月湖']},
@@ -109,7 +124,8 @@ function searchKeyword(q){
   document.getElementById('initTip').style.display='none';
   if(q==='井'||q==='古井'||q==='北井'){showToast('搜索结果：找到 1 条相关文档...');setTimeout(function(){window.location.href='well_easter_egg.html';},800);return;}
   if(q==='陈秀英'){window.location.href='memorial_chen.html';return;}
-  if(q==='张国强'){window.location.href='weibo_zhang.html';return;}
+  if(q==='张国强'){window.location.href='zhang_guoqiang.html';return;}
+    if(q==='周驰'){window.location.href='zhou_chi.html';return;}
   var results=searchDB.filter(function(item){if(item.title.indexOf(q)>=0||item.desc.indexOf(q)>=0)return true;return item.keywords.some(function(k){return k.indexOf(q)>=0||q.indexOf(k)>=0;});});
   document.getElementById('resultHeader').style.display='block';
   document.getElementById('resultKeyword').textContent=q;
@@ -119,7 +135,7 @@ function searchKeyword(q){
   else{document.getElementById('noResult').style.display='none';
   list.innerHTML=results.map(function(r){var title=r.title.replace(new RegExp(q,'g'),'<em>'+q+'</em>');return '<div class="result-item" onclick="window.location.href=\''+r.url+'\'"><div class="result-item-title">'+title+'</div><div class="result-item-desc">'+r.desc+'</div><div class="result-item-meta"><span class="tag'+(r.secret?' secret':'')+'">'+r.type+'</span><span>'+r.url+'</span></div></div>';}).join('');}
 }
-function checkProgress50(){var c=['well_location','forum_secret','archive_2003','phone_easter','glitch_text','hidden_link'];if(c.filter(function(x){return GAME_STATE.discoveries[x];}).length>=3){var o=document.getElementById('progress50Overlay');if(o)o.classList.add('active');var a=document.getElementById('adminAlert');if(a)a.classList.add('active');document.body.classList.add('progress-50-mode');}}
+function checkProgress50(){var c=['well_location','forum_secret','archive_2003','phone_easter','glitch_text','hidden_link'];if(c.filter(function(x){return GAME_STATE.discoveries[x];}).length>=3){var a=document.getElementById('adminAlert');if(a)a.classList.add('active');document.body.classList.add('progress-50-mode');}}
 document.addEventListener('DOMContentLoaded',function(){loadProgress();checkProgress50();var input=document.getElementById('bigSearch');input.addEventListener('keypress',function(e){if(e.key==='Enter')doSearch();});var params=new URLSearchParams(window.location.search);var q=params.get('q');if(q){searchKeyword(q);}});
 </script>
 </body>
