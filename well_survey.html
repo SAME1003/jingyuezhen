@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -21,6 +21,25 @@ body{background:#0a0a0a;color:#ccc;font-family:'SimSun','Songti SC',serif;min-he
 .back-btn:hover{background:#333;color:#aaa}
 @keyframes shake{0%,100%{transform:translate(0,0)}25%{transform:translate(-1px,1px)}50%{transform:translate(1px,-1px)}75%{transform:translate(-1px,-1px)}}
 .shake{animation:shake .1s infinite}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  body { padding: 10px; }
+  .container, .main-content, .content, .wrapper { max-width: 100% !important; width: 100% !important; padding: 0 10px !important; }
+  table { display: block; overflow-x: auto; white-space: nowrap; }
+  img { max-width: 100%; height: auto; }
+  h1 { font-size: 20px !important; }
+  h2 { font-size: 18px !important; }
+  h3 { font-size: 16px !important; }
+  p, li, td, th { font-size: 13px !important; line-height: 1.6 !important; }
+  .person-section, .person-header { flex-direction: column !important; align-items: flex-start !important; }
+  .avatar { width: 50px !important; height: 60px !important; }
+}
+@media (max-width: 480px) {
+  h1 { font-size: 18px !important; }
+  h2 { font-size: 16px !important; }
+  p, li, td, th { font-size: 12px !important; }
+}
 </style>
 </head>
 <body>
@@ -55,6 +74,8 @@ body{background:#0a0a0a;color:#ccc;font-family:'SimSun','Songti SC',serif;min-he
   <button class="back-btn" onclick="window.location.href='archive.html'">返回镇史馆</button>
 </div>
 <script>
+// 打开74密码文件（井深勘测），设置50%变红标志
+sessionStorage.setItem('well_survey_opened', '1');
 try{
   var s=sessionStorage.getItem('jingyue_save');
   var state=s?JSON.parse(s):{discoveries:{},fearLayer:0};

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -33,6 +33,25 @@ body{background:#e8e8e8;font-family:'SimSun','Songti SC',serif;color:#222;min-he
 .back-btn{display:block;width:120px;margin:20px auto 0;padding:8px 0;text-align:center;background:#333;color:#fff;text-decoration:none;font-family:'Microsoft YaHei',sans-serif;font-size:13px;letter-spacing:4px;border-radius:2px}
 .back-btn:hover{background:#000}
 .word-statusbar{background:#f0f0f0;padding:4px 12px;border-top:1px solid #999;font-family:'Microsoft YaHei',sans-serif;font-size:11px;color:#666;display:flex;justify-content:space-between}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  body { padding: 10px; }
+  .container, .main-content, .content, .wrapper { max-width: 100% !important; width: 100% !important; padding: 0 10px !important; }
+  table { display: block; overflow-x: auto; white-space: nowrap; }
+  img { max-width: 100%; height: auto; }
+  h1 { font-size: 20px !important; }
+  h2 { font-size: 18px !important; }
+  h3 { font-size: 16px !important; }
+  p, li, td, th { font-size: 13px !important; line-height: 1.6 !important; }
+  .person-section, .person-header { flex-direction: column !important; align-items: flex-start !important; }
+  .avatar { width: 50px !important; height: 60px !important; }
+}
+@media (max-width: 480px) {
+  h1 { font-size: 18px !important; }
+  h2 { font-size: 16px !important; }
+  p, li, td, th { font-size: 12px !important; }
+}
 </style>
 </head>
 <body>

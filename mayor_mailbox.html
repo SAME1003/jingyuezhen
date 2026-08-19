@@ -306,7 +306,7 @@ loadProgress(); checkProgress50(); applyFearLayer();
 function checkProgress50() {
   const clues = ['well_location','forum_secret','archive_2003','archive_teacher','archive_secretary','phone_easter','glitch_text','hidden_link','chen_memorial','zhang_weibo','morse_74','zhou_chi','leadership_photo','hospital_13th','chenhu_village'];
   const found = clues.filter(function(c){return GAME_STATE.discoveries[c];}).length;
-  if (found >= 2) {
+  if (sessionStorage.getItem('well_survey_opened')==='1') {
     var overlay = document.getElementById('progress50Overlay');
     var alert = document.getElementById('adminAlert');
     if (overlay) overlay.classList.add('active');
