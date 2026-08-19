@@ -31,6 +31,25 @@ td{color:#aaa}
 .flow{background:#1e1e1e;border-radius:6px;padding:20px;margin:16px 0;font-size:14px;color:#aaa;line-height:2.4}
 .flow .arrow{color:#c41e3a;margin:0 6px}
 .footer{text-align:center;margin-top:60px;padding-top:20px;border-top:1px solid #333;color:#555;font-size:12px}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  body { padding: 10px; }
+  .container, .main-content, .content, .wrapper { max-width: 100% !important; width: 100% !important; padding: 0 10px !important; }
+  table { display: block; overflow-x: auto; white-space: nowrap; }
+  img { max-width: 100%; height: auto; }
+  h1 { font-size: 20px !important; }
+  h2 { font-size: 18px !important; }
+  h3 { font-size: 16px !important; }
+  p, li, td, th { font-size: 13px !important; line-height: 1.6 !important; }
+  .person-section, .person-header { flex-direction: column !important; align-items: flex-start !important; }
+  .avatar { width: 50px !important; height: 60px !important; }
+}
+@media (max-width: 480px) {
+  h1 { font-size: 18px !important; }
+  h2 { font-size: 16px !important; }
+  p, li, td, th { font-size: 12px !important; }
+}
 </style>
 </head>
 <body>
@@ -39,7 +58,7 @@ td{color:#aaa}
 <h1>景 月 镇</h1>
 <div class="subtitle">微恐ARG · 完整游玩攻略 · 作者：black goose</div>
 
-<div class="tip">本攻略包含严重剧透，建议首次游玩时先自行探索，卡关时再查阅。游戏为一次性通关模式，关闭标签页后进度清除，请在同一标签页内完成。<br><span class="highlight">注意：游戏已隐藏探索进度显示，玩家看不到百分比，需自行判断线索收集程度。发现2条线索触发50%异变，发现4条线索触发100%井文档。</span></div>
+<div class="tip">本攻略包含严重剧透，建议首次游玩时先自行探索，卡关时再查阅。游戏为一次性通关模式，关闭标签页后进度清除，请在同一标签页内完成。<br><span class="highlight">注意：游戏已隐藏探索进度显示，玩家看不到百分比。打开「井深勘测记录」后触发50%网站异变；井文档已上锁，需在医院死亡名单第13人白浩然的救援记录中找到摩斯密码（0714）解锁。</span></div>
 
 <h2>一、核心流程链</h2>
 <div class="flow">
@@ -52,9 +71,9 @@ td{color:#aaa}
 搜索「周驰」→人事档案(07年调查井水)<span class="arrow">→</span>
 镇史馆「领导班子合影」→箭头指向周驰<span class="arrow">→</span>
 联系我们电话点2次→无法接通→医院官网<span class="arrow">→</span>
-医院死亡名单→第13人白浩然<span class="arrow">→</span>
+医院死亡名单→第13人白浩然(摩斯密码0714)<span class="arrow">→</span>
 论坛加密帖密码<span class="password">13</span><span class="arrow">→</span>
-进度50%异变<span class="arrow">→</span>进度100%井文档<span class="arrow">→</span>结局
+打开井深勘测记录触发50%异变<span class="arrow">→</span>镇史馆井文档(密码0714解锁)<span class="arrow">→</span>结局
 </div>
 
 <h2>二、完整流程攻略</h2>
@@ -75,17 +94,17 @@ td{color:#aaa}
 
 <div class="step key"><span class="num">8</span><span class="title">镇史馆「2003年领导班子合影」</span><div class="detail">镇史馆公开档案中点击「2003年领导班子合影」→ 查看合照，<span class="highlight">红色箭头指向被打码的周驰</span>。点击图片可放大。</div></div>
 
-<div class="step key"><span class="num">9</span><span class="title">联系我们 → 电话点2次 → 医院官网</span><div class="detail">导航栏「联系我们」→ 点击旅游咨询电话<span class="highlight">0572-8866003</span>。<br>第1次：提示"电话里只有忙音"。<br>第2次：<span class="highlight">全屏黑色，大号黑色抖动文字"无法接通"</span>，2.5秒后跳转到景月镇人民医院官网。</div></div>
+<div class="step key"><span class="num">9</span><span class="title">联系我们 → 电话点2次 → 医院官网</span><div class="detail">导航栏「联系我们」→ 点击旅游咨询电话<span class="highlight">0572-8866003</span>。<br>第1次：提示"电话里只有忙音"。<br>第2次：<span class="highlight">全屏黑色，大号白色抖动文字"无法接通"</span>，1.8秒后跳转到景月镇人民医院官网。</div></div>
 
-<div class="step key"><span class="num">10</span><span class="title">医院官网 → 死亡名单 → 第13人白浩然</span><div class="detail">医院官网中只有<span class="highlight">「2003年抗洪救灾医疗救援死亡人员名单」</span>可打开，其他文档全部划线不可用。<br>名单共<span class="highlight">13人</span>（政府公布12人+多出1人）。第13人<span class="highlight">白浩然</span>：身份不明、年龄不明、不在政府名单中、口袋中有刻"井"字的钥匙。<br>每个人可点击展开救援报告，含打码头像。</div></div>
+<div class="step key"><span class="num">10</span><span class="title">医院官网 → 死亡名单 → 第13人白浩然</span><div class="detail">医院官网中只有<span class="highlight">「2003年抗洪救灾医疗救援死亡人员名单」</span>可打开，其他文档全部划线不可用。<br>名单共<span class="highlight">13人</span>（政府公布12人+多出1人）。第13人<span class="highlight">白浩然</span>：身份不明、年龄不明、不在政府名单中、口袋中有刻"井"字的钥匙。<br>每个人可点击展开救援报告，含打码头像。<br><span class="highlight">关键线索：</span>白浩然救援记录末尾有"第13页背面铅笔字迹（已模糊）"，内容为摩斯密码 <span class="password">----- --... .---- ....-</span>，解码为 <span class="highlight">0714</span>（即井文档解锁密码）。</div></div>
 
 <div class="step"><span class="num">11</span><span class="title">景月论坛 — 加密帖子（密码13）</span><div class="detail">论坛底部匿名加密帖，密码提示"遇难者加上神秘人共有多少人"，输入 <span class="password">13</span>（12人+白浩然）。</div></div>
 
 <div class="step"><span class="num">12</span><span class="title">镇史馆其他密码档案</span><div class="detail">2003年地质勘察报告：<span class="password">0714</span>（洪水日期）<br>退休教师档案：<span class="password">1995</span>（陈秀英退休年）<br>村支书工作记录：<span class="password">1958</span>（张国强出生年）</div></div>
 
-<div class="step key"><span class="num">13</span><span class="title">进度50% — 网站异变</span><div class="detail">发现<span class="highlight">2条以上线索</span>（15条中任意2条），顶部出现"管理员修改了文档/你在调查洪水吗？"红色条，<span class="highlight">页面白底部分变成深红色</span>，文字变暗红调。此时部分图片会替换为诡异版。</div></div>
+<div class="step key"><span class="num">13</span><span class="title">进度50% — 网站异变</span><div class="detail">打开镇史馆「井深勘测记录」（密码<span class="password">1958</span>）后触发，顶部出现"管理员修改了文档/你在调查洪水吗？"红色条，<span class="highlight">页面白底部分变成深红色</span>，文字变暗红调。此时部分图片会替换为诡异版。</div></div>
 
-<div class="step key"><span class="num">14</span><span class="title">进度100% — 井文档 → 结局</span><div class="detail">发现<span class="highlight">4条以上线索</span>后，镇史馆受限档案下方出现「井」文档（红色"新增"标签）→点击打开→点击「下一页」→登山小伙突脸"你找到我了吗"→红色文字雨动画→绿色"逃离这里"安全通道按钮→点击跳转<span class="highlight">全屏结局选择页</span>（纯黑背景，三个选项）。</div></div>
+<div class="step key"><span class="num">14</span><span class="title">井文档（上锁）→ 结局</span><div class="detail">镇史馆受限档案中的「井」文档已上锁，需输入密码解锁。密码来源：医院死亡名单第13人白浩然救援记录末尾的摩斯密码 <span class="password">----- --... .---- ....-</span> = <span class="highlight">0714</span>。<br>输入0714解锁→点击打开井文档→点击「下一页」→登山小伙突脸"你找到我了吗"→红色文字雨动画→绿色"逃离这里"安全通道按钮→点击跳转<span class="highlight">全屏结局选择页</span>（纯黑背景，三个选项）。</div></div>
 
 <h2>三、全部密码一览</h2>
 <table>
@@ -96,6 +115,7 @@ td{color:#aaa}
 <tr><td><span class="password">1958</span></td><td>井深勘测记录</td><td>勘测年份/张国强出生年</td></tr>
 <tr><td><span class="password">13</span></td><td>论坛加密帖</td><td>12遇难者+白浩然=13</td></tr>
 <tr><td><span class="password">74</span></td><td>摩斯密码解码</td><td>张国强微博乱码（--··· ····-）</td></tr>
+<tr><td><span class="password">0714</span></td><td>井文档解锁（结局入口）</td><td>医院白浩然记录末尾摩斯密码（----- --... .---- ....-）</td></tr>
 </table>
 
 <h2>四、搜索关键词</h2>

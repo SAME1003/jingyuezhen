@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -67,6 +67,25 @@ body {
   font-weight: bold;
   pointer-events: none;
   z-index: -1;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  body { padding: 10px; }
+  .container, .main-content, .content, .wrapper { max-width: 100% !important; width: 100% !important; padding: 0 10px !important; }
+  table { display: block; overflow-x: auto; white-space: nowrap; }
+  img { max-width: 100%; height: auto; }
+  h1 { font-size: 20px !important; }
+  h2 { font-size: 18px !important; }
+  h3 { font-size: 16px !important; }
+  p, li, td, th { font-size: 13px !important; line-height: 1.6 !important; }
+  .person-section, .person-header { flex-direction: column !important; align-items: flex-start !important; }
+  .avatar { width: 50px !important; height: 60px !important; }
+}
+@media (max-width: 480px) {
+  h1 { font-size: 18px !important; }
+  h2 { font-size: 16px !important; }
+  p, li, td, th { font-size: 12px !important; }
 }
 </style>
 </head>

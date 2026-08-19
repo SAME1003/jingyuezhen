@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -37,6 +37,25 @@ td.extra{background:#fff5f5;color:#c0392b;font-weight:bold}
 .back-btn{display:block;margin:30px auto 0;padding:10px 30px;background:#2c3e50;color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:14px;font-family:inherit}
 .back-btn:hover{background:#34495e}
 .footer-note{margin-top:30px;padding-top:16px;border-top:1px dashed #ccc;font-size:11px;color:#aaa;text-align:center}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  body { padding: 10px; }
+  .container, .main-content, .content, .wrapper { max-width: 100% !important; width: 100% !important; padding: 0 10px !important; }
+  table { display: block; overflow-x: auto; white-space: nowrap; }
+  img { max-width: 100%; height: auto; }
+  h1 { font-size: 20px !important; }
+  h2 { font-size: 18px !important; }
+  h3 { font-size: 16px !important; }
+  p, li, td, th { font-size: 13px !important; line-height: 1.6 !important; }
+  .person-section, .person-header { flex-direction: column !important; align-items: flex-start !important; }
+  .avatar { width: 50px !important; height: 60px !important; }
+}
+@media (max-width: 480px) {
+  h1 { font-size: 18px !important; }
+  h2 { font-size: 16px !important; }
+  p, li, td, th { font-size: 12px !important; }
+}
 </style>
 </head>
 <body>
@@ -134,7 +153,7 @@ td.extra{background:#fff5f5;color:#c0392b;font-weight:bold}
 
   <div class="person-section" onclick="this.classList.toggle('open')">
     <div class="person-header extra"><div class="avatar" style="background-image:url('victim_mid_male.jpg');background-size:cover;background-position:center;filter:blur(5px)"></div><div class="person-info"><div class="name extra">13. 白浩然</div><div class="detail">男 · 年龄不明 · 所在村不明 · 身份不明</div></div><span class="toggle">▶</span></div>
-    <div class="person-body"><div class="report-title" style="color:#c0392b">救援记录（异常）</div><p><span class="tag">接收时间</span>7月14日 11:00</p><p><span class="tag">接诊医生</span>不明（值班记录缺失）</p><p style="color:#c0392b;">患者由两名不明身份人员送达，身着深色衣物，面部有伤痕。送达时已无生命体征，尸斑明显，推测死亡时间在6小时以上。</p><p style="color:#c0392b;">两名送达人员未登记即离开，无法联系。患者身上无任何身份证明，口袋中仅有一枚生锈的钥匙，钥匙上刻有"井"字。</p><p style="color:#c0392b;">经查询，该患者不在镇政府公布的12人遇难名单中。家属至今未出现。</p><p><span class="tag" style="background:#fdecea;color:#c0392b">死因</span>不明（疑似溺水，但肺部水量异常少）</p><p style="color:#999;font-style:italic;margin-top:10px;">注：本记录原始档案中第13页被人为撕去，此为根据值班医生口述补录。</p></div>
+    <div class="person-body"><div class="report-title" style="color:#c0392b">救援记录（异常）</div><p><span class="tag">接收时间</span>7月14日 11:00</p><p><span class="tag">接诊医生</span>不明（值班记录缺失）</p><p style="color:#c0392b;">患者由两名不明身份人员送达，身着深色衣物，面部有伤痕。送达时已无生命体征，尸斑明显，推测死亡时间在6小时以上。</p><p style="color:#c0392b;">两名送达人员未登记即离开，无法联系。患者身上无任何身份证明，口袋中仅有一枚生锈的钥匙，钥匙上刻有"井"字。</p><p style="color:#c0392b;">经查询，该患者不在镇政府公布的12人遇难名单中。家属至今未出现。</p><p><span class="tag" style="background:#fdecea;color:#c0392b">死因</span>不明（疑似溺水，但肺部水量异常少）</p><p style="color:#999;font-style:italic;margin-top:10px;">注：本记录原始档案中第13页被人为撕去，此为根据值班医生口述补录。</p><p style="color:#888;font-size:11px;margin-top:6px;letter-spacing:3px;font-family:monospace;">第13页背面铅笔字迹（已模糊）：----- --... .---- ....-</p></div>
   </div>
 
   <button class="back-btn" onclick="window.location.href='hospital.html'">返回医院首页</button>

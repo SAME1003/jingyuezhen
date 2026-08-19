@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -314,14 +314,14 @@ body.progress-50-mode .top-banner {
             </div>
           </div>
         </div>
-        <!-- 井文档：进度100%时显示 -->
-        <div class="archive-card well-card" id="wellArchiveCard" style="display:none" onclick="openWellDocument()">
+        <!-- 井文档：始终可见，上锁状态 -->
+        <div class="archive-card well-card" id="wellArchiveCard" onclick="openWellDocument()">
           <div class="archive-card-cover"><img src="well_closeup.jpg" alt="井" style="filter:sepia(.4) brightness(.7)"></div>
           <div class="archive-card-body">
             <div class="archive-card-title">井</div>
             <div class="archive-card-meta">
               <span class="archive-card-year">无编号</span>
-              <span class="archive-card-status status-new">新增</span>
+              <span class="archive-card-status status-secret">上锁</span>
             </div>
           </div>
         </div>
@@ -470,7 +470,46 @@ function showArchive(i){
 function closeModal(id){ document.getElementById(id).classList.remove('show'); }
 
 // 井文档
-function openWellDocument(){ document.getElementById('wellDocModal').classList.add('show'); }
+function openWellDocument(){
+  var unlocked = sessionStorage.getItem('well_unlocked');
+  if (unlocked === '1') {
+    document.getElementById('wellDocModal').classList.add('show');
+    return;
+  }
+  // 未解锁，显示密码输入
+  var modal = document.getElementById('wellPasswordModal');
+  if (modal) {
+    modal.classList.add('show');
+  } else {
+    // 动态创建密码框
+    var overlay = document.createElement('div');
+    overlay.id = 'wellPasswordModal';
+    overlay.className = 'modal-overlay';
+    overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:10002;display:flex;align-items:center;justify-content:center;';
+    overlay.onclick = function(e){ if(e.target===overlay) overlay.classList.remove('show'); };
+    overlay.innerHTML = '<div class="modal-box" style="max-width:400px;background:#f5f2ec;padding:30px;text-align:center;" onclick="event.stopPropagation()">' +
+      '<h3 style="color:#333;margin-bottom:10px;">此档案已加密</h3>' +
+      '<p style="color:#888;font-size:13px;margin-bottom:20px;">需要四位数密码才能查阅<br><span style="color:#c0392b;font-size:11px;">提示：医院死亡名单第13页背面</span></p>' +
+      '<input type="text" id="wellPwdInput" maxlength="4" placeholder="____" style="width:120px;text-align:center;font-size:24px;letter-spacing:8px;padding:8px;border:1px solid #ccc;border-radius:4px;margin-bottom:16px;">' +
+      '<br><button onclick="verifyWellPassword()" style="padding:8px 24px;background:#c41e3a;color:#fff;border:none;border-radius:4px;cursor:pointer;">解锁</button>' +
+      '<p id="wellPwdError" style="color:#c0392b;font-size:12px;margin-top:10px;display:none;">密码错误</p>' +
+      '</div>';
+    document.body.appendChild(overlay);
+    overlay.classList.add('show');
+  }
+}
+function verifyWellPassword(){
+  var pwd = document.getElementById('wellPwdInput').value;
+  if (pwd === '0714') {
+    sessionStorage.setItem('well_unlocked', '1');
+    document.getElementById('wellPasswordModal').classList.remove('show');
+    showToast('密码正确。档案已解锁。', true);
+    setTimeout(function(){ document.getElementById('wellDocModal').classList.add('show'); }, 800);
+  } else {
+    document.getElementById('wellPwdError').style.display = 'block';
+    document.getElementById('wellPwdInput').value = '';
+  }
+}
 function nextPageWellDoc(){
   document.getElementById('wellDocModal').classList.remove('show');
   var climber=document.getElementById('climberOverlay');
@@ -528,7 +567,7 @@ function handleSearch(){
 function checkProgress50(){
   var clues=['well_location','forum_secret','archive_2003','archive_teacher','archive_secretary','phone_easter','glitch_text','hidden_link','chen_memorial','zhang_weibo','morse_74','zhou_chi','leadership_photo','hospital_13th','chenhu_village'];
   var found=clues.filter(function(c){return GAME_STATE.discoveries[c];}).length;
-  if(found>=2){
+  if(sessionStorage.getItem('well_survey_opened')==='1'){
     var o=document.getElementById('progress50Overlay');
     var a=document.getElementById('adminAlert');
     if(o)o.classList.add('active');
@@ -541,11 +580,6 @@ function checkProgress50(){
 document.addEventListener('DOMContentLoaded',function(){
   loadProgress();
   checkProgress50();
-  // 进度100%显示井文档
-  if(getTotalProgress()>=100){
-    var wc=document.getElementById('wellArchiveCard');
-    if(wc)wc.style.display='block';
-  }
   // 搜索回车
   document.getElementById('siteSearch').addEventListener('keypress',function(e){if(e.key==='Enter')goSearch();});
 });
